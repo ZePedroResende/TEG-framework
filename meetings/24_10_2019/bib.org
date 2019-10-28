@@ -1,0 +1,12 @@
+#+#+TITLE: Bibliography
+
+# Articles
+
+http://icl.cs.utk.edu/news_pub/submissions/1-s2.0-S0167819111001347-main.pdf
+https://www.usenix.org/system/files/conference/atc17/atc17-miao.pdf
+http://www.jonathanbeard.io/pdf/blc16.pdf
+http://www.ijnc.org/index.php/ijnc/article/view/87/86
+https://web.fe.up.pt/~niadr/PUBLICATIONS/2013/tpds_fev13.pdf
+https://groups.csail.mit.edu/commit/papers/06/gordon-asplos06.pdf
+https://web.cs.wpi.edu/~cs525/f06s-EAR/cs525-homepage_files/LITERATURE/adaptive-filter-ordering-sigmod04.pdf
+https://citeseerx.ist.psu.edu/viewdoc/download;jsessionid=C02F4F5831C667349A9B6D3FDBCD7AEE?doi=10.1.1.24.2584&rep=rep1&type=pdf
