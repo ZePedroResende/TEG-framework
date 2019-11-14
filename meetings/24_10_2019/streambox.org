@@ -1,0 +1,7 @@
+#+TITLE: Streambox
+
+* C++ librariesWe  use  boost  [20]  for  timekeeping  andlocks,  Intel  TBB  [22]  for  concurrent  hash  tables,  andFacebook  folly  [17]  for  optimized  vectors  and  strings.Folly  improves  the  performance  of  some  benchmarksby   20–30%.For   scalable   memory   allocation,   weusejemalloc[12],   which   scales   much   better   thanstd::allocand TBB [23] on our workloads
+
+* google dataflow
+* dataflow
+* window frames

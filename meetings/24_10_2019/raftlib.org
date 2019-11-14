@@ -1,0 +1,6 @@
+#+TITLE: RaftLib
+
+* ScalaPipe
+* StreamJIT
+* TBB (Threading building block)
+* Communicationbetween kernels via streams is accounted for by edge weights(weights potentially calculated us-ing information from libraries likehwloc[13]). More advanced partitioning algorithms can addadditional degrees of freedom in the form of matching kernels to specific processing resources

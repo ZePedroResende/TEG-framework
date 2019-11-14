@@ -1,0 +1,15 @@
+#+TITLE: DAGuE: A generic distributed DAG engine for HighPerformance Computing
+
+* Uses DAG (direct acyclic graph)
+
+* Dynamic scheduler
+
+* Deals with scheduling and com with the runtime running in each node
+
+* Uses special DSL -- JDF
+
+* Thread per core
+
+* static allocation to node - tasks
+
+* dynamic in sense that communication is fulfilled async
