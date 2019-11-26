@@ -105,7 +105,7 @@ source_group(continuous-integration REGULAR_EXPRESSION ".*[.]yml")
 include_directories(${INCLUDE_DIRS})
 
 # Generate the executable
-add_executable(${TARGET_NAME} ${SOURCE_FILES} ${RESOURCES})
+add_executable(${TARGET_NAME} ${SOURCE_FILES} ${RESOURCES} src/Data.cpp src/Data.hpp src/Graph.cpp src/Graph.h)
 
 # link libraries
 target_link_libraries(${TARGET_NAME} ${LIBRARIES})
