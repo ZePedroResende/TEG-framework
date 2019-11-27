@@ -83,34 +83,79 @@ CMakeFiles/scheduler.dir/src/Data.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/scheduler.dir/src/Data.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/resende/dev/msc-thesis/src/scheduler/src/Data.cpp -o CMakeFiles/scheduler.dir/src/Data.cpp.s
 
-CMakeFiles/scheduler.dir/src/Graph.cpp.o: CMakeFiles/scheduler.dir/flags.make
-CMakeFiles/scheduler.dir/src/Graph.cpp.o: ../src/Graph.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/resende/dev/msc-thesis/src/scheduler/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/scheduler.dir/src/Graph.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/scheduler.dir/src/Graph.cpp.o -c /home/resende/dev/msc-thesis/src/scheduler/src/Graph.cpp
+CMakeFiles/scheduler.dir/src/Graph/Graph.cpp.o: CMakeFiles/scheduler.dir/flags.make
+CMakeFiles/scheduler.dir/src/Graph/Graph.cpp.o: ../src/Graph/Graph.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/resende/dev/msc-thesis/src/scheduler/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/scheduler.dir/src/Graph/Graph.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/scheduler.dir/src/Graph/Graph.cpp.o -c /home/resende/dev/msc-thesis/src/scheduler/src/Graph/Graph.cpp
 
-CMakeFiles/scheduler.dir/src/Graph.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/scheduler.dir/src/Graph.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/resende/dev/msc-thesis/src/scheduler/src/Graph.cpp > CMakeFiles/scheduler.dir/src/Graph.cpp.i
+CMakeFiles/scheduler.dir/src/Graph/Graph.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/scheduler.dir/src/Graph/Graph.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/resende/dev/msc-thesis/src/scheduler/src/Graph/Graph.cpp > CMakeFiles/scheduler.dir/src/Graph/Graph.cpp.i
 
-CMakeFiles/scheduler.dir/src/Graph.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/scheduler.dir/src/Graph.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/resende/dev/msc-thesis/src/scheduler/src/Graph.cpp -o CMakeFiles/scheduler.dir/src/Graph.cpp.s
+CMakeFiles/scheduler.dir/src/Graph/Graph.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/scheduler.dir/src/Graph/Graph.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/resende/dev/msc-thesis/src/scheduler/src/Graph/Graph.cpp -o CMakeFiles/scheduler.dir/src/Graph/Graph.cpp.s
+
+CMakeFiles/scheduler.dir/src/Graph/Edge.cpp.o: CMakeFiles/scheduler.dir/flags.make
+CMakeFiles/scheduler.dir/src/Graph/Edge.cpp.o: ../src/Graph/Edge.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/resende/dev/msc-thesis/src/scheduler/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/scheduler.dir/src/Graph/Edge.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/scheduler.dir/src/Graph/Edge.cpp.o -c /home/resende/dev/msc-thesis/src/scheduler/src/Graph/Edge.cpp
+
+CMakeFiles/scheduler.dir/src/Graph/Edge.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/scheduler.dir/src/Graph/Edge.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/resende/dev/msc-thesis/src/scheduler/src/Graph/Edge.cpp > CMakeFiles/scheduler.dir/src/Graph/Edge.cpp.i
+
+CMakeFiles/scheduler.dir/src/Graph/Edge.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/scheduler.dir/src/Graph/Edge.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/resende/dev/msc-thesis/src/scheduler/src/Graph/Edge.cpp -o CMakeFiles/scheduler.dir/src/Graph/Edge.cpp.s
+
+CMakeFiles/scheduler.dir/src/Graph/Node.cpp.o: CMakeFiles/scheduler.dir/flags.make
+CMakeFiles/scheduler.dir/src/Graph/Node.cpp.o: ../src/Graph/Node.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/resende/dev/msc-thesis/src/scheduler/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/scheduler.dir/src/Graph/Node.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/scheduler.dir/src/Graph/Node.cpp.o -c /home/resende/dev/msc-thesis/src/scheduler/src/Graph/Node.cpp
+
+CMakeFiles/scheduler.dir/src/Graph/Node.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/scheduler.dir/src/Graph/Node.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/resende/dev/msc-thesis/src/scheduler/src/Graph/Node.cpp > CMakeFiles/scheduler.dir/src/Graph/Node.cpp.i
+
+CMakeFiles/scheduler.dir/src/Graph/Node.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/scheduler.dir/src/Graph/Node.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/resende/dev/msc-thesis/src/scheduler/src/Graph/Node.cpp -o CMakeFiles/scheduler.dir/src/Graph/Node.cpp.s
+
+CMakeFiles/scheduler.dir/src/Filters/Filters.cpp.o: CMakeFiles/scheduler.dir/flags.make
+CMakeFiles/scheduler.dir/src/Filters/Filters.cpp.o: ../src/Filters/Filters.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/resende/dev/msc-thesis/src/scheduler/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/scheduler.dir/src/Filters/Filters.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/scheduler.dir/src/Filters/Filters.cpp.o -c /home/resende/dev/msc-thesis/src/scheduler/src/Filters/Filters.cpp
+
+CMakeFiles/scheduler.dir/src/Filters/Filters.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/scheduler.dir/src/Filters/Filters.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/resende/dev/msc-thesis/src/scheduler/src/Filters/Filters.cpp > CMakeFiles/scheduler.dir/src/Filters/Filters.cpp.i
+
+CMakeFiles/scheduler.dir/src/Filters/Filters.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/scheduler.dir/src/Filters/Filters.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/resende/dev/msc-thesis/src/scheduler/src/Filters/Filters.cpp -o CMakeFiles/scheduler.dir/src/Filters/Filters.cpp.s
 
 # Object files for target scheduler
 scheduler_OBJECTS = \
 "CMakeFiles/scheduler.dir/src/main.cpp.o" \
 "CMakeFiles/scheduler.dir/src/Data.cpp.o" \
-"CMakeFiles/scheduler.dir/src/Graph.cpp.o"
+"CMakeFiles/scheduler.dir/src/Graph/Graph.cpp.o" \
+"CMakeFiles/scheduler.dir/src/Graph/Edge.cpp.o" \
+"CMakeFiles/scheduler.dir/src/Graph/Node.cpp.o" \
+"CMakeFiles/scheduler.dir/src/Filters/Filters.cpp.o"
 
 # External object files for target scheduler
 scheduler_EXTERNAL_OBJECTS =
 
 scheduler: CMakeFiles/scheduler.dir/src/main.cpp.o
 scheduler: CMakeFiles/scheduler.dir/src/Data.cpp.o
-scheduler: CMakeFiles/scheduler.dir/src/Graph.cpp.o
+scheduler: CMakeFiles/scheduler.dir/src/Graph/Graph.cpp.o
+scheduler: CMakeFiles/scheduler.dir/src/Graph/Edge.cpp.o
+scheduler: CMakeFiles/scheduler.dir/src/Graph/Node.cpp.o
+scheduler: CMakeFiles/scheduler.dir/src/Filters/Filters.cpp.o
 scheduler: CMakeFiles/scheduler.dir/build.make
 scheduler: CMakeFiles/scheduler.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/resende/dev/msc-thesis/src/scheduler/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable scheduler"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/resende/dev/msc-thesis/src/scheduler/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable scheduler"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/scheduler.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

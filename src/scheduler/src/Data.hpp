@@ -10,13 +10,54 @@
 #include <iostream>
 #include <vector>
 
-static const int VEC_SIZE = 1000;
-static const int MATRIX_SIZE = 1000;
-static const int LIST_SIZE = 10000;
+static const int VEC_SIZE = 10000;
+static const int MATRIX_SIZE = 10000;
+static const int LIST_SIZE = 100000;
 
 class Data {
 public:
   Data();
+
+  const std::vector<float> &getMVectorFloatA() const;
+  void setMVectorFloatA(const std::vector<float> &mVectorFloatA);
+  const std::vector<float> &getMVectorFloatB() const;
+  void setMVectorFloatB(const std::vector<float> &mVectorFloatB);
+  const std::vector<float> &getMVectorFloatC() const;
+  void setMVectorFloatC(const std::vector<float> &mVectorFloatC);
+  const std::vector<int> &getMVectorIntA() const;
+  void setMVectorIntA(const std::vector<int> &mVectorIntA);
+  const std::vector<int> &getMVectorIntB() const;
+  void setMVectorIntB(const std::vector<int> &mVectorIntB);
+  const std::vector<int> &getMVectorIntC() const;
+  void setMVectorIntC(const std::vector<int> &mVectorIntC);
+  const std::vector<std::vector<int>> &getMMatrixA() const;
+  void setMMatrixA(const std::vector<std::vector<int>> &mMatrixA);
+  const std::vector<std::vector<int>> &getMMatrixB() const;
+  void setMMatrixB(const std::vector<std::vector<int>> &mMatrixB);
+  const std::vector<std::vector<int>> &getMMatrixC() const;
+  void setMMatrixC(const std::vector<std::vector<int>> &mMatrixC);
+  const std::vector<std::vector<float>> &getMMatrixFloatA() const;
+  void setMMatrixFloatA(const std::vector<std::vector<float>> &mMatrixFloatA);
+  const std::vector<std::vector<float>> &getMMatrixFloatB() const;
+  void setMMatrixFloatB(const std::vector<std::vector<float>> &mMatrixFloatB);
+  const std::vector<std::vector<float>> &getMMatrixFloatC() const;
+  void setMMatrixFloatC(const std::vector<std::vector<float>> &mMatrixFloatC);
+  int getMIntA() const;
+  void setMIntA(int mIntA);
+  int getMIntB() const;
+  void setMIntB(int mIntB);
+  int getMIntC() const;
+  void setMIntC(int mIntC);
+  float getMFloatA() const;
+  void setMFloatA(float mFloatA);
+  float getMFloatB() const;
+  void setMFloatB(float mFloatB);
+  float getMFloatC() const;
+  void setMFloatC(float mFloatC);
+  const std::vector<int> &getMListInts() const;
+  void setMListInts(const std::vector<int> &mListInts);
+  const std::vector<float> &getMListFloats() const;
+  void setMListFloats(const std::vector<float> &mListFloats);
 
 private:
   std::vector<float> m_vector_float_a;

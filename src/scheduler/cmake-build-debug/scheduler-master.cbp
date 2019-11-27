@@ -132,10 +132,25 @@
 		<Unit filename="/home/resende/dev/msc-thesis/src/scheduler/src/Data.hpp">
 			<Option target="scheduler"/>
 		</Unit>
-		<Unit filename="/home/resende/dev/msc-thesis/src/scheduler/src/Graph.cpp">
+		<Unit filename="/home/resende/dev/msc-thesis/src/scheduler/src/Filters/Filters.cpp">
 			<Option target="scheduler"/>
 		</Unit>
-		<Unit filename="/home/resende/dev/msc-thesis/src/scheduler/src/Graph.h">
+		<Unit filename="/home/resende/dev/msc-thesis/src/scheduler/src/Graph/Edge.cpp">
+			<Option target="scheduler"/>
+		</Unit>
+		<Unit filename="/home/resende/dev/msc-thesis/src/scheduler/src/Graph/Edge.hpp">
+			<Option target="scheduler"/>
+		</Unit>
+		<Unit filename="/home/resende/dev/msc-thesis/src/scheduler/src/Graph/Graph.cpp">
+			<Option target="scheduler"/>
+		</Unit>
+		<Unit filename="/home/resende/dev/msc-thesis/src/scheduler/src/Graph/Graph.h">
+			<Option target="scheduler"/>
+		</Unit>
+		<Unit filename="/home/resende/dev/msc-thesis/src/scheduler/src/Graph/Node.cpp">
+			<Option target="scheduler"/>
+		</Unit>
+		<Unit filename="/home/resende/dev/msc-thesis/src/scheduler/src/Graph/Node.hpp">
 			<Option target="scheduler"/>
 		</Unit>
 		<Unit filename="/home/resende/dev/msc-thesis/src/scheduler/src/main.cpp">
