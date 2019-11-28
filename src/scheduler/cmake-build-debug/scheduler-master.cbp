@@ -126,13 +126,22 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/resende/dev/msc-thesis/src/scheduler/src/Application.cpp">
+			<Option target="scheduler"/>
+		</Unit>
+		<Unit filename="/home/resende/dev/msc-thesis/src/scheduler/src/Application.hpp">
+			<Option target="scheduler"/>
+		</Unit>
 		<Unit filename="/home/resende/dev/msc-thesis/src/scheduler/src/Data.cpp">
 			<Option target="scheduler"/>
 		</Unit>
 		<Unit filename="/home/resende/dev/msc-thesis/src/scheduler/src/Data.hpp">
 			<Option target="scheduler"/>
 		</Unit>
-		<Unit filename="/home/resende/dev/msc-thesis/src/scheduler/src/Filters/Filters.cpp">
+		<Unit filename="/home/resende/dev/msc-thesis/src/scheduler/src/Filters.cpp">
+			<Option target="scheduler"/>
+		</Unit>
+		<Unit filename="/home/resende/dev/msc-thesis/src/scheduler/src/Filters.hpp">
 			<Option target="scheduler"/>
 		</Unit>
 		<Unit filename="/home/resende/dev/msc-thesis/src/scheduler/src/Graph/Edge.cpp">

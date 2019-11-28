@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/scheduler.dir/src/Application.cpp.o"
   "CMakeFiles/scheduler.dir/src/Data.cpp.o"
-  "CMakeFiles/scheduler.dir/src/Filters/Filters.cpp.o"
+  "CMakeFiles/scheduler.dir/src/Filters.cpp.o"
   "CMakeFiles/scheduler.dir/src/Graph/Edge.cpp.o"
   "CMakeFiles/scheduler.dir/src/Graph/Graph.cpp.o"
   "CMakeFiles/scheduler.dir/src/Graph/Node.cpp.o"

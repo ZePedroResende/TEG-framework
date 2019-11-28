@@ -5,6 +5,7 @@
 #ifndef SCHEDULER_MASTER_DATA_HPP
 #define SCHEDULER_MASTER_DATA_HPP
 
+#include "Filters.hpp"
 #include <algorithm>
 #include <cstdlib>
 #include <iostream>
@@ -58,6 +59,98 @@ public:
   void setMListInts(const std::vector<int> &mListInts);
   const std::vector<float> &getMListFloats() const;
   void setMListFloats(const std::vector<float> &mListFloats);
+
+  void dot_prod_matrix_int_to_a() {
+    dot_prod_matrix(this->m_matrix_a, this->m_matrix_b, this->m_matrix_c);
+  }
+  void dot_prod_matrix_int_to_b() {
+    dot_prod_matrix(this->m_matrix_b, this->m_matrix_a, this->m_matrix_c);
+  }
+  void dot_prod_matrix_int_to_c() {
+    dot_prod_matrix(this->m_matrix_c, this->m_matrix_a, this->m_matrix_b);
+  }
+  void dot_prod_matrix_float_to_a() {
+    dot_prod_matrix(this->m_matrix_float_a, this->m_matrix_float_b,
+                    this->m_matrix_float_c);
+  }
+  void dot_prod_matrix_float_to_b() {
+    dot_prod_matrix(this->m_matrix_float_b, this->m_matrix_float_a,
+                    this->m_matrix_float_c);
+  }
+  void dot_prod_matrix_float_to_c() {
+    dot_prod_matrix(this->m_matrix_float_c, this->m_matrix_float_a,
+                    this->m_matrix_float_b);
+  }
+
+  void prod_matrix_int_to_a() {
+    prod_matrix(this->m_matrix_a, this->m_matrix_b, this->m_matrix_c);
+  }
+  void prod_matrix_int_to_b() {
+    prod_matrix(this->m_matrix_b, this->m_matrix_a, this->m_matrix_c);
+  }
+  void prod_matrix_int_to_c() {
+    prod_matrix(this->m_matrix_c, this->m_matrix_a, this->m_matrix_b);
+  }
+  void prod_matrix_float_to_a() {
+    prod_matrix(this->m_matrix_float_a, this->m_matrix_float_b,
+                this->m_matrix_float_c);
+  }
+  void prod_matrix_float_to_b() {
+    prod_matrix(this->m_matrix_float_b, this->m_matrix_float_a,
+                this->m_matrix_float_c);
+  }
+  void prod_matrix_float_to_c() {
+    prod_matrix(this->m_matrix_float_c, this->m_matrix_float_a,
+                this->m_matrix_float_b);
+  }
+
+  void is_int_a_positive() { is_positive(this->m_int_a); }
+  void is_int_b_positive() { is_positive(this->m_int_b); }
+  void is_int_c_positive() { is_positive(this->m_int_c); }
+
+  void is_float_a_positive() { is_positive(this->m_float_a); }
+  void is_float_b_positive() { is_positive(this->m_float_b); }
+  void is_float_c_positive() { is_positive(this->m_float_c); }
+
+  void add_int_a() { add(this->m_int_a); }
+  void add_int_b() { add(this->m_int_b); }
+  void add_int_c() { add(this->m_int_c); }
+
+  void add_float_a_number() { add(this->m_float_a); }
+  void add_float_b_number() { add(this->m_float_b); }
+  void add_float_c_number() { add(this->m_float_c); }
+
+  void filter_list_int(int number) {
+    filter_list(this->m_list_ints, number);
+  }
+  void filter_list_float(float number) {
+    filter_list(this->m_list_floats, number);
+  }
+
+  void random_matrix_int_to_a() { random_matrix(this->m_matrix_a); }
+  void random_matrix_int_to_b() { random_matrix(this->m_matrix_b); }
+  void random_matrix_int_to_c() { random_matrix(this->m_matrix_c); }
+
+  void random_matrix_float_to_a() {
+    random_matrix(this->m_matrix_a);
+  }
+  void random_matrix_float_to_b() {
+    random_matrix(this->m_matrix_b);
+  }
+  void random_matrix_float_to_c() {
+    random_matrix(this->m_matrix_c);
+  }
+
+  void random_list_int() { random_vector(this->m_list_ints); }
+  void random_list_float() { random_vector(this->m_list_floats); }
+
+  void random_int_a() { random_number(this->m_int_a); }
+  void random_int_b() { random_number(this->m_int_b); }
+  void random_int_c() { random_number(this->m_int_c); }
+
+  void random_float_a() { random_number(this->m_float_a); }
+  void random_float_b() { random_number(this->m_float_b); }
+  void random_float_c() { random_number(this->m_float_c); }
 
 private:
   std::vector<float> m_vector_float_a;
