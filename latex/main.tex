@@ -11,7 +11,9 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage[colorinlistoftodos]{todonotes}
-
+\newcommand{\subsubsubsection}[1]{\paragraph{#1}\mbox{}\\}
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
 %% Sets page size and margins
 \usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
 \providecommand{\keywords}[1]{\textbf{\textit{Index terms---}} #1}
@@ -39,5 +41,7 @@
 \listoftables
 
 \input{introduction/introduction.tex}
+\input{state_of_the_art/state_of_the_art.tex}
+\input{work_so_far/work_so_far.tex}
 
 \end{document}
