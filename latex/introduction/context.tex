@@ -1,0 +1,32 @@
+
+\section{ Context}
+
+
+\subsection{Scientific data analysis}
+In modern science the need to analyze and process large amounts of data and information has been steadily but surely growing. This need has come to play a major role in order to get pertinent results from this data-sets.
+\par This analyses are mostly done by computer applications that take data-sets and process raw data into useful information with scientific value allowing scientists in all the major fields to achieve new discoveries with ease.
+
+\subsection{Intro to HEP-Frame}
+These applications are typically structured as a sequence of tasks in a pipeline of actions, where data can be modified at each pipeline stage, filtered out and/or output as a result. The elements that are filtered out are not processed by the next tasks in the pipeline. Actions often vary from intensive computing tasks to simple evaluations that may discard irrelevant data.
+\par To aid the development of the software necessary for this kind of problems a framework  was created \textit{\textbf{HEP-Frame}}. This framework allows the user to create a pipeline of tasks and focusing on the end result instead of writing the same boilerplate code. To achieve this, most of the duplicated code is generated at compile time through processors and the repetitive tasks are automated through scripts. Along side this with the intentions to make this calculations in the smallest time possible and the most efficient way possible a special scheduler based on graph and list/queue schedulers was developed for this that allows efficient execution under multi-node computer clustering architectures, using parallel computing techniques.
+This framework allows for a very specific type of process that is incredible useful for pipeline streaming, that if at any stage a validations fails then the data-set is discarded and we can start working on the next set.
+
+
+
+
+
+\subsection{Contexto scientific data analysis com pipelines que podem ter multiplas saidas que liga com o proximo ponto}
+In some cases, an analysis may be carried out where more than one result can be a legitimate outcome for a certain validation. These different constraints can lead to different validations paths and can create possible outcome ramification. This type of task are commonly found in fields of science, such as particle analysis, where we can distinguish different types of particles depending on the values that certain tests obtain.
+With the linking of task we create a graph that descrive a pipeline with a conditional flow.
+
+
+\subsection{Definir mais em detalhe o que sao pipelines que podem ter multiplas saidas, que liga com o proximo ponto} 
+This type of analysis can be described as a node connected to multiple exit nodes where we have one node for each possible successful outcomes and one to catch a possible fail case.
+In each of this nodes we can expect to have a computation operation, and  a condition for each of the possible outcomes and respective node.
+This can be thought out and modeled as a switch statement where a filter is applied and depending on the result raised by a condition, a path is chosen for the next node. 
+
+\subsection{Definir mais em detalhe o que sao pipelines condicionais}
+With the aforementioned pipelines we can describe the concept of conditional pipelines where in each stage we can have multiple possible stages in which the next task to follow is calculated through a condition.
+
+\subsection{Referir que ainda existe muito pouco trabalho na area de escalonadores para estas pipelines}
+Although conditional pipelines have been applied to different domains, at this time there is little work applied directly to scheduler.
