@@ -1,52 +1,95 @@
-\documentclass[a4paper, twoside]{report}
 
-\usepackage[english]{babel}
-\usepackage[utf8x]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{listings}
-\usepackage{hyperref}
-\hypersetup{colorlinks=false}
-\usepackage{lscape}
-\usepackage{subfigure}
-\usepackage{amsmath}
-\usepackage{graphicx}
-\usepackage[colorinlistoftodos]{todonotes}
-\newcommand{\subsubsubsection}[1]{\paragraph{#1}\mbox{}\\}
-\setcounter{secnumdepth}{4}
-\setcounter{tocdepth}{4}
-%% Sets page size and margins
-\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
-\providecommand{\keywords}[1]{\textbf{\textit{Index terms---}} #1}
+% example for dissertation.sty
+\documentclass[
+  % Replace oneside by twoside if you are printing your thesis on both sides
+  % of the paper, leave as is for single sided prints or for viewing on screen.
+  oneside,
+  %twoside,
+  11pt, a4paper,
+  footinclude=true,
+  headinclude=true,
+  cleardoublepage=empty
+]{scrbook}
 
-\title{Upgrading the HEP-Frame Scheduling Dependency Graph To support Conditional Task Graphs }
+\usepackage{dissertation}
+
+% ----------------------------------------------------------------
+
+% Title
+\titleA{Upgrading the HEP-Frame  }
+\titleB{Scheduling Dependency Graph to } % (if any)
+\titleC{support Conditional Task Graphs} % (if any)
+%\subtitleA{On a Production Pipeline}
+%\subtitleB{Second part of Subtitle} % (if any)
+
+% Author
 \author{José Pedro Moreira Resende}
 
-\begin{document}
-\input{title/title.tex}
+% Supervisor(s)
+\supervisor{André Martins Pereira}
 
-\begin{abstract}
+% University (uncomment if you need to change default values)
+% \def\school{Escola de Engenharia}
+% \def\department{Departamento de Inform\'{a}tica}
+% \def\university{Universidade do Minho}
+% \def\masterdegree{Computer Science}
+
+% Date
+\date{\myear} % change to text if date is not today
+
+% Keywords
+%\keywords{master thesis}
+
+% Glossaries & Acronyms
+%\makeglossaries  %  either use this ...
+%\makeindex	   % ... or this
+
+% Define Acronyms
+%\input{sec/acronyms}
+%\glsaddall[types={\acronymtype}]
+
+
+\ummetadata % add metadata to the document (author, publisher, ...)
+
+\begin{document}
+	% Cover page ---------------------------------------
+	\umfrontcover	
+	\umtitlepage
+	
+
+	% Add abstracts (en,pt) ---------------------------
+	\chapter*{Abstract}
 Scientists often develop applications to analyse large datasets and process raw data into useful information with scientific value. These applications are typically structured as a sequence of tasks in a pipeline of actions, where data can be modified at each pipeline stage, filtered out and/or output as a result. The elements that are filtered out are not processed by the next tasks in the pipeline. Actions often vary from intensive computing tasks to simple evaluations that may discard irrelevant data.
 \par The increasing complexity of the algorithms and the size of the datasets to be analyzed makes this type of problem computationally intensive and hard to end in a timely manner. Since these applications are usually developed by the end-user, a non-programming expert working in a scientific domain, such as physics or chemistry, the overall performance of the code execution may even be more affected. This is due to the fact that scientists focus their programming effort in the correctness of the algorithm implementation and the time to obtain results, leaving behind issues like the performance of the resulting code (and associated data structures) and its execution on specific hardware platforms.
 \par Current compute servers are inherently very parallel, supporting several forms of parallel execution of code: from simultaneous execution of several tasks (on an increasing number of physical cores or processing units, PUs) to the execution of the same task (or sets of instructions) on different data elements (aka known as vector computing). A framework was deployed to aid scientists to develop scientific applications that are based on a pipeline of actions (that may be discarded along its path) applied to a very large dataset, and to efficiently manage their code execution in homogeneous and heterogeneous servers: the Highly Efficient Pipeline Framework, HEP-Frame.
 \par The current HEP-Frame version only supports one type of decision at the end of each action or pipeline stage: either the outcome of the action satisfies a given criterium (or set of criteria) and follows the pipeline path, or fails and the data element is no longer processes, i.e., is discarded. However, some scientific applications, such as particle analysis, require that the decision on some pipeline stages may lead to different alternative solutions, namely different pipeline paths. This issue will be addressed as conditional task graphs.
-
-\end{abstract}
-
-\renewcommand{\abstractname}{Resumo}
-\begin{abstract}
-  resumo
-\end{abstract}
-
-
-\clearpage % Start a new page
-
-\tableofcontents
-\listoffigures
-\listoftables
-
+	
+	\cleardoublepage
+	\chapter*{Resumo}
+	Escrever aqui resumo (pt) ou importar respectivo ficheiro
+	
+	
+	% Summary Lists ------------------------------------
+	\tableofcontents
+%	\listoffigures
+%	\listoftables
+	%\lstlistoflistings
+	%\listofabbreviations
+	
+	
+	\pagenumbering{arabic}
+	
 \input{introduction/introduction.tex}
 \input{state_of_the_art/state_of_the_art.tex}
 \input{work_plan/work_plan.tex}
 \input{latex/preliminary_work/preliminary_work.tex}
+
+	%- Bibliography (needs bibtex) -%
+	\bibliography{Pre-dissertation Report}
+
+	% Index of terms (needs  makeindex) -------------
+	%\printindex
+	
+
 
 \end{document}

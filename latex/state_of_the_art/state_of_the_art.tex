@@ -1,10 +1,19 @@
 \chapter{Scheduling Conditional Tasks in HEP-Frame}
 
- *****Pequena intro a existencia de hardware cada vez mais complexo e ao software necessario para usar eficientemente ****
+% *****Pequena intro a existencia de hardware cada vez mais complexo e ao software necessario para usar eficientemente ****
+ 
+ High performance computing platforms have evolved to  support massive amounts of parallelism through the refinement of parallel techniques at an hardware level. This type of techniques includes simultaneous execution of several tasks (on an increasing number of physical cores or processing units, PUs) to the execution of the same task (or sets of instructions) on different data elements (aka known as vector computing). 
+ This increasingly complex hardware makes producing code that takes advantages of this functionalities progressively more difficult and cumbersome. For this we need to have in mind at all times the hardware specification and capabilities. 
+ 
+%%The increasing complexity of the algorithms and the size of the datasets to be analyzed makes this type of problem computationally intensive and hard to end in a timely manner
+% *****Pipelines condicionais *em detalhe e com imagens (e dizer qu eas tarefas sao irregulares) ****
 
- *****Pipelines condicionais *em detalhe e com imagens (e dizer qu eas tarefas sao irregulares) ****
-
-
+Data analysis applications are typically structured as a sequence of tasks in a pipeline of actions, where data can be modified at each pipeline stage, filtered out and/or output as a result.
+The elements that are filtered out are not processed by the next tasks in the pipeline. 
+Actions often vary from intensive computing tasks to simple evaluations that may discard irrelevant data. 
+In some of this applications decision on some pipeline stages may lead to different alternative solutions, namely different pipeline paths. 
+This behaviour will be addressed as conditional pipeline. 
+ 
 \section{Graphs to Represent Task Execution Order}
 
 \subsection{Conditional Tasks}

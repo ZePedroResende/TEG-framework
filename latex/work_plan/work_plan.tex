@@ -1,10 +1,17 @@
 \chapter{Work Plan}
+
+The main goal of this work is to add new functionalities in the current HEP-Frame version, namely to integrate support in this framework for specification and execution of conditional task graphs. This allows HEP-Frame to support a wider range of pipelined applications, while employing the existing optimization strategies for conventional task graphs, as well as implement new scheduling strategies for task pipelines that require conditional paths of execution.
+Most task schedulers use conventional execution graphs, where  the nodes represent tasks and the directed connections among them represent possible execution flows between tasks [1-9]. Conditional task graphs may not be possible to express as a traditional execution graph, as a single graph representation must include (i) dependencies among tasks, (ii) conditional paths of execution, and (iii) the filtering out of elements, preventing them from being executed by the remaining tasks. An adequate graph representation must be designed, as it is key to develop efficient strategies to schedule these tasks among workers.
+
 \section{Proposed approach}
 \subsection{Ja detalhes concretos de como se deveria estruturar e implementar as coisas (falar do que ja esta feito ou esta a ser feito)}
-At this point we have a preprocessor capable of parse the source code, read all the tasks defined by the user and generate the condiditional graph. This is a simple context based parser that takes in return value of a function that can be considered a step on the pipeline and 
+
+The developed scheduler should be accompanied by other tools to automatically parse a predefined signature of a task and identify its dependencies, identify data dependencies, validate the created graph, and measure several metrics useful for the scheduler. These tools should be efficient in order to either operate at compile- or run-time, depending on their purpose. Once validated in a contained code base, the scheduler and these tools should be integrated into HEP-Frame.
 \subsection{Definicao do prototipo das tarefas (restricoes e codigo}
 \subsection{qual o pre processamento e como o fazer concretamente (tudo desde criar Dag, se as dependencias sao validas,etc}
 \subsection{qual a abordagem a tomar para o escalonador}
 \subsubsection{ideias, imagens, como devera ser dividida a carga}
 \subsubsection{branch prediction}
+One common optimisation strategy used at the hardware level to improve the performance of conditional branches is branch prediction. It was already identified in a preliminary analysis of the problem that branch prediction may be a key component of the task scheduling strategy, as it allows subsequent tasks to be processed simultaneously with a current task without knowing its result yet. This should be considered when defining the graph to ensure that, through the analysis of this graph, every code execution with task dependencies, conditional paths, and branch prediction provides the correct results.
 \subsubsection{definicao ja dos requisitos que o benchmark sintetico tera}
+An illustrative case study needs to be implemented to assess the performance and correctness of the scheduling of conditional task graphs in HEP-Frame. Once stable, the scheduler should be tested with a real case study, such as a particle physics scientific data analysis, since this type of applications may use conditional tasks in their pipelines. 

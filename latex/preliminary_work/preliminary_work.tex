@@ -1,1 +1,17 @@
-\chapter{Preliminary Work}
+\chapter{Preliminary work}
+\par At this point, we have a preprocessor capable of parsing a C/C++ source file, analyse it and generate the corresponding conditional graph. 
+This is a simple parser written in \textit{python} using language builtin \textit{regular expression} engine. With the use of regular expressions we can understand when we are inside of the a function keeping using a reference counter of the bracket symbol, this is, increasing this counter when we encounter a { and decreasing it when encountering a }. Together with this we can also find out if a given function belongs to the user pipeline analysing the function return type and signature.
+
+With this we can take in the return values of each function that can be considered a step on the pipeline and create a graph that connects them all through this return values. We also need to create a syntactic fail node for when a stage in the pipeline fails and we want to halt all the computation for this data-set and pass the execution to the next in line, allowing for the most efficient execution possible.
+
+When this graph is created we need to save this state to disk for future loading, validation of correctness and as a intermediate structure that the scheduler is gonna use to create a Task Execution Order -- \textbf{\textit{TEG}}. 
+
+During this period of work we explored different formats and ways to encode and save this graph, this included the language binary representation of the \textit{struct}, generic binary representation, domain-specific language and generic text formats. All these formats have trade-offs in speed and readability, this being a dissertation as a goal to extend a framework that is supposed to be user-friendly, that said, we choose to go with the more readable and easier to analyse format that is the generic text formats. Withing this type of formats, we concluded that our options were JSON, YAML and XML, for providing the better parser libraries and visualisation/editing tools. 
+
+After some testing XML was excluded for being too verbose and therefore infringing the requirements defined in the previous stage. JSON can be used as a YAML subset; therefore, it can be used in tools designed for booth formats. For all these reasons we can conclude that JSON is the best format to be used to encode our graph in a file that is going to be saved to disk and later used in some additional tasks.
+
+***** adicionar detalhes de benchmark sintetica ******
+To test our work on a preliminary phase, we developed a synthetic data analyses pipeline, that emulates the type of tasks are going to benefit from the HEP-Frame with the new Conditional task support. This external benchmark allows us too abstract the HEP-Frame complexity and pure size of code, making it easier and simple to develop and test new ideas that may come by as a possible way to speed up the user source code.
+
+This type of program is characterized by irregular work, this is, we can have tasks we variable execution time in the same pipeline. This tasks can range from simple verification of integers until 
+multiple matrix operation, so to recreate currectly the workload we to have to recreate the program profile.
