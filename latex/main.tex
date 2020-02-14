@@ -3,8 +3,8 @@
 \documentclass[
   % Replace oneside by twoside if you are printing your thesis on both sides
   % of the paper, leave as is for single sided prints or for viewing on screen.
-  oneside,
-  %twoside,
+  %oneside,
+  twoside,
   11pt, a4paper,
   footinclude=true,
   headinclude=true,
@@ -12,13 +12,23 @@
 ]{scrbook}
 
 \usepackage{dissertation}
+\usepackage{listings}
+\usepackage{subfig}
+%\frametitle{Inserting source code}
+\usepackage{xcolor}
+\lstset { %
+    language=C++,
+    backgroundcolor=\color{black!5}, % set backgroundcolor
+    basicstyle=\footnotesize,% basic font setting
+}
 
 % ----------------------------------------------------------------
 
+\begin{document}
 % Title
 \titleA{Upgrading the HEP-Frame  }
 \titleB{Scheduling Dependency Graph to } % (if any)
-\titleC{support Conditional Task Graphs} % (if any)
+\titleC{Support Conditional Task Graphs} % (if any)
 %\subtitleA{On a Production Pipeline}
 %\subtitleB{Second part of Subtitle} % (if any)
 
@@ -51,7 +61,6 @@
 
 \ummetadata % add metadata to the document (author, publisher, ...)
 
-\begin{document}
 	% Cover page ---------------------------------------
 	\umfrontcover	
 	\umtitlepage
@@ -59,14 +68,54 @@
 
 	% Add abstracts (en,pt) ---------------------------
 	\chapter*{Abstract}
-Scientists often develop applications to analyse large datasets and process raw data into useful information with scientific value. These applications are typically structured as a sequence of tasks in a pipeline of actions, where data can be modified at each pipeline stage, filtered out and/or output as a result. The elements that are filtered out are not processed by the next tasks in the pipeline. Actions often vary from intensive computing tasks to simple evaluations that may discard irrelevant data.
-\par The increasing complexity of the algorithms and the size of the datasets to be analyzed makes this type of problem computationally intensive and hard to end in a timely manner. Since these applications are usually developed by the end-user, a non-programming expert working in a scientific domain, such as physics or chemistry, the overall performance of the code execution may even be more affected. This is due to the fact that scientists focus their programming effort in the correctness of the algorithm implementation and the time to obtain results, leaving behind issues like the performance of the resulting code (and associated data structures) and its execution on specific hardware platforms.
-\par Current compute servers are inherently very parallel, supporting several forms of parallel execution of code: from simultaneous execution of several tasks (on an increasing number of physical cores or processing units, PUs) to the execution of the same task (or sets of instructions) on different data elements (aka known as vector computing). A framework was deployed to aid scientists to develop scientific applications that are based on a pipeline of actions (that may be discarded along its path) applied to a very large dataset, and to efficiently manage their code execution in homogeneous and heterogeneous servers: the Highly Efficient Pipeline Framework, HEP-Frame.
-\par The current HEP-Frame version only supports one type of decision at the end of each action or pipeline stage: either the outcome of the action satisfies a given criterium (or set of criteria) and follows the pipeline path, or fails and the data element is no longer processes, i.e., is discarded. However, some scientific applications, such as particle analysis, require that the decision on some pipeline stages may lead to different alternative solutions, namely different pipeline paths. This issue will be addressed as conditional task graphs.
+
+Pipelined data analysis applications are often developed by computer scientists and domain experts aiming to convert large amounts of experimental raw data into useful information.
+Each input dataset element is processed through a pipeline of tasks, each followed by the evaluation of a criterion (addressed as proposition), which may remove it from the pipeline if the evaluation fails.
+Adequate strategies to improve the efficiency of pipelined data analyses must take into account the specific characteristics of this pipeline, while requiring minor modifications to the existing code.
+%, which is not possible through common parallelization and optimization techniques.
+%The latter requirement is specially important for non-computer scientists, where any efficiency improvements must not modify the code of the propositions to ensure that scientists are confident in the correctness of their algorithms.
+%Additionally, the parallelization must be server agnostic to ensure that the code automatically adapts to the characteristics of different compute servers.
+HEP-Frame, a framework to aid code development and improve the efficiency of these applications, already addresses these requirements for multicore and manycore servers.
+%This type of pipeline can be I/O-, memory-, or compute-bound depending on the computational complexity of its composing propositions.
+
+%Scientists often develop applications to analyse large datasets and process raw data into useful information with scientific value. These applications are typically structured as a sequence of tasks in a pipeline of actions, where data can be modified at each pipeline stage, filtered out and/or output as a result. The elements that are filtered out are not processed by the next tasks in the pipeline. Actions often vary from intensive computing tasks to simple evaluations that may discard irrelevant data.
+
+
+
+%The use of such tools allowed scientists to develop more computationally complex propositions, while the pipeline is processed in less time.
+This efficiency improvement allowed 
+%scientists to consider 
+the implementation of more complex pipelines, where a result of the evaluation of another criterion may also lead to an alternative 
+%also conditions which is the next 
+proposition to be applied to a given dataset element.
+%Additionally, these propositions may still discard dataset elements from being processed through the rest of the pipeline.
+These pipelines, addressed here as conditional pipelines, do not require the dataset elements to be processed through the whole set of propositions to successfully pass the pipeline, due to their conditional nature.
+
+HEP-Frame does not support yet the use of conditional pipelines, as scheduling conditional propositions poses new challenges.
+Its current scheduler represents the proposition dependencies in a dependency graph, where every possible execution flow among propositions is encoded with additional information.
+However, this graph does not support multiple outcomes from propositions, since the scheduler assumes that all propositions must be executed.
+
+The goal of this work is to develop a new scheduler that efficiently distributes the conditional propositions among the computational resources available in different compute servers.
+This scheduler should represent the proposition dependencies and possible execution flows as a conditional task graph, ensuring that the workload distribution maintains the pipeline correctness.
+The proposed scheduler will be validated with a real world pipelined data analysis developed by particle physicists, and then integrated into HEP-Frame.
+
+Preliminary work has already focused on comparing different types of graphs to assess if they are suited to represent dependencies among propositions, possible execution flows, and validate the correctness of the pipeline.
+Several key optimisations of conditional pipelines were already identified, with an impact on the graph selection and on the future design of the scheduling strategies.
+A definition of the proposition syntax was also implemented, after comparing several alternatives. A pre-processor was also defined to build a graph, based on user defined propositions.
+
+
+
+
+
+%The increasing complexity of the algorithms and the size of the datasets to be analyzed makes this type of problem computationally intensive and hard to end in a timely manner. Since these applications are usually developed by the end-user, a non-programming expert working in a scientific domain, such as physics or chemistry, the overall performance of the code execution may even be more affected. This is due to the fact that scientists focus their programming effort in the correctness of the algorithm implementation and the time to obtain results, leaving behind issues like the performance of the resulting code (and associated data structures) and its execution on specific hardware platforms.
+
+%Current compute servers are inherently very parallel, supporting several forms of parallel execution of code: from simultaneous execution of several tasks (on an increasing number of physical cores or processing units, PUs) to the execution of the same task (or sets of instructions) on different data elements (aka known as vector computing). A framework was deployed to aid scientists to develop scientific applications that are based on a pipeline of actions (that may be discarded along its path) applied to a very large dataset, and to efficiently manage their code execution in homogeneous and heterogeneous servers: the Highly Efficient Pipeline Framework, HEP-Frame.
+
+%The current HEP-Frame version only supports one type of decision at the end of each action or pipeline stage: either the outcome of the action satisfies a given criterium (or set of criteria) and follows the pipeline path, or fails and the data element is no longer processes, i.e., is discarded. However, some scientific applications, such as particle analysis, require that the decision on some pipeline stages may lead to different alternative solutions, namely different pipeline paths. This issue will be addressed as conditional task graphs.
 	
 	\cleardoublepage
-	\chapter*{Resumo}
-	Escrever aqui resumo (pt) ou importar respectivo ficheiro
+	%\chapter*{Resumo}
+	%Escrever aqui resumo (pt) ou importar respectivo ficheiro
 	
 	
 	% Summary Lists ------------------------------------
@@ -85,8 +134,28 @@ Scientists often develop applications to analyse large datasets and process raw 
 \input{latex/preliminary_work/preliminary_work.tex}
 
 	%- Bibliography (needs bibtex) -%
-	\bibliography{Pre-dissertation Report}
+\bibliography{rpd}
+\bibliographystyle{ieeetr}
+\textbf{Tuning Pipelined Scientific Data Analyses for Efficient Multicore Execution} - André Pereira, António Onofre and Alberto Proença. In Proceedings of the International Conference on High Performance Computing Simulation, 2016.
+\bigbreak
+{\setlength{\parindent}{0cm}
+\textbf{HEP-Frame: A Software Engineered Framework to Aid the Development and Efficient Multicore Execution of Scientific Code} - André Pereira, António Onofre and Alberto Proença. In Proceedings of the 2015 International Conference on Computational Science and Computational Intelligence, 2015. 
+}
 
+\bigbreak
+{\setlength{\parindent}{0cm}
+\textbf{Depth-first search and linear graph algorithms}- Robert Endre Tarjan,SIAM Journal on Computing,1972.
+}
+
+\bigbreak
+{\setlength{\parindent}{0cm}
+\textbf{Scheduling Conditional Task Graphs}- Michele LombardiMichela Milano,International Conference on Principles and Practice of Constraint Programming,2007.
+}
+
+\bigbreak
+{\setlength{\parindent}{0cm}
+\textbf{ An Extensible SAT-solver}-Niklas Een, Niklas Sörensson, SAT 2003, 2003. 
+}
 	% Index of terms (needs  makeindex) -------------
 	%\printindex
 	
