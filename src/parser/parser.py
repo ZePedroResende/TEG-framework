@@ -1,41 +1,6 @@
-#------------------------------------------------------------------------------
-# pycparser: c_json.py
-#
-# by Michael White (@mypalmike)
-#
-# This example includes functions to serialize and deserialize an ast
-# to and from json format. Serializing involves walking the ast and converting
-# each node from a python Node object into a python dict. Deserializing
-# involves the opposite conversion, walking the tree formed by the
-# dict and converting each dict into the specific Node object it represents.
-# The dict itself is serialized and deserialized using the python json module.
-#
-# The dict representation is a fairly direct transformation of the object
-# attributes. Each node in the dict gets one metadata field referring to the
-# specific node class name, _nodetype. Each local attribute (i.e. not linking
-# to child nodes) has a string value or array of string values. Each child
-# attribute is either another dict or an array of dicts, exactly as in the
-# Node object representation. The "coord" attribute, representing the
-# node's location within the source code, is serialized/deserialized from
-# a Coord object into a string of the format "filename:line[:column]".
-#
-# Example TypeDecl node, with IdentifierType child node, represented as a dict:
-#     "type": {
-#         "_nodetype": "TypeDecl",
-#         "coord": "c_files/funky.c:8",
-#         "declname": "o",
-#         "quals": [],
-#         "type": {
-#             "_nodetype": "IdentifierType",
-#             "coord": "c_files/funky.c:8",
-#             "names": [
-#                 "char"
-#             ]
-#         }
-#     }
-#------------------------------------------------------------------------------
 from __future__ import print_function
-
+from itertools import chain
+from collections.abc import Iterable
 import json
 import sys
 import re
@@ -184,7 +149,6 @@ def from_dict(node_dict):
     return klass(**objs)
 
 
-    """ Build an ast from json string representation """
 def from_json(ast_json):
     return from_dict(json.loads(ast_json))
 
@@ -226,25 +190,49 @@ def cond(cond_tree):
         result = true + false
         return result
 
-def update_cond_list_true(list, condition):
-    print(list)
-    print(list[0])
-    print(condition)
-    list[0] = list[0] + " && (" + condition + ")"
-    return list
+def update_cond_list_true(list_cond, condition):
+    if any(isinstance(el, list) for el in list_cond):
+        for item in list_cond:
+            update_cond_list_true(item, condition)
+        return list_cond
+
+    list_cond[0] = list_cond[0] + " && (" + condition + ")"
+    return list_cond
 
 def update_cond_list_false(list, condition):
     list[0] = list[0] + " && !(" + condition + ")"
     return list
 
-
 def find_func(ast):
+    dic = {}
     for item in ast['ext'] :
         if item["_nodetype"] == "FuncDef" :
             print(item["decl"]["name"])
             print(list(map(lambda arg: (arg["name"], arg["type"]["type"]["names"][0]),item["decl"]["type"]["args"]["params"])))
-            a = list(filter(lambda item: item["_nodetype"] in ["If","Return"],item["body"]["block_items"]))[1]
-            print(cond(a))
+            a = list(filter(lambda item: item["_nodetype"] in ["If","Return"],item["body"]["block_items"]))
+            print(list(map(lambda x: cond(x), a)))
+            for (p1,p2) in pairwise( list(flatten(list(map(lambda x: cond(x), a))))) :
+                value = dic.get(item["decl"]["name"],{})
+                value.update({p2:p1})
+                dic.update({item["decl"]["name"]: value })
+
+
+    print(json.dumps(dic, sort_keys=True, indent=4))
+    with open('teg.json', 'w+') as outfile:
+        json.dump(dic, outfile, sort_keys=True, indent=4)
+
+
+
+def flatten(l):
+    for el in l:
+        if isinstance(el, Iterable) and not isinstance(el, (str, bytes)):
+            yield from flatten(el)
+        else:
+            yield el
+
+def pairwise(iterable):
+    a = iter(iterable)
+    return zip(a, a)
 
 
 #------------------------------------------------------------------------------

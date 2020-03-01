@@ -1,0 +1,22 @@
+{
+    "Prop1": {
+        "FAIL": "True",
+        "Prop2": "True && (a&&b>1)",
+        "Prop3": "True && (!(c+1)&&d) && (b+1>0)",
+        "Prop4": "True && (b+1>0)"
+    },
+    "Prop2": {
+        "FAIL": "True",
+        "Prop2": "True && (a&&b>1)",
+        "Prop3": "True && (!(c)&&d) && (b+1>0)",
+        "Prop4": "True && !(!(c)&&d) && (b+1>0)"
+    },
+    "Prop3": {
+        "FAIL": "True",
+        "SUCESS": "True && (a>0)"
+    },
+    "Prop4": {
+        "FAIL": "True",
+        "SUCESS": "True && (a>0)"
+    }
+}
