@@ -24,7 +24,6 @@ int Prop2(int thread_id, Data data) {
   int c = 0;
   int d = 0;
 
-  if (a && b > 1) return Prop2;
   if (b + 1 > 0) {
     if (!c && d)
       return Prop3;
