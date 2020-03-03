@@ -208,13 +208,13 @@ def find_func(ast):
     for item in ast['ext'] :
         if item["_nodetype"] == "FuncDef" :
             print(item["decl"]["name"])
-            print(list(map(lambda arg: (arg["name"], arg["type"]["type"]["names"][0]),item["decl"]["type"]["args"]["params"])))
-            a = list(filter(lambda item: item["_nodetype"] in ["If","Return"],item["body"]["block_items"]))
-            print(list(map(lambda x: cond(x), a)))
-            for (p1,p2) in pairwise( list(flatten(list(map(lambda x: cond(x), a))))) :
-                value = dic.get(item["decl"]["name"],{})
-                value.update({p2:p1})
-                dic.update({item["decl"]["name"]: value })
+            if list(map(lambda arg: (arg["name"], arg["type"]["type"]["names"][0]),item["decl"]["type"]["args"]["params"])) == [('thread_id', 'int'), ('data', 'Data')] :
+                a = list(filter(lambda item: item["_nodetype"] in ["If","Return"],item["body"]["block_items"]))
+                print(list(map(lambda x: cond(x), a)))
+                for (p1,p2) in pairwise( list(flatten(list(map(lambda x: cond(x), a))))) :
+                    value = dic.get(item["decl"]["name"],{})
+                    value.update({p2:p1})
+                    dic.update({item["decl"]["name"]: value })
 
 
     print(json.dumps(dic, sort_keys=True, indent=4))
