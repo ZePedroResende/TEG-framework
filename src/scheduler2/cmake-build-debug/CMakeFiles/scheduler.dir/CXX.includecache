@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/resende/dev/msc-thesis/src/scheduler/src/Data.hpp
+algorithm
+-
+cstdlib
+-
+iostream
+-
+vector
+-
+
+/home/resende/dev/msc-thesis/src/scheduler/src/main.cpp
+Data.hpp
+/home/resende/dev/msc-thesis/src/scheduler/src/Data.hpp
+iostream
+-
+

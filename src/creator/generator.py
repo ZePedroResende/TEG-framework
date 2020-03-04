@@ -11,4 +11,5 @@ if __name__ == '__main__':
                 out.write(',')
                 out.write(','.join(functions))
             out.write("};")
+            out.write("TEG EnumOfIndex(int i) { return static_cast<TEG>(i); }")
             out.truncate()

@@ -4,6 +4,8 @@ from collections.abc import Iterable
 import json
 import sys
 import re
+import string
+import random
 
 # This is not required if you've installed pycparser into
 # your site-packages/ with setup.py
@@ -234,13 +236,33 @@ def pairwise(iterable):
     a = iter(iterable)
     return zip(a, a)
 
+def clear_cpp(original, tmp):
+    letters = string.ascii_lowercase
+
+    for oline in original.readlines():
+        s1 = re.sub(r'using namespace \w+;', '', oline)
+        s1 = re.sub(r'#include (.*)?', '', s1)
+        s1 = re.sub(r'\w+\.\w+\(\)', ''.join(random.choice(letters) for i in range(10)), s1)
+        tmp.write(s1)
+
+def create_tmp_file(file):
+    tmp_file = '/tmp/'+file
+    with open(file, 'r') as original:
+        with open(tmp_file, 'w+') as tmp:
+            tmp.seek(0)
+            clear_cpp(original, tmp)
+            tmp.truncate()
+    return tmp_file
+
 
 #------------------------------------------------------------------------------
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         # Some test code...
         # Do trip from C -> ast -> dict -> ast -> json, then print.
-        ast_dict = file_to_dict(sys.argv[1])
+        file = sys.argv[1]
+        tmp = create_tmp_file(file)
+        ast_dict = file_to_dict(tmp)
         find_func(ast_dict)
         ast = from_dict(ast_dict)
         #print(to_json(ast, sort_keys=True, indent=4))

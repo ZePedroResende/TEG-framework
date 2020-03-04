@@ -1,3 +1,6 @@
+#include "teg.h"
+using namespace TEG;
+
 typedef struct DATA {
   int width;
   int height;
@@ -36,10 +39,14 @@ int Prop2(int thread_id, Data data) {
 }
 
 int Prop3(int thread_id, Data data) {
-  if (a > 0) return SUCESS;
+  int a = 0;
+  if (a > 0) return SUCCESS;
   return FAIL;
 }
 int Prop4(int thread_id, Data data) {
-  if (a > 0) return SUCESS;
+  int a = 0;
+  if (a > 0) return SUCCESS;
   return FAIL;
 }
+
+int main(void) { return 0; }
