@@ -1,13 +1,7 @@
-#include "Data.hpp"
+/// \file
+
+#include <cstdint>
 #include <iostream>
-int main(int argc, char *argv[]) {
 
-  Data data;
-
-
-  if()
-
-
-
-  return 0;
-}
+/// Program entry point.
+int32_t main() { return EXIT_SUCCESS; }
