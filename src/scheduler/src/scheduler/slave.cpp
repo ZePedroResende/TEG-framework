@@ -1,27 +1,21 @@
 #include "scheduler/queue.hpp"
+#include <data.hpp>
 
 namespace scheduler {
-/*
 void slave(const std::shared_ptr<scheduler::Queue<int>>& q,
-          const std::shared_ptr<scheduler::Queue<int>>& r) {
+          const std::shared_ptr<scheduler::Queue<int>>& r, const std::shared_ptr<std::vector<Data>>& data_vec) {
 
-  int* next = q->next();
-  for (;;) {
-      int* next = r->next();
+    while (!data_vec.get()->empty()){
+      std::vector<Data> *data = data_vec.get();
 
-      if (*next == 1) {
-          // error
-          // next data
 
-          return;
-      }
+      int *next = r->next();
+        // exec da funcao pegar no return next =
 
-      if (*next == 0) {
-          // sucess
-          return;
-      }
+
+
+
       q->push(next);
   }
 }
-*/
 }  // namespace scheduler
