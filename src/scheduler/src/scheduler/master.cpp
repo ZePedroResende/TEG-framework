@@ -1,26 +1,39 @@
+#include <atomic>
+#include <teg.h>
+#include "data.hpp"
 #include "scheduler/queue.hpp"
-#include <data.hpp>
 
 namespace scheduler {
-void master(const std::shared_ptr<scheduler::Queue<int>>& q,
-            const std::shared_ptr<scheduler::Queue<int>>& r , const std::shared_ptr<std::vector<Data>>& data_vec) {
+    void master(const std::shared_ptr<scheduler::Queue<int>> &q,
+                const std::shared_ptr<scheduler::Queue<int>> &r,
+                const std::shared_ptr<std::vector<std::shared_ptr<Data>>> &data_vec
+    ) {
 
-    static int initializer = 2;
+        static int initializer = 2;
 
-    q->push(&initializer);
+        q->push(&initializer);
 
-    while (!data_vec.get()->empty()){
-        int* next = r->next();
+        while (!data_vec->empty()) {
+            int *next = r->next();
 
-        if (*next == 1) {
-            data_vec->erase(data_vec->begin());
+            if (*next == TEG::FAIL) {
+                data_vec->erase(data_vec->begin());
+
+                *next = 2;
+            }
+
+            if (*next == TEG::SUCCESS) {
+                std::cout << "TRUE\n";
+                data_vec->erase(data_vec->begin());
+                // save data
+                *next = 2;
+            }
+
+            if (!data_vec->empty()) {
+                q->push(next);
+            }
         }
-
-        if (*next == 0) {
-            //save data
-        }
-        q->push(next);
+        q->stop();
     }
-}
 
 }  // namespace scheduler
