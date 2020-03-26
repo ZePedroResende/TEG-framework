@@ -1,117 +1,40 @@
-#-------------------------------------------------------------------------------
-#	CMAKE SETTINGS
-#-------------------------------------------------------------------------------
+cmake_minimum_required(VERSION 3.2)
+project(clang-blueprint)
 
-cmake_minimum_required(VERSION 2.8.12)
-SET(CMAKE_INCLUDE_CURRENT_DIR ON)
-
-#-------------------------------------------------------------------------------
-#	SOURCE CODE
-#-------------------------------------------------------------------------------
-
-# .h files
-list(APPEND HEADER_FILES
-
-)
-
-# .cpp files
-list(APPEND SOURCE_FILES
-src/main.cpp
-)
-
-# on windows, append headers to source so they show up in visual studio
-if(WIN32)
-	LIST(APPEND SOURCE_FILES ${HEADER_FILES})
-endif()
-
-#-------------------------------------------------------------------------------
-#	PROJECT SETTINGS
-#-------------------------------------------------------------------------------
-
-set(TARGET_NAME scheduler)
-
-# Use git branch as project name if clones from git
-find_package(Git)
-if(GIT_FOUND)
-	execute_process(
-	  COMMAND ${GIT_EXECUTABLE} rev-parse --abbrev-ref HEAD
-	  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-	  OUTPUT_VARIABLE BRANCH
-	  OUTPUT_STRIP_TRAILING_WHITESPACE
-	)
-	execute_process(
-	  COMMAND ${GIT_EXECUTABLE} describe --abbrev=0 --tags
-	  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-	  OUTPUT_VARIABLE VERSION
-	  OUTPUT_STRIP_TRAILING_WHITESPACE
-	)
-	set(PROJECT_NAME ${TARGET_NAME}-${BRANCH})
-else()
-	set(PROJECT_NAME ${TARGET_NAME})
-endif()
-
-# Set the project name
-PROJECT(${PROJECT_NAME})
-
-#-------------------------------------------------------------------------------
-#	RESOURCES
-#-------------------------------------------------------------------------------
-
-#list(APPEND RESOURCES
-#resources/resources.rc
-#)
-
-#-------------------------------------------------------------------------------
-#	COMPILE FLAGS
-#-------------------------------------------------------------------------------
-
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+# Require C++11.
+# Change this value to require other C++ standards (14, 17, etc.)
 set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-if(MSVC)
-	add_compile_options(/MP)
-	add_compile_options(/std:c++11)
-elseif(CMAKE_COMPILER_IS_GNUCXX)
-	add_compile_options(-std=c++11)
-endif(MSVC)
+include_directories(include)
 
+# Use globbing to find source files.
+# Any source files added to include/ or src/ will automatically be added to the project.
+file(GLOB_RECURSE INCLUDE_FILES ${CMAKE_SOURCE_DIR}/include/*.h)
+file(GLOB_RECURSE SOURCE_FILES_NO_MAIN ${CMAKE_SOURCE_DIR}/src/*.cpp)
+list(REMOVE_ITEM SOURCE_FILES_NO_MAIN ${CMAKE_SOURCE_DIR}/src/main.cpp)
+set(SOURCE_FILES ${SOURCE_FILES_NO_MAIN} ${CMAKE_SOURCE_DIR}/src/main.cpp src/data.cpp include/filter.hpp src/pipeline.cpp include/teg.h include/scheduler/master.hpp include/scheduler/slave.hpp include/scheduler.hpp include/pipeline.hpp include/teg_fn.hpp)
 
-#-------------------------------------------------------------------------------
-#	SOURCE GROUPS
-#-------------------------------------------------------------------------------
+add_executable(clang-blueprint ${INCLUDE_FILES} ${SOURCE_FILES_NO_MAIN} ${SOURCE_FILES})
 
-source_group(generated REGULAR_EXPRESSION ".*_automoc.cpp")
-source_group(resources REGULAR_EXPRESSION ".*[.][q]?rc")
-source_group(source REGULAR_EXPRESSION ".*[.]cpp")
-source_group(headers REGULAR_EXPRESSION ".*[.]h")
-source_group(continuous-integration REGULAR_EXPRESSION ".*[.]yml")
+# If external libraries are needed, use find_library() and target_link_libraries()
+# to dynamically link them to your executable. Generally, you'll want to install
+# them onto the host using your OS's package manager.
+# Example:
+#   find_library(LIB_FMT fmt)
+#   target_link_libraries(clang-blueprint ${LIB_FMT})
 
-#-------------------------------------------------------------------------------
-#	ADDITIONAL LIBRARIES
-#-------------------------------------------------------------------------------
+# Include extra CMake files that are used for testing and linting.
+include(${CMAKE_SOURCE_DIR}/cmake/unit_test.cmake)
+include(${CMAKE_SOURCE_DIR}/cmake/clang_tools.cmake)
+include(${CMAKE_SOURCE_DIR}/cmake/cppcheck.cmake)
 
-# list(APPEND LIBRARIES
-# 
-# )
-# 
-# # Remove duplicate library dependencies. 
-# list(REMOVE_DUPLICATES LIBRARIES)
+# Enable all warnings except for no-sign-compare, which Clang disables
+# by default.
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-sign-compare -pthread")
 
-#-------------------------------------------------------------------------------
-#	GENERATE EXECUTABLE
-#-------------------------------------------------------------------------------
-
-# Set additional include directories
-include_directories(${INCLUDE_DIRS})
-
-# Generate the executable
-add_executable(${TARGET_NAME} ${SOURCE_FILES} ${RESOURCES} src/Data.cpp src/Data.hpp src/Graph/Graph.cpp src/Graph/Graph.h src/Graph/Edge.cpp src/Graph/Edge.hpp src/Graph/Node.cpp src/Graph/Node.hpp src/Application.cpp src/Application.hpp src/Filters.hpp)
-
-# link libraries
-target_link_libraries(${TARGET_NAME} ${LIBRARIES})
-
-# Use the automatically determined RPATH values
-set_target_properties(${TARGET_NAME} PROPERTIES INSTALL_RPATH_USE_LINK_PATH TRUE)
-
-INSTALL(TARGETS ${TARGET_NAME} RUNTIME DESTINATION bin)
-INCLUDE(InstallRequiredSystemLibraries)
+option(WERROR "Turn warnings into errors" OFF)
+if (WERROR)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror")
+endif ()

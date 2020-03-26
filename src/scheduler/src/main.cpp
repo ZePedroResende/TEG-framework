@@ -1,13 +1,20 @@
-#include "Data.hpp"
+/// \file
+
+#include <cstdint>
 #include <iostream>
-int main(int argc, char *argv[]) {
+#include <atomic>
 
-  Data data;
+#include "data.hpp"
+#include "scheduler.hpp"
+
+/// Program entry point.
+int32_t main() {
+    std::vector<std::shared_ptr<Data>> data;
+    data.emplace_back();
+    auto d = std::make_shared<std::vector<std::shared_ptr<Data>>>(std::move(data));
+
+    scheduler::scheduler(d);
 
 
-  if()
-
-
-
-  return 0;
+    return EXIT_SUCCESS;
 }
