@@ -2,6 +2,7 @@
 #include <atomic>
 
 #include "scheduler/master.hpp"
+#include "dependency_scheduler/master.hpp"
 #include "scheduler/queue.hpp"
 #include "scheduler/slave.hpp"
 
@@ -18,7 +19,8 @@ namespace scheduler {
             slaves.emplace_back(&scheduler::slave, q, r, data_vec);
         }
 
-        std::thread m(&scheduler::master, q, r, data_vec);
+        //std::thread m(&scheduler::master, q, r, data_vec);
+        std::thread m(&dependency_scheduler::master, q, r, data_vec);
 
 
         for (auto &s : slaves){

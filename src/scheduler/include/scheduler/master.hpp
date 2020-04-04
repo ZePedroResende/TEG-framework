@@ -2,8 +2,8 @@
 // Created by resende on 3/18/20.
 //
 
-#ifndef CLANG_BLUEPRINT_MASTER_HPP
-#define CLANG_BLUEPRINT_MASTER_HPP
+#ifndef SCHEDULER_MASTER_HPP
+#define SCHEDULER_MASTER_HPP
 
 #include "queue.hpp"
 #include "data.hpp"
@@ -15,4 +15,4 @@ namespace scheduler {
     );
 
 }
-#endif //CLANG_BLUEPRINT_MASTER_HPP
+#endif //SCHEDULER_MASTER_HPP
