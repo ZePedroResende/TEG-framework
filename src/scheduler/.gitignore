@@ -3,3 +3,7 @@ cmake-build-debug
 cmake-build-release
 
 docs/html
+
+.vs/
+CMakeSettings.json
+out/

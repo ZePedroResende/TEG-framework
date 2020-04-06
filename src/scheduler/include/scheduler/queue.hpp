@@ -24,9 +24,11 @@ namespace scheduler {
             std::unique_lock<std::mutex> lck(mutex);
             cv.wait(lck, [this] { return !queue.empty() || !this->running.load(); });
 
-            elem = queue.front();
-            if (elem != nullptr) {
-                queue.pop();
+            if (!queue.empty()) {
+				elem = queue.front();
+				if (elem != nullptr) {
+					queue.pop();
+				}
             }
 
             return elem;
