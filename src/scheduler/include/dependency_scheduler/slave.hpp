@@ -8,10 +8,11 @@
 #include "scheduler/queue.hpp"
 #include "data.hpp"
 #include <utility>
+#include <teg_fn.hpp>
 
 namespace dependency_scheduler {
     void slave(const std::shared_ptr<scheduler::Queue<int>> &q,
-               const std::shared_ptr<scheduler::Queue<std::pair<int,int>>> &r,
+               const std::shared_ptr<scheduler::Queue<std::pair<int, int>>> &r,
                const std::shared_ptr<std::vector<std::shared_ptr<Data>>> &data_vec) {
         while (!data_vec->empty()) {
             auto data = data_vec->front();
@@ -27,10 +28,11 @@ namespace dependency_scheduler {
                 std::cout << "return " << ret << '\n';
                 // exec da funcao pegar no return next =
                 int result = *next;
-                auto pair = std::make_pair(result,ret);
+                auto pair = std::make_pair(result, ret);
                 r->push(&pair);
             }
         }
 
+    }
 }
-#endif //CLANG_BLUEPRINT_SLAVE_HPP
+#endif

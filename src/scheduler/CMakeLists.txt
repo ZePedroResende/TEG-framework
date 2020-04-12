@@ -11,10 +11,10 @@ include_directories(include)
 
 # Use globbing to find source files.
 # Any source files added to include/ or src/ will automatically be added to the project.
-file(GLOB_RECURSE INCLUDE_FILES ${CMAKE_SOURCE_DIR}/include/*.h)
+file(GLOB_RECURSE INCLUDE_FILES ${CMAKE_SOURCE_DIR}/include/*.hpp)
 file(GLOB_RECURSE SOURCE_FILES_NO_MAIN ${CMAKE_SOURCE_DIR}/src/*.cpp)
 list(REMOVE_ITEM SOURCE_FILES_NO_MAIN ${CMAKE_SOURCE_DIR}/src/main.cpp)
-set(SOURCE_FILES ${SOURCE_FILES_NO_MAIN} ${CMAKE_SOURCE_DIR}/src/main.cpp src/data.cpp include/filter.hpp src/pipeline.cpp include/teg.h include/scheduler/master.hpp include/scheduler/slave.hpp include/scheduler.hpp include/pipeline.hpp include/teg_fn.hpp include/dependency_scheduler/master.hpp include/teg_dependency.hpp)
+set(SOURCE_FILES ${SOURCE_FILES_NO_MAIN} ${CMAKE_SOURCE_DIR}/src/main.cpp src/data.cpp include/filter.hpp src/pipeline.cpp include/teg.h include/scheduler/master.hpp include/scheduler/slave.hpp include/scheduler.hpp include/pipeline.hpp include/teg_fn.hpp include/dependency_scheduler/master.hpp include/teg_dependency.hpp src/teg_fn.cpp)
 
 add_executable(clang-blueprint ${INCLUDE_FILES} ${SOURCE_FILES_NO_MAIN} ${SOURCE_FILES})
 
@@ -32,7 +32,7 @@ include(${CMAKE_SOURCE_DIR}/cmake/cppcheck.cmake)
 
 # Enable all warnings except for no-sign-compare, which Clang disables
 # by default.
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-c++98-compat -Wall -Wno-sign-compare -pthread")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-sign-compare -pthread")
 
 option(WERROR "Turn warnings into errors" OFF)
 if (WERROR)

@@ -9,7 +9,13 @@
 #include "scheduler/slave.hpp"
 #include "scheduler/queue.hpp"
 
-namespace scheduler {
-    void scheduler(const std::shared_ptr<std::vector<std::shared_ptr<Data>>> &data_vec);
+
+namespace   scheduler {
+
+    void normal_scheduler(const std::shared_ptr<std::vector<std::shared_ptr<Data>>> &data_vec);
+}
+
+namespace dependency_scheduler {
+    void dependency_scheduler(const std::shared_ptr<std::vector<std::shared_ptr<Data>>> &data_vec);
 }
 #endif //CLANG_BLUEPRINT_SCHEDULER_HPP

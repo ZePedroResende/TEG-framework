@@ -25,10 +25,10 @@ std::map<TEG::TEG, std::vector<TEG::TEG>> flow_map = {
 };
 
 
-const std::vector<TEG::TEG>* dependency(TEG::TEG fn) {
+const std::vector<TEG::TEG> *dependency(TEG::TEG fn) {
     auto it = flow_map.find(fn);
 
-    if (it == flow_map.end()){
+    if (it == flow_map.end()) {
         return nullptr;
     }
 
