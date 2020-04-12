@@ -24,11 +24,11 @@ namespace dependency_scheduler {
             if (next != nullptr) {
 
                 std::cout << "proximo " << *next << '\n';
-                int ret = teg_fn(*next, data);
+                int integer = *next;
+                int ret = teg_fn(integer, data);
                 std::cout << "return " << ret << '\n';
                 // exec da funcao pegar no return next =
-                int result = *next;
-                auto pair = std::make_pair(result, ret);
+                auto pair = std::make_pair(integer, ret);
                 r->push(&pair);
             }
         }

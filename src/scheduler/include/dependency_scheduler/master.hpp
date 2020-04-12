@@ -69,37 +69,40 @@ namespace dependency_scheduler {
 
         int current = 2;
 
-        for(auto & next: get_no_deps_fns(initializer)){
+        auto next_ints = get_no_deps_fns(initializer);
+        for(auto & next: next_ints){
             q->push(& next);
         }
 
         while (!data_vec->empty()) {
             std::pair<int, int> *pair = r->next();
-
+            int next = pair->second;
+            // E necessario adicionar os que ja estao a ser processados
             if (current != pair->first) {
                 update_cache(&cache, pair);
             } else {
-                int next = get_cache(&cache, pair->second);
+                next = get_cache(&cache, pair->second);
+            }
 
-                if (next == TEG::FAIL) {
-                    data_vec->erase(data_vec->begin());
+            if (next == TEG::FAIL) {
+                data_vec->erase(data_vec->begin());
 
-                    next = 2;
-                }
+                next = 2;
+            }
 
-                if (next == TEG::SUCCESS) {
-                    std::cout << "TRUE\n";
-                    data_vec->erase(data_vec->begin());
-                    // save data
-                    next = 2;
-                }
+            if (next == TEG::SUCCESS) {
+                std::cout << "TRUE\n";
+                data_vec->erase(data_vec->begin());
+                // save data
+                next = 2;
+            }
 
-                if (!data_vec->empty()) {
-                    for(auto & n: get_no_deps_fns(next)){
-                        q->push(& n);
-                    }
+            if (!data_vec->empty()) {
+                for(auto & n: get_no_deps_fns(next)){
+                    q->push(& n);
                 }
             }
+
         }
         q->stop();
     }
