@@ -23,7 +23,7 @@ namespace dependency_scheduler {
 
             if (next != nullptr) {
 
-                std::cout << "proximo " << *next << '\n';
+                std::cout << "slave recived " << *next << '\n';
                 int integer = *next;
                 int ret = teg_fn(integer, data);
                 std::cout << "return " << ret << '\n';

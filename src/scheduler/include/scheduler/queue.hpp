@@ -20,7 +20,7 @@ namespace scheduler {
         }
 
         T *next() {
-            T *elem = nullptr;
+            T *elem {0};
             std::unique_lock<std::mutex> lck(mutex);
             cv.wait(lck, [this] { return !queue.empty() || !this->running.load(); });
 

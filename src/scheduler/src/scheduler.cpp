@@ -1,6 +1,6 @@
 #include <thread>
 #include <atomic>
-#include "dependency_scheduler/master.hpp"
+#include "dependency_scheduler/master_try.hpp"
 #include "dependency_scheduler/slave.hpp"
 
 #include "scheduler/master.hpp"
