@@ -25,10 +25,10 @@ namespace scheduler {
             cv.wait(lck, [this] { return !queue.empty() || !this->running.load(); });
 
             if (!queue.empty()) {
-				elem = queue.front();
-				if (elem != nullptr) {
-					queue.pop();
-				}
+                elem = queue.front();
+                if (elem != nullptr) {
+                    queue.pop();
+                }
             }
 
             return elem;
@@ -40,6 +40,19 @@ namespace scheduler {
             this->running.store(false);
             cv.notify_all();
         }
+
+        void print_queue(){
+            std::unique_lock<std::mutex> lck(mutex);
+            cv.wait(lck, [this] { return !queue.empty() || !this->running.load(); });
+            std::queue<T *> q(queue);
+            while (!q.empty()){
+                int a = *q.front();
+                std::cout<<" "<< a;
+                q.pop();
+            }
+            std::cout<<std::endl;
+        }
+
 
         Queue() : running(true) {}
 

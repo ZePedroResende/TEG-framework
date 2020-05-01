@@ -78,5 +78,17 @@ namespace dependency_scheduler {
         }
         return bResult;
     }
+
+    int get_next(int current, std::map<int, int> *map) {
+
+
+        int next = (*map)[current];
+        while(next != -1 && next != 1 && next != 0){
+            int current = next;
+            next = (*map)[current];
+        }
+
+        return next;
+    }
 }
 #endif //TEG_UTIL_HPP

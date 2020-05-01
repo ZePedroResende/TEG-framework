@@ -1,13 +1,13 @@
 #include <thread>
 #include <atomic>
-#include "dependency_scheduler/master_try.hpp"
+#include "dependency_scheduler/master.hpp"
 #include "dependency_scheduler/slave.hpp"
 
 #include "scheduler/master.hpp"
 #include "scheduler/queue.hpp"
 #include "scheduler/slave.hpp"
 
-#define SLAVE_SIZE 5
+#define SLAVE_SIZE 1
 
 
 namespace scheduler {
@@ -17,7 +17,7 @@ namespace scheduler {
         std::shared_ptr<::scheduler::Queue<int>> r = std::make_shared<::scheduler::Queue<int>>();
         std::vector<std::thread> slaves;
 
-        for (uint thread = 0; thread < SLAVE_SIZE; thread++) {
+        for (int thread = 0; thread < SLAVE_SIZE; thread++) {
             slaves.emplace_back(&scheduler::slave, q, r, data_vec);
         }
 

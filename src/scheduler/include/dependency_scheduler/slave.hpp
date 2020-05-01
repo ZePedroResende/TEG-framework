@@ -9,6 +9,7 @@
 #include "data.hpp"
 #include <utility>
 #include <teg_fn.hpp>
+#include <logger.hpp>
 
 namespace dependency_scheduler {
     void slave(const std::shared_ptr<scheduler::Queue<int>> &q,
@@ -18,15 +19,15 @@ namespace dependency_scheduler {
             auto data = data_vec->front();
 
             //locked threads quando as outras acabam !
-
+           q->print_queue();
             int *next = q->next();
 
             if (next != nullptr) {
 
-                std::cout << "slave recived " << *next << '\n';
+               logger::instance().log(  "slave recived " + std::to_string(*next) );
                 int integer = *next;
                 int ret = teg_fn(integer, data);
-                std::cout << "return " << ret << '\n';
+                logger::instance().log(  "return " + std::to_string(ret ));
                 // exec da funcao pegar no return next =
                 auto pair = std::make_pair(integer, ret);
                 r->push(&pair);
