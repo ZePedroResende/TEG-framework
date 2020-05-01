@@ -7,7 +7,7 @@
 #include "scheduler/queue.hpp"
 #include "scheduler/slave.hpp"
 
-#define SLAVE_SIZE 1
+#define SLAVE_SIZE 5
 
 
 namespace scheduler {
