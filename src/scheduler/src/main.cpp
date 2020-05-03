@@ -14,7 +14,8 @@ int32_t main() {
     auto d = std::make_shared<std::vector<std::shared_ptr<Data>>>(std::move(data));
 
     //scheduler::normal_scheduler(d);
-    dependency_scheduler::dependency_scheduler(d);
+    // dependency_scheduler::dependency_scheduler(d);
+     dependency_scheduler_improved::dependency_scheduler_imp(d);
 
 
     return EXIT_SUCCESS;
