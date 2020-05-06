@@ -11,35 +11,56 @@ include_directories(include)
 
 # Use globbing to find source files.
 # Any source files added to include/ or src/ will automatically be added to the project.
-file(GLOB_RECURSE INCLUDE_FILES ${CMAKE_SOURCE_DIR}/include/*.hpp)
-file(GLOB_RECURSE SOURCE_FILES_NO_MAIN ${CMAKE_SOURCE_DIR}/src/*.cpp)
-list(REMOVE_ITEM SOURCE_FILES_NO_MAIN ${CMAKE_SOURCE_DIR}/src/main.cpp)
-set(SOURCE_FILES ${SOURCE_FILES_NO_MAIN} ${CMAKE_SOURCE_DIR}/src/main.cpp src/data.cpp include/filter.hpp
-        src/pipeline.cpp include/teg.h include/scheduler/master.hpp include/scheduler/slave.hpp
-        include/scheduler.hpp include/pipeline.hpp include/teg_fn.hpp include/teg_dependency.hpp src/teg_fn.cpp
-        include/dependency_scheduler/master.hpp include/dependency_scheduler/util.hpp include/dependency_scheduler/slave.hpp
-       include/logger.hpp include/dependency_scheduler_improved/util.hpp
-        include/dependency_scheduler_improved/slave.hpp include/dependency_scheduler_improved/master.hpp)
+include_directories(include)
+include_directories(include/catch2)
+include_directories(include/dependency_scheduler)
+include_directories(include/dependency_scheduler_improved)
+include_directories(include/scheduler)
 
-add_executable(clang-blueprint ${INCLUDE_FILES} ${SOURCE_FILES_NO_MAIN} ${SOURCE_FILES})
+add_executable(scheduler
+        include/catch2/catch.hpp
+        include/dependency_scheduler/master.hpp
+        include/dependency_scheduler/slave.hpp
+        include/dependency_scheduler/util.hpp
+        include/dependency_scheduler_improved/master.hpp
+        include/dependency_scheduler_improved/slave.hpp
+        include/dependency_scheduler_improved/util.hpp
+        include/scheduler/master.hpp
+        include/scheduler/queue.hpp
+        include/scheduler/slave.hpp
+        include/data.hpp
+        include/filter.hpp
+        include/logger.hpp
+        include/pipeline.hpp
+        include/scheduler.hpp
+        include/teg.h
+        include/teg_dependency.hpp
+        include/teg_fn.hpp
+        src/scheduler/master.cpp
+        src/scheduler/slave.cpp
+        src/data.cpp
+        src/main.cpp
+        src/pipeline.cpp
+        src/scheduler.cpp
+        src/teg_fn.cpp)
 
-# If external libraries are needed, use find_library() and target_link_libraries()
-# to dynamically link them to your executable. Generally, you'll want to install
-# them onto the host using your OS's package manager.
-# Example:
-#   find_library(LIB_FMT fmt)
-#   target_link_libraries(clang-blueprint ${LIB_FMT})
+        # If external libraries are needed, use find_library() and target_link_libraries()
+        # to dynamically link them to your executable. Generally, you'll want to install
+        # them onto the host using your OS's package manager.
+        # Example:
+        #   find_library(LIB_FMT fmt)
+        #   target_link_libraries(clang-blueprint ${LIB_FMT})
 
-# Include extra CMake files that are used for testing and linting.
-include(${CMAKE_SOURCE_DIR}/cmake/unit_test.cmake)
-include(${CMAKE_SOURCE_DIR}/cmake/clang_tools.cmake)
-include(${CMAKE_SOURCE_DIR}/cmake/cppcheck.cmake)
+        # Include extra CMake files that are used for testing and linting.
+        include (${CMAKE_SOURCE_DIR}/cmake/unit_test.cmake)
+        include (${CMAKE_SOURCE_DIR}/cmake/clang_tools.cmake)
+        include (${CMAKE_SOURCE_DIR}/cmake/cppcheck.cmake)
 
-# Enable all warnings except for no-sign-compare, which Clang disables
-# by default.
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-sign-compare -pthread")
+        # Enable all warnings except for no-sign-compare, which Clang disables
+        # by default.
+        set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-sign-compare -pthread")
 
-option(WERROR "Turn warnings into errors" OFF)
-if (WERROR)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror")
-endif ()
+        option (WERROR "Turn warnings into errors" OFF)
+        if (WERROR)
+        set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror")
+        endif ()

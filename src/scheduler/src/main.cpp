@@ -1,8 +1,8 @@
 /// \file
 
+#include <atomic>
 #include <cstdint>
 #include <iostream>
-#include <atomic>
 
 #include "data.hpp"
 #include "scheduler.hpp"
@@ -13,10 +13,9 @@ int32_t main() {
     data.emplace_back();
     auto d = std::make_shared<std::vector<std::shared_ptr<Data>>>(std::move(data));
 
-    //scheduler::normal_scheduler(d);
+    // scheduler::normal_scheduler(d);
     // dependency_scheduler::dependency_scheduler(d);
-     dependency_scheduler_improved::dependency_scheduler_imp(d);
-
+    dependency_scheduler_improved::dependency_scheduler_imp(d);
 
     return EXIT_SUCCESS;
 }

@@ -3,6 +3,7 @@
 //
 
 #include <memory>
+
 #include "data.hpp"
 #include "pipeline.hpp"
 #include "teg.h"

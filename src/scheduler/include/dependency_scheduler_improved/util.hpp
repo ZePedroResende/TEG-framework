@@ -83,9 +83,13 @@ namespace dependency_scheduler_improved {
 
 
         int next = (*map)[current];
-        while(next != -1 && next != 1 && next != 0 && next != -2){
+        while(next != 1 && next != 0 ){
             int current = next;
             next = (*map)[current];
+
+            if (next == -1 || next == -2 ){
+                return current;
+            }
         }
 
         return next;
