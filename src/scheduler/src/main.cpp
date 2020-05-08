@@ -9,8 +9,11 @@
 
 /// Program entry point.
 int32_t main() {
-    std::vector<std::shared_ptr<Data>> data;
-    data.emplace_back();
+    auto d1 = std::make_shared<Data>(Data());
+    auto data = std::vector<std::shared_ptr<Data>>();
+
+    data.push_back(d1);
+
     auto d = std::make_shared<std::vector<std::shared_ptr<Data>>>(std::move(data));
 
     // scheduler::normal_scheduler(d);

@@ -10,14 +10,13 @@
 #include <iostream>
 #include <vector>
 
-static const int VEC_SIZE = 10000;
-static const int MATRIX_SIZE = 10000;
-static const int LIST_SIZE = 100000;
 
 class Data {
 
 public:
-    Data();
+    Data(): Data(10000,10000,10000){}
+
+    Data(int VEC_SIZE, int MATRIX_SIZE, int LIST_SIZE);
 
     std::vector<float> m_vector_float_a;
     std::vector<float> m_vector_float_b;
@@ -39,6 +38,25 @@ public:
     float m_float_c;
     std::vector<int> m_list_ints;
     std::vector<float> m_list_floats;
+
+    int VEC_SIZE ;
+    int MATRIX_SIZE ;
+    int LIST_SIZE ;
 };
+
+template<typename T>
+void dot_prod_matrix(std::vector<std::vector<T>> &a,
+                     std::vector<std::vector<T>> &b,
+                     std::vector<std::vector<T>> &c) {
+    int height = a.size();
+    int width = a[0].size();
+
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            a[i][j] = b[i][j] * c[i][j];
+        }
+    }
+}
+
 
 #endif  // DATA_HPP
