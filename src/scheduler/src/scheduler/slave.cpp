@@ -12,9 +12,9 @@ void slave(const std::shared_ptr<scheduler::Queue<int>>& q,
         // locked threads quando as outras acabam !
         int* next = q->next();
         if (next != nullptr) {
-            std::cout << "proximo " << *next << '\n';
+            //std::cout << "proximo " << *next << '\n';
             int ret = teg_fn(*next, data);
-            std::cout << "return " << ret << '\n';
+            //std::cout << "return " << ret << '\n';
             // exec da funcao pegar no return next =
             r->push(&ret);
         }

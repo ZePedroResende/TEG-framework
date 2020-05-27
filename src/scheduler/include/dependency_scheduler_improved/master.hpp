@@ -48,14 +48,14 @@ namespace dependency_scheduler_improved {
                 current = next;
 
                 if (next == TEG::FAIL) {
-                    std::cout << "False\n";
+                    //std::cout << "False\n";
                     data_vec->erase(data_vec->begin());
 
                     next = 2;
                 }
 
                 if (next == TEG::SUCCESS) {
-                    std::cout << "TRUE\n";
+                    //std::cout << "TRUE\n";
                     data_vec->erase(data_vec->begin());
                     // save data
                     next = 2;

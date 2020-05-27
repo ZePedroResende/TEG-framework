@@ -30,16 +30,16 @@ int Prop2(int thread_id, Data *data) {
     int d = data->m_list_ints[1];
     srand((unsigned) time(0));
     int random = (rand() % 2);
-    logger::instance().log("Random " + std::to_string(random));
+    //logger::instance().log("Random " + std::to_string(random));
 
-    if ((a == 0 && c + 1 > 0) || random) {
-        if (random && b + d > 0) {
+    if (1) {
+        if (1) {
 
-            logger::instance().log("prop3");
+            //logger::instance().log("prop3");
             return TEG::Prop3;
         } else {
 
-            logger::instance().log("prop4");
+            //logger::instance().log("prop4");
             return TEG::Prop4;
         }
     }
@@ -58,8 +58,8 @@ int Prop3(int thread_id, Data *data) {
 
     data->m_matrix_a = d3;
 
-    logger::instance().log("Running the prop3");
-    return TEG::FAIL;
+    //logger::instance().log("Running the prop3");
+    return TEG::Prop4;
 }
 
 int Prop4(int thread_id, Data *data) {

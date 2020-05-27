@@ -7,7 +7,6 @@
 
 #include <mutex>
 #include <iostream>
-#include <string_view>
 
 class logger {
 protected:
@@ -22,7 +21,7 @@ public:
     logger(logger const &) = delete;
     logger& operator=(logger const &) = delete;
 
-    void log(std::basic_string<char> message) {
+    void log(std::string message) {
         std::lock_guard<std::mutex> lock(mt);
         std::cout << "LOG: " << message << std::endl;
     }

@@ -9,7 +9,7 @@
 #include "scheduler/queue.hpp"
 #include "scheduler/slave.hpp"
 
-#define SLAVE_SIZE 5
+#define SLAVE_SIZE 10
 
 namespace scheduler {
 void normal_scheduler(const std::shared_ptr<std::vector<std::shared_ptr<Data>>>& data_vec) {
