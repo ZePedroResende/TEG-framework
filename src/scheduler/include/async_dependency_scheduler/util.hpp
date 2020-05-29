@@ -14,7 +14,7 @@
 #include "teg.h"
 #include "teg_dependency.hpp"
 
-namespace dependency_scheduler_improved {
+namespace async_dependency_scheduler {
 
 std::map<int, int> build_result_cache() {
     std::map<int, int> map;
@@ -92,5 +92,5 @@ int get_next(int current, std::map<int, int>* map) {
 
     return next;
 }
-}  // namespace dependency_scheduler_improved
+}  // namespace async_dependency_scheduler
 #endif  // TEG_UTIL_HPP
