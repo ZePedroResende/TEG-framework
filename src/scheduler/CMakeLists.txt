@@ -17,32 +17,14 @@ include_directories(include/dependency_scheduler)
 include_directories(include/dependency_scheduler_improved)
 include_directories(include/scheduler)
 
+
+file(GLOB TEG_SRC
+    "*.hpp"
+    "*.cpp"
+)
+
 add_executable(scheduler
-        include/catch2/catch.hpp
-        include/dependency_scheduler/master.hpp
-        include/dependency_scheduler/slave.hpp
-        include/dependency_scheduler/util.hpp
-        include/dependency_scheduler_improved/master.hpp
-        include/dependency_scheduler_improved/slave.hpp
-        include/dependency_scheduler_improved/util.hpp
-        include/scheduler/master.hpp
-        include/scheduler/queue.hpp
-        include/scheduler/slave.hpp
-        include/data.hpp
-        include/filter.hpp
-        include/logger.hpp
-        include/pipeline.hpp
-        include/scheduler.hpp
-        include/teg.h
-        include/teg_dependency.hpp
-        include/teg_fn.hpp
-        src/scheduler/master.cpp
-        src/scheduler/slave.cpp
-        src/data.cpp
-        src/main.cpp
-        src/pipeline.cpp
-        src/scheduler.cpp
-        src/teg_fn.cpp)
+  ${TEG_SRC})
 
 # If external libraries are needed, use find_library() and target_link_libraries()
 # to dynamically link them to your executable. Generally, you'll want to install
@@ -64,4 +46,3 @@ option(WERROR "Turn warnings into errors" OFF)
 if (WERROR)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror")
 endif ()
-

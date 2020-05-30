@@ -1,15 +1,16 @@
 //
-// Created by resende on 4/26/20.
+// Created by resende on 5/29/20.
 //
 
-#ifndef DEPENDENCY_SCHEDULER_IMPROVED_MASTER_HPP
-#define DEPENDENCY_SCHEDULER_IMPROVED_MASTER_HPP
+#ifndef ASYNC_DEPENDENCY_SCHEDULER_MASTER_HPP
+#define ASYNC_DEPENDENCY_SCHEDULER_MASTER_HPP
 
 #include <atomic>
 #include <set>
 #include <utility>
 
 #include "data.hpp"
+#include "multiqueue.hpp"
 #include "scheduler/queue.hpp"
 #include "teg.h"
 #include "teg_dependency.hpp"
@@ -17,8 +18,8 @@
 
 namespace async_dependency_scheduler {
 
-void master(const std::shared_ptr<scheduler::Queue<int>>& q,
-            const std::shared_ptr<scheduler::Queue<std::pair<int, int>>>& r,
+void master(const std::shared_ptr<Multiqueue<int>>& q,
+            const std::shared_ptr<Multiqueue<std::pair<int, int>>>& r,
             const std::shared_ptr<std::vector<std::shared_ptr<Data>>>& data_vec) {
     auto cache = build_result_cache();
 

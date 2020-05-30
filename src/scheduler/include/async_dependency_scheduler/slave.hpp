@@ -15,8 +15,8 @@
 namespace async_dependency_scheduler {
 void slave(const std::shared_ptr<scheduler::Queue<int>>& q,
            const std::shared_ptr<scheduler::Queue<std::pair<int, int>>>& r,
-           const std::shared_ptr<std::vector<std::shared_ptr<Data>>>& data_vec) {
-    while (!data_vec->empty()) {
+           const std::shared_ptr<std::vector<std::shared_ptr<Data>>>& data_vec, bool running) {
+    while (running) {
         auto data = data_vec->front();
 
         // locked threads quando as outras acabam !
