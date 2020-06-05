@@ -10,7 +10,7 @@
 #include "scheduler/queue.hpp"
 
 
-namespace   scheduler {
+namespace scheduler {
 
     void normal_scheduler(const std::shared_ptr<std::vector<std::shared_ptr<Data>>> &data_vec);
 }
@@ -22,5 +22,9 @@ namespace dependency_scheduler {
 
 namespace dependency_scheduler_improved {
     void dependency_scheduler_imp(const std::shared_ptr<std::vector<std::shared_ptr<Data>>> &data_vec);
+}
+
+namespace async_dependency_scheduler {
+    void dependency_scheduler_async(const std::shared_ptr<std::vector<std::shared_ptr<Data>>> &data_vec);
 }
 #endif //CLANG_BLUEPRINT_SCHEDULER_HPP

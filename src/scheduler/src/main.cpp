@@ -11,7 +11,7 @@
 /// Program entry point.
 int main(int argc, char* argv[]) {
     auto data = std::vector<std::shared_ptr<Data>>();
-    for (int i = 0; i < 15; i++) {
+    for (int i = 0; i < 2; i++) {
         auto d1 = std::make_shared<Data>(Data());
         data.push_back(d1);
     }
@@ -27,6 +27,7 @@ int main(int argc, char* argv[]) {
         if (!strcmp(argv[1], "1")) scheduler::normal_scheduler(d);
         if (!strcmp(argv[1], "2")) dependency_scheduler::dependency_scheduler(d);
         if (!strcmp(argv[1], "3")) dependency_scheduler_improved::dependency_scheduler_imp(d);
+        if (!strcmp(argv[1], "4")) async_dependency_scheduler::dependency_scheduler_async(d);
     }
 
     gettimeofday(&t, NULL);

@@ -2,8 +2,8 @@
 // Created by resende on 4/26/20.
 //
 
-#ifndef DEPENDENCY_SCHEDULER_IMPROVED_UTIL_HPP
-#define DEPENDENCY_SCHEDULER_IMPROVED_UTIL_HPP
+#ifndef ASYNC_DEPENDENCY_SCHEDULER_UTIL_HPP
+#define ASYNC_DEPENDENCY_SCHEDULER_UTIL_HPP
 
 #include <atomic>
 #include <data.hpp>

@@ -12,19 +12,47 @@ include_directories(include)
 # Use globbing to find source files.
 # Any source files added to include/ or src/ will automatically be added to the project.
 include_directories(include)
-include_directories(include/catch2)
+include_directories(include/async_dependency_scheduler)
 include_directories(include/dependency_scheduler)
 include_directories(include/dependency_scheduler_improved)
 include_directories(include/scheduler)
 
-
-file(GLOB TEG_SRC
-    "*.hpp"
-    "*.cpp"
-)
-
+file(GLOB_RECURSE TEG_SRC
+        "*.hpp"
+        "*.cpp"
+        )
 add_executable(scheduler
-  ${TEG_SRC})
+        include/catch2/catch.hpp
+        include/async_dependency_scheduler/multiqueue.hpp
+        include/async_dependency_scheduler/data_map.hpp
+        include/async_dependency_scheduler/master.hpp
+        include/async_dependency_scheduler/slave.hpp
+        include/async_dependency_scheduler/util.hpp
+        include/dependency_scheduler/master.hpp
+        include/dependency_scheduler/slave.hpp
+        include/dependency_scheduler/util.hpp
+        include/dependency_scheduler_improved/master.hpp
+        include/dependency_scheduler_improved/slave.hpp
+        include/dependency_scheduler_improved/util.hpp
+        include/scheduler/master.hpp
+        include/scheduler/queue.hpp
+        include/scheduler/slave.hpp
+        include/data.hpp
+        include/filter.hpp
+        include/logger.hpp
+        include/pipeline.hpp
+        include/scheduler.hpp
+        include/teg.h
+        include/teg_dependency.hpp
+        include/teg_fn.hpp
+        src/scheduler/master.cpp
+        src/scheduler/slave.cpp
+        src/data.cpp
+        src/main.cpp
+        src/pipeline.cpp
+        src/scheduler.cpp
+        src/teg_fn.cpp
+        )
 
 # If external libraries are needed, use find_library() and target_link_libraries()
 # to dynamically link them to your executable. Generally, you'll want to install

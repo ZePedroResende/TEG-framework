@@ -20,7 +20,7 @@ namespace scheduler {
         }
 
         T *next() {
-            T *elem {0};
+            T *elem{0};
             std::unique_lock<std::mutex> lck(mutex);
             cv.wait(lck, [this] { return !queue.empty() || !this->running.load(); });
 
@@ -41,16 +41,16 @@ namespace scheduler {
             cv.notify_all();
         }
 
-        void print_queue(){
+        void print_queue() {
             std::unique_lock<std::mutex> lck(mutex);
             cv.wait(lck, [this] { return !queue.empty() || !this->running.load(); });
             std::queue<T *> q(queue);
-            while (!q.empty()){
+            while (!q.empty()) {
                 int a = *q.front();
-                std::cout<<" "<< a;
+                std::cout << " " << a;
                 q.pop();
             }
-            std::cout<<std::endl;
+            std::cout << std::endl;
         }
 
 
