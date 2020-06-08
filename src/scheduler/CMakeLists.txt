@@ -24,10 +24,8 @@ file(GLOB_RECURSE TEG_SRC
 add_executable(scheduler
         include/catch2/catch.hpp
         include/async_dependency_scheduler/multiqueue.hpp
-        include/async_dependency_scheduler/data_map.hpp
         include/async_dependency_scheduler/master.hpp
         include/async_dependency_scheduler/slave.hpp
-        include/async_dependency_scheduler/util.hpp
         include/dependency_scheduler/master.hpp
         include/dependency_scheduler/slave.hpp
         include/dependency_scheduler/util.hpp
