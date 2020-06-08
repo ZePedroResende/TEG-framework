@@ -128,6 +128,12 @@ class Multiqueue {
         return size;
     }
 
+
+    bool is_terminated() { 
+        return data_queue.is_terminated();
+    }
+
+
    private:
        //keeps the order of priority of queue
     DataQueue data_queue;

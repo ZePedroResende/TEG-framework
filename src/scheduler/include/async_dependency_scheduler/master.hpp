@@ -38,8 +38,23 @@ class MasterState {
     }
 
 
-    void next() {
+    void loop() {
+        while (!queue->is_terminated()) {
+         DataOutput output = queue->get_ouput();
+            if (output.data != -1) {
+				 cache.update(output);
 
+                 if (cache.is_processed(output.data)) {
+					 auto state= master_state[output.data];
+					 int next = cache.get_next(output.data, state.current );
+
+                     state.current = next;
+
+                     // Fazer agora os ifs das cenas diferentes 
+                 }
+                 // fazer o else caso ainda exista cenas a processar dependentes
+            }
+        }
     }
 
    private:
@@ -57,6 +72,8 @@ void master(const std::shared_ptr<Multiqueue>& queue,
             const std::shared_ptr<std::vector<std::shared_ptr<Data>>>& data_vec) {
     auto master_state = MasterState(queue);
 
+    master_state.initialize();
+    master_state.loop();
 
 
 }

@@ -1,3 +1,5 @@
+#include "multiqueue.hpp"
+
 class Cache {
    public:
     Cache(int number_queue) : map(number_queue) { 
@@ -7,10 +9,11 @@ class Cache {
     }
 
 
-    void update(int queue_index, std::pair<int, int>* pair) {
-        auto cache = map[queue_index];
-        auto it = cache->find(pair->first);
-        if (it != cache->end()) it->second = pair->second;
+    void update(DataOutput output) {
+        auto cache = map[output.data];
+        auto pair = output.output;
+        auto it = cache->find(pair.function_id);
+        if (it != cache->end()) it->second = pair.output;
     }
 
     int get(int queue_index, int next) {
@@ -61,7 +64,8 @@ class Cache {
         return next;
     }
 
-    void reset(int queue_index) { map[queue_index] = build_result_cache()
+    void reset(int queue_index) { 
+        map[queue_index] = build_result_cache()
     }
 
 
