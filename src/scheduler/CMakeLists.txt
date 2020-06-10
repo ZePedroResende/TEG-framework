@@ -21,10 +21,16 @@ file(GLOB_RECURSE TEG_SRC
         "*.hpp"
         "*.cpp"
         )
+
+
 add_executable(scheduler
         include/catch2/catch.hpp
-        include/async_dependency_scheduler/multiqueue.hpp
+        include/async_dependency_scheduler/cache.hpp
+        include/async_dependency_scheduler/data_queue.hpp
+        include/async_dependency_scheduler/deps.hpp
+        include/async_dependency_scheduler/mapping_queue_data.hpp
         include/async_dependency_scheduler/master.hpp
+        include/async_dependency_scheduler/multiqueue.hpp
         include/async_dependency_scheduler/slave.hpp
         include/dependency_scheduler/master.hpp
         include/dependency_scheduler/slave.hpp
@@ -60,13 +66,11 @@ add_executable(scheduler
 #   target_link_libraries(clang-blueprint ${LIB_FMT})
 
 # Include extra CMake files that are used for testing and linting.
-include(${CMAKE_SOURCE_DIR}/cmake/unit_test.cmake)
-include(${CMAKE_SOURCE_DIR}/cmake/clang_tools.cmake)
-include(${CMAKE_SOURCE_DIR}/cmake/cppcheck.cmake)
 
 # Enable all warnings except for no-sign-compare, which Clang disables
 # by default.
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -Wall -Wno-sign-compare -pthread")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -Wall -Wno-sign-compare -pthread")
+
 
 option(WERROR "Turn warnings into errors" OFF)
 if (WERROR)

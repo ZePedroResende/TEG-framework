@@ -1,4 +1,9 @@
+#include <map>
+#include <queue>
+#include <vector>
+
 constexpr int empty = -1;
+constexpr int terminated = -2;
 constexpr int unavailable = -1;
 
 class MappingQueueData {
@@ -9,51 +14,60 @@ class MappingQueueData {
         }
     }
 
-    void finish_data(int data) { 
+    void finish_data(int data) {
         int queue = mapping_data_queue[data];
-        mapping_queue_data[queue] = -1;
-        available_queue.push(data);
+        mapping_queue_data[queue] = empty;
+        available_queue.push(queue);
+        mapping_data_queue[data] = terminated;
     }
 
-    int add_new_data(int data) { 
-        int queue = -1 ;
-            if (!available_queue.empty()) {
-                queue = available_queue.front();
-                if (queue != -1 ) {
-                    available_queue.pop();
+    int add_new_data(int data) {
+        int queue = empty;
+        if (!available_queue.empty()) {
+            queue = available_queue.front();
+            if (queue != empty) {
+                available_queue.pop();
 
-					mapping_data_queue[data] = queue;
-                    mapping_queue_data[queue] = data;
-                }
+                mapping_data_queue[data] = queue;
+                mapping_queue_data[queue] = data;
+                latest = latest > data ? latest : data;
             }
+        }
 
-     return queue;
+        return queue;
     }
 
-    bool is_queue_available() { 
-        return !available_queue.empty();
-    }
+    bool is_queue_available() { return !available_queue.empty(); }
 
     int queue_for_data(int data) {
-		int queue = -1;
+        int queue = -1;
 
         auto it = mapping_data_queue.find(data);
 
-		if(it != mapping_data_queue.end())
-		{
-		   //element found;
-		   queue = it->second;
-		}
+        if (it != mapping_data_queue.end()) {
+            // element found;
+            queue = it->second;
+        }
 
-		return queue;
+        return queue;
     }
 
+    int check_if_new_data_index(int data) {
+        int next_data = data;
+        int current_data = mapping_data_queue[data];
+
+        if (current_data == -1) {
+            next_data = latest;
+            latest++;
+        }
+
+        return next_data;
+    }
 
    private:
-
     // tamanho == numero de queues, o index da queue date o index do data
     std::vector<int> mapping_queue_data;
     std::map<int, int> mapping_data_queue;
     std::queue<int> available_queue;
-
+    int latest;
 };
