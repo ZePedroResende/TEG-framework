@@ -48,7 +48,7 @@ class MasterState {
                     state.current = next;
 
                     if (next == TEG::FAIL) {
-                        // std::cout << "False\n";
+                         std::cout << "False" <<" "<< output.data << "\n";
                         queue->finish(output.data);
                         cache.reset(output.data);
 
@@ -57,6 +57,7 @@ class MasterState {
                     }
 
                     if (next == TEG::SUCCESS) {
+                        std::cout << "True" <<" "<< output.data << "\n";
                         // std::cout << "TRUE\n";
                         queue->finish(output.data);
                         cache.reset(output.data);
@@ -68,10 +69,12 @@ class MasterState {
                     if (!queue->is_terminated()) {
                         int data_index = queue->get_data_index(output.data);
 
-                        for (auto& n : get_no_deps_fns(next)) {
-                            if (n != -2) {
-                                int function = n;
-                                queue->process(data_index, function);
+                        if (data_index != -1){
+                            for (auto& n : get_no_deps_fns(next)) {
+                                if (n != -2) {
+                                    int function = n;
+                                    queue->process(data_index, function);
+                                }
                             }
                         }
                     }

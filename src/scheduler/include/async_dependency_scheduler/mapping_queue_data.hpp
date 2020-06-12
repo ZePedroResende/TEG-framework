@@ -7,8 +7,8 @@ constexpr int terminated = -2;
 constexpr int unavailable = -1;
 
 class MappingQueueData {
-   public:
-    MappingQueueData(int number_queue) : mapping_queue_data(number_queue, empty) {
+public:
+    MappingQueueData(int number_queue, int total) : mapping_queue_data(number_queue, empty), latest(-1), total(total) {
         for (int i = 0; i < number_queue; i++) {
             available_queue.push(i);
         }
@@ -56,18 +56,19 @@ class MappingQueueData {
         int next_data = data;
         int current_data = mapping_data_queue[data];
 
-        if (current_data == -1) {
-            next_data = latest;
-            latest++;
+        if (current_data == -2) {
+            latest = (latest + 1) < total ? latest : -1 ;
+            next_data = latest ;
         }
 
         return next_data;
     }
 
-   private:
+private:
     // tamanho == numero de queues, o index da queue date o index do data
     std::vector<int> mapping_queue_data;
     std::map<int, int> mapping_data_queue;
     std::queue<int> available_queue;
     int latest;
+    int total;
 };

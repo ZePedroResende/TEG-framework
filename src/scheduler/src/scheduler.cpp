@@ -77,7 +77,7 @@ void dependency_scheduler_imp(const std::shared_ptr<std::vector<std::shared_ptr<
 namespace async_dependency_scheduler {
 void dependency_scheduler_async(
     const std::shared_ptr<std::vector<std::shared_ptr<Data>>>& data_vec) {
-    std::shared_ptr<Multiqueue> q = std::make_shared<Multiqueue>(2);
+    std::shared_ptr<Multiqueue> q = std::make_shared<Multiqueue>(2, data_vec->size());
     std::vector<std::thread> slaves;
 
     for (int thread = 0; thread < SLAVE_SIZE; thread++) {

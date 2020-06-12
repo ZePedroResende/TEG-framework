@@ -1,29 +1,31 @@
 #pragma once
+
 #include <algorithm>
 #include <map>
 #include <queue>
 #include <vector>
+#include <set>
 
 #include "mapping_queue_data.hpp"
 
+
 class DataQueue {
-   public:
-    DataQueue(int total)
-        : mapping_queue_data(total), insertion_order(total), total(total), finished(0) {}
+public:
+    DataQueue(int queues, int total_data)
+            : mapping_queue_data(queues, total_data), insertion_order(), total(total_data), finished(0) {}
 
     void finish_data(int data) {
         mapping_queue_data.finish_data(data);
-        insertion_order.erase(std::remove(insertion_order.begin(), insertion_order.end(), data),
-                              insertion_order.end());
+        insertion_order.erase(data);
         finished++;
     }
 
     int add_new_data(int data) {
         int added = -1;
-        if (!mapping_queue_data.is_queue_available()) {
+        if (mapping_queue_data.is_queue_available()) {
             added = mapping_queue_data.add_new_data(data);
-            if (added) {
-                insertion_order.push_back(data);
+            if (added != -1) {
+                insertion_order.insert(data);
             }
         }
 
@@ -45,18 +47,18 @@ class DataQueue {
 
     bool is_terminated() { return total == finished; }
 
-    std::vector<int> get_insertion_order() { return insertion_order; }
+    std::set<int> get_insertion_order() { return insertion_order; }
 
     int check_if_new_data_index(int data_index) {
         return mapping_queue_data.check_if_new_data_index(data_index);
     }
 
-   private:
+private:
     // ordem em que o bloco de dados foi iniciado , index 1 depoi 2 depois 3
     // isto para ter uma especie  de priority queue
 
     MappingQueueData mapping_queue_data;
-    std::vector<int> insertion_order;
+    std::set<int> insertion_order;
     int total;
     int finished;
 };
