@@ -1,0 +1,42 @@
+[
+{
+  "directory": "/home/resende/dev/msc-thesis/src/scheduler/build",
+  "command": "/usr/bin/c++   -I/home/resende/dev/msc-thesis/src/scheduler/include -I/home/resende/dev/msc-thesis/src/scheduler/include/catch2 -I/home/resende/dev/msc-thesis/src/scheduler/include/dependency_scheduler -I/home/resende/dev/msc-thesis/src/scheduler/include/dependency_scheduler_improved -I/home/resende/dev/msc-thesis/src/scheduler/include/scheduler   -O3 -Wall -Wno-sign-compare -pthread   -std=gnu++11 -o CMakeFiles/unit_test.dir/test/test_main.cpp.o -c /home/resende/dev/msc-thesis/src/scheduler/test/test_main.cpp",
+  "file": "/home/resende/dev/msc-thesis/src/scheduler/test/test_main.cpp"
+},
+{
+  "directory": "/home/resende/dev/msc-thesis/src/scheduler/build",
+  "command": "/usr/bin/c++   -I/home/resende/dev/msc-thesis/src/scheduler/include -I/home/resende/dev/msc-thesis/src/scheduler/include/catch2 -I/home/resende/dev/msc-thesis/src/scheduler/include/dependency_scheduler -I/home/resende/dev/msc-thesis/src/scheduler/include/dependency_scheduler_improved -I/home/resende/dev/msc-thesis/src/scheduler/include/scheduler   -O3 -Wall -Wno-sign-compare -pthread   -std=gnu++11 -o CMakeFiles/scheduler.dir/src/scheduler/master.cpp.o -c /home/resende/dev/msc-thesis/src/scheduler/src/scheduler/master.cpp",
+  "file": "/home/resende/dev/msc-thesis/src/scheduler/src/scheduler/master.cpp"
+},
+{
+  "directory": "/home/resende/dev/msc-thesis/src/scheduler/build",
+  "command": "/usr/bin/c++   -I/home/resende/dev/msc-thesis/src/scheduler/include -I/home/resende/dev/msc-thesis/src/scheduler/include/catch2 -I/home/resende/dev/msc-thesis/src/scheduler/include/dependency_scheduler -I/home/resende/dev/msc-thesis/src/scheduler/include/dependency_scheduler_improved -I/home/resende/dev/msc-thesis/src/scheduler/include/scheduler   -O3 -Wall -Wno-sign-compare -pthread   -std=gnu++11 -o CMakeFiles/scheduler.dir/src/scheduler/slave.cpp.o -c /home/resende/dev/msc-thesis/src/scheduler/src/scheduler/slave.cpp",
+  "file": "/home/resende/dev/msc-thesis/src/scheduler/src/scheduler/slave.cpp"
+},
+{
+  "directory": "/home/resende/dev/msc-thesis/src/scheduler/build",
+  "command": "/usr/bin/c++   -I/home/resende/dev/msc-thesis/src/scheduler/include -I/home/resende/dev/msc-thesis/src/scheduler/include/catch2 -I/home/resende/dev/msc-thesis/src/scheduler/include/dependency_scheduler -I/home/resende/dev/msc-thesis/src/scheduler/include/dependency_scheduler_improved -I/home/resende/dev/msc-thesis/src/scheduler/include/scheduler   -O3 -Wall -Wno-sign-compare -pthread   -std=gnu++11 -o CMakeFiles/scheduler.dir/src/data.cpp.o -c /home/resende/dev/msc-thesis/src/scheduler/src/data.cpp",
+  "file": "/home/resende/dev/msc-thesis/src/scheduler/src/data.cpp"
+},
+{
+  "directory": "/home/resende/dev/msc-thesis/src/scheduler/build",
+  "command": "/usr/bin/c++   -I/home/resende/dev/msc-thesis/src/scheduler/include -I/home/resende/dev/msc-thesis/src/scheduler/include/catch2 -I/home/resende/dev/msc-thesis/src/scheduler/include/dependency_scheduler -I/home/resende/dev/msc-thesis/src/scheduler/include/dependency_scheduler_improved -I/home/resende/dev/msc-thesis/src/scheduler/include/scheduler   -O3 -Wall -Wno-sign-compare -pthread   -std=gnu++11 -o CMakeFiles/scheduler.dir/src/main.cpp.o -c /home/resende/dev/msc-thesis/src/scheduler/src/main.cpp",
+  "file": "/home/resende/dev/msc-thesis/src/scheduler/src/main.cpp"
+},
+{
+  "directory": "/home/resende/dev/msc-thesis/src/scheduler/build",
+  "command": "/usr/bin/c++   -I/home/resende/dev/msc-thesis/src/scheduler/include -I/home/resende/dev/msc-thesis/src/scheduler/include/catch2 -I/home/resende/dev/msc-thesis/src/scheduler/include/dependency_scheduler -I/home/resende/dev/msc-thesis/src/scheduler/include/dependency_scheduler_improved -I/home/resende/dev/msc-thesis/src/scheduler/include/scheduler   -O3 -Wall -Wno-sign-compare -pthread   -std=gnu++11 -o CMakeFiles/scheduler.dir/src/pipeline.cpp.o -c /home/resende/dev/msc-thesis/src/scheduler/src/pipeline.cpp",
+  "file": "/home/resende/dev/msc-thesis/src/scheduler/src/pipeline.cpp"
+},
+{
+  "directory": "/home/resende/dev/msc-thesis/src/scheduler/build",
+  "command": "/usr/bin/c++   -I/home/resende/dev/msc-thesis/src/scheduler/include -I/home/resende/dev/msc-thesis/src/scheduler/include/catch2 -I/home/resende/dev/msc-thesis/src/scheduler/include/dependency_scheduler -I/home/resende/dev/msc-thesis/src/scheduler/include/dependency_scheduler_improved -I/home/resende/dev/msc-thesis/src/scheduler/include/scheduler   -O3 -Wall -Wno-sign-compare -pthread   -std=gnu++11 -o CMakeFiles/scheduler.dir/src/scheduler.cpp.o -c /home/resende/dev/msc-thesis/src/scheduler/src/scheduler.cpp",
+  "file": "/home/resende/dev/msc-thesis/src/scheduler/src/scheduler.cpp"
+},
+{
+  "directory": "/home/resende/dev/msc-thesis/src/scheduler/build",
+  "command": "/usr/bin/c++   -I/home/resende/dev/msc-thesis/src/scheduler/include -I/home/resende/dev/msc-thesis/src/scheduler/include/catch2 -I/home/resende/dev/msc-thesis/src/scheduler/include/dependency_scheduler -I/home/resende/dev/msc-thesis/src/scheduler/include/dependency_scheduler_improved -I/home/resende/dev/msc-thesis/src/scheduler/include/scheduler   -O3 -Wall -Wno-sign-compare -pthread   -std=gnu++11 -o CMakeFiles/scheduler.dir/src/teg_fn.cpp.o -c /home/resende/dev/msc-thesis/src/scheduler/src/teg_fn.cpp",
+  "file": "/home/resende/dev/msc-thesis/src/scheduler/src/teg_fn.cpp"
+}
+]

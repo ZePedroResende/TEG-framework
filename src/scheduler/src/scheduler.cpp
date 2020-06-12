@@ -1,6 +1,9 @@
 #include <atomic>
 #include <thread>
 
+#include "async_dependency_scheduler/master.hpp"
+#include "async_dependency_scheduler/multiqueue.hpp"
+#include "async_dependency_scheduler/slave.hpp"
 #include "dependency_scheduler/master.hpp"
 #include "dependency_scheduler/slave.hpp"
 #include "dependency_scheduler_improved/master.hpp"
@@ -71,3 +74,21 @@ void dependency_scheduler_imp(const std::shared_ptr<std::vector<std::shared_ptr<
     m.join();
 }
 }  // namespace dependency_scheduler_improved
+namespace async_dependency_scheduler {
+void dependency_scheduler_async(
+    const std::shared_ptr<std::vector<std::shared_ptr<Data>>>& data_vec) {
+    std::shared_ptr<Multiqueue> q = std::make_shared<Multiqueue>(2, data_vec->size());
+    std::vector<std::thread> slaves;
+
+    for (int thread = 0; thread < SLAVE_SIZE; thread++) {
+        slaves.emplace_back(&slave, q, data_vec);
+    }
+
+    std::thread m(&master, q, data_vec);
+
+    for (auto& s : slaves) {
+        s.join();
+    }
+    m.join();
+}
+}  // namespace async_dependency_scheduler
