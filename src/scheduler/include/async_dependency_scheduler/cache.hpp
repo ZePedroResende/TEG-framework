@@ -12,8 +12,8 @@ class Cache {
         }
     }
 
-    void update(DataOutput output) {
-        auto cache = map[output.data];
+    void update(DataOutput output, int queue_index) {
+        auto cache = map[queue_index];
         auto pair = output.output;
         auto it = cache.find(pair.function_id);
         if (it != cache.end()) it->second = pair.output;

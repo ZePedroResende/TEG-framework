@@ -7,7 +7,7 @@
 #include <queue>
 #include <vector>
 
-#include "data_queue.hpp"
+#include "async_dependency_scheduler/multiqueue/data_queue.hpp"
 
 // isto e so para input ? ou faz sentido meter o input e out na mesma class ?
 // por um lado ja temos as queue era so duplicar o execution_queue_vector
@@ -36,12 +36,14 @@ struct DataOutput {
 };
 
 class Multiqueue {
-public:
+   public:
     Multiqueue(int size, int total_data)
-            : size(size), execution_queue_vector(size, std::queue<int>()),
-              output_queue_vector(size, std::queue<Output>()), data_queue(size, total_data) {}
+        : data_queue(size, total_data),
+          size(size),
+          execution_queue_vector(size, std::queue<int>()),
+          output_queue_vector(size, std::queue<Output>()) {}
 
-    bool process(int data_index, int function_id) {
+    bool process(int data_index, const int function_id) {
         std::unique_lock<std::mutex> lck(mutex);
 
         int queue = data_queue.get_data_queue(data_index);
@@ -60,14 +62,17 @@ public:
 
         auto it = insertion_order.begin();
 
-        for (; it != insertion_order.end() && is_queue_empty(execution_queue_vector, *it); ++it);
+        for (; it != insertion_order.end() &&
+               is_queue_empty(execution_queue_vector, data_queue.get_data_queue(*it));
+             it++)
+            ;
 
         if (it != insertion_order.end()) {
-            int index = *it;
+            int index = data_queue.get_data_queue(*it);
             int function = execution_queue_vector[index].front();
             execution_queue_vector[index].pop();
 
-            return DataFunction{true, index, function
+            return DataFunction{true, *it, function
 
             };
         } else {
@@ -75,10 +80,14 @@ public:
         }
     }
 
-    void set_output(int queue_index, int function, int out) {
+    void set_output(int data_index, const int function, int out) {
         std::unique_lock<std::mutex> lck(mutex);
 
-        output_queue_vector[queue_index].push(Output{function, out});
+        int queue = data_queue.get_data_queue(data_index);
+
+        if (queue != -1 && queue != terminated) {
+            output_queue_vector[queue].push(Output{function, out});
+        }
     }
 
     DataOutput get_ouput() {
@@ -87,30 +96,21 @@ public:
         std::set<int> insertion_order = data_queue.get_insertion_order();
 
         auto it = insertion_order.begin();
-        for (; it != insertion_order.end() && is_queue_empty(output_queue_vector, *it); ++it);
 
+        while (it != insertion_order.end()) {
+            if (!is_queue_empty(output_queue_vector, data_queue.get_data_queue(*it))) {
+                break;
+            }
+            it++;
+        }
 
         if (it != insertion_order.end()) {
-            int index = *it;
+            int index = data_queue.get_data_queue(*it);
             Output output = output_queue_vector[index].front();
 
             output_queue_vector[index].pop();
 
-            return DataOutput{index, output};
-        } else {
-            return DataOutput{-1, Output{-1, -1}};
-        }
-    }
-
-    DataOutput get_ouput(int index) {
-        std::unique_lock<std::mutex> lck(mutex);
-
-        if (!output_queue_vector[index].empty()) {
-            Output output = output_queue_vector[index].front();
-
-            output_queue_vector[index].pop();
-
-            return DataOutput{index, output};
+            return DataOutput{*it, output};
         } else {
             return DataOutput{-1, Output{-1, -1}};
         }
@@ -123,12 +123,13 @@ public:
     }
 
     int get_data_index(int data_index) { return data_queue.check_if_new_data_index(data_index); }
+    int get_data_queue(int data_index) { return data_queue.get_data_queue(data_index); }
 
     int get_size() { return size; }
 
     bool is_terminated() { return data_queue.is_terminated(); }
 
-private:
+   private:
     // keeps the order of priority of queue
     DataQueue data_queue;
     int size;
@@ -140,12 +141,12 @@ private:
     std::mutex mutex;
     std::condition_variable cv;
 
-    template<typename T>
+    template <typename T>
     bool is_queue_not_empty(std::vector<std::queue<T>> queue, int index) {
         return !queue[index].empty();
     }
 
-    template<typename T>
+    template <typename T>
     bool is_queue_empty(std::vector<std::queue<T>> queue, int index) {
         return queue[index].empty();
     }

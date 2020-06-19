@@ -12,7 +12,7 @@
 
 class Data {
 public:
-    Data() : Data(1000, 1000, 1000
+    Data() : Data(100, 100, 100
     ) {}
 
     Data(int VEC_SIZE, int MATRIX_SIZE, int LIST_SIZE);

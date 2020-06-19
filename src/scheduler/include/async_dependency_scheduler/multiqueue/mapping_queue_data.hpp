@@ -16,9 +16,11 @@ public:
 
     void finish_data(int data) {
         int queue = mapping_data_queue[data];
-        mapping_queue_data[queue] = empty;
-        available_queue.push(queue);
-        mapping_data_queue[data] = terminated;
+        if (queue != -1 && queue != -2){
+            mapping_queue_data[queue] = empty;
+            available_queue.push(queue);
+            mapping_data_queue[data] = terminated;
+        }
     }
 
     int add_new_data(int data) {
@@ -44,6 +46,7 @@ public:
 
         auto it = mapping_data_queue.find(data);
 
+        // adicionei isto do != terminated porque ele encontra o terminated aqui mas agora esta a empancar :/
         if (it != mapping_data_queue.end()) {
             // element found;
             queue = it->second;
@@ -56,9 +59,9 @@ public:
         int next_data = data;
         int current_data = mapping_data_queue[data];
 
-        if (current_data == -2) {
-            latest = (latest + 1) < total ? latest : -1 ;
-            next_data = latest ;
+        if (current_data == terminated) {
+            latest = latest+1  < total && is_queue_available() ? latest + 1 : -1;
+            next_data = latest;
         }
 
         return next_data;

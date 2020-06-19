@@ -12,19 +12,19 @@
 
 namespace scheduler {
 
-    void normal_scheduler(const std::shared_ptr<std::vector<std::shared_ptr<Data>>> &data_vec);
+    void normal_scheduler(const std::shared_ptr<std::vector<std::shared_ptr<Data>>> &data_vec, int n_threads);
 }
 
 namespace dependency_scheduler {
-    void dependency_scheduler(const std::shared_ptr<std::vector<std::shared_ptr<Data>>> &data_vec);
+    void dependency_scheduler(const std::shared_ptr<std::vector<std::shared_ptr<Data>>> &data_vec, int n_threads);
 }
 
 
 namespace dependency_scheduler_improved {
-    void dependency_scheduler_imp(const std::shared_ptr<std::vector<std::shared_ptr<Data>>> &data_vec);
+    void dependency_scheduler_imp(const std::shared_ptr<std::vector<std::shared_ptr<Data>>> &data_vec, int n_threads);
 }
 
 namespace async_dependency_scheduler {
-    void dependency_scheduler_async(const std::shared_ptr<std::vector<std::shared_ptr<Data>>> &data_vec);
+    void dependency_scheduler_async(const std::shared_ptr<std::vector<std::shared_ptr<Data>>> &data_vec, int n_threads);
 }
 #endif //CLANG_BLUEPRINT_SCHEDULER_HPP
