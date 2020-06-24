@@ -12,8 +12,8 @@ class Cache {
         }
     }
 
-    void update(DataOutput output) {
-        auto cache = map[output.data];
+    void update(DataOutput output, int queue_index) {
+        auto cache = map[queue_index];
         auto pair = output.output;
         auto it = cache.find(pair.function_id);
         if (it != cache.end()) it->second = pair.output;
@@ -61,7 +61,7 @@ class Cache {
 
         int next = cache[current];
         while (next != 1 && next != 0) {
-            int current = next;
+            current = next;
             next = cache[current];
 
             if (next == -1 || next == -2) {
@@ -78,11 +78,11 @@ class Cache {
     std::vector<std::map<int, int>> map;
 
     std::map<int, int> build_result_cache() {
-        std::map<int, int> map;
+        std::map<int, int> mapp;
 
         for (auto const& key : flow_map) {
-            map.insert(std::make_pair(key.first, -1));
+            mapp.insert(std::make_pair(key.first, -1));
         }
-        return map;
+        return mapp;
     }
 };

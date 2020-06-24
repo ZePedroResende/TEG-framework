@@ -82,7 +82,7 @@ bool is_processed(std::map<int, int>* map) {
 int get_next(int current, std::map<int, int>* map) {
     int next = (*map)[current];
     while (next != 1 && next != 0) {
-        int current = next;
+        current = next;
         next = (*map)[current];
 
         if (next == -1 || next == -2) {

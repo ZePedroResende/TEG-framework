@@ -22,13 +22,16 @@ file(GLOB_RECURSE TEG_SRC
         "*.cpp"
         )
 
+file(GLOB_RECURSE INCLUDE_FILES ${CMAKE_SOURCE_DIR}/include/async_dependency_scheduler/*.hpp)
+list(REMOVE_ITEM SOURCE_FILES_NO_MAIN ${CMAKE_SOURCE_DIR}/src/main.cpp)
+set(SOURCE_FILES ${SOURCE_FILES_NO_MAIN} ${CMAKE_SOURCE_DIR}/src/main.cpp)
 
 add_executable(scheduler
         include/catch2/catch.hpp
         include/async_dependency_scheduler/cache.hpp
-        include/async_dependency_scheduler/data_queue.hpp
+        include/async_dependency_scheduler/multiqueue/data_queue.hpp
         include/async_dependency_scheduler/deps.hpp
-        include/async_dependency_scheduler/mapping_queue_data.hpp
+        include/async_dependency_scheduler/multiqueue/mapping_queue_data.hpp
         include/async_dependency_scheduler/master.hpp
         include/async_dependency_scheduler/multiqueue.hpp
         include/async_dependency_scheduler/slave.hpp
@@ -56,7 +59,7 @@ add_executable(scheduler
         src/pipeline.cpp
         src/scheduler.cpp
         src/teg_fn.cpp
-        )
+        include/vector.hpp)
 
 # If external libraries are needed, use find_library() and target_link_libraries()
 # to dynamically link them to your executable. Generally, you'll want to install
@@ -69,7 +72,8 @@ add_executable(scheduler
 
 # Enable all warnings except for no-sign-compare, which Clang disables
 # by default.
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -Wall -Wno-sign-compare -pthread")
+include(${CMAKE_SOURCE_DIR}/cmake/clang_tools.cmake)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -g3 -pthread -gdwarf-4 -DLinux -fPIC -Wno-deprecated -pipe -fno-elide-type -fdiagnostics-show-template-tree -Wall -Werror -Wextra -Wpedantic -Wvla -Wextra-semi -Wnull-dereference -Wswitch-enum -fvar-tracking-assignments -Wduplicated-cond -Wduplicated-branches -rdynamic -Wsuggest-override -O0 -MMD -MP")
 
 
 option(WERROR "Turn warnings into errors" OFF)

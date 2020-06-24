@@ -11,9 +11,8 @@
 #include <vector>
 
 class Data {
-public:
-    Data() : Data(1000, 1000, 1000
-    ) {}
+   public:
+    Data() : Data(100, 100, 100) {}
 
     Data(int VEC_SIZE, int MATRIX_SIZE, int LIST_SIZE);
 
@@ -43,9 +42,9 @@ public:
     int LIST_SIZE;
 };
 
-template<typename T>
-void dot_prod_matrix(std::vector<std::vector<T>> &a, std::vector<std::vector<T>> &b,
-                     std::vector<std::vector<T>> &c) {
+template <typename T>
+void dot_prod_matrix(std::vector<std::vector<T>>& a, std::vector<std::vector<T>>& b,
+                     std::vector<std::vector<T>>& c) {
     int height = a.size();
     int width = a[0].size();
 
