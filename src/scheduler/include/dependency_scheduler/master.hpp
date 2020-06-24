@@ -14,12 +14,13 @@
 #include "teg.h"
 #include "teg_dependency.hpp"
 #include "util.hpp"
+#include "vector.hpp"
 
 namespace dependency_scheduler {
 
     void master(const std::shared_ptr<scheduler::Queue<int>> &q,
                 const std::shared_ptr<scheduler::Queue<std::pair<int, int>>> &r,
-                const std::shared_ptr<std::vector<std::shared_ptr<Data>>> &data_vec) {
+                const std::shared_ptr<DataVector> &data_vec) {
         auto cache = build_result_cache();
 
         auto next_up = std::queue<int>();
@@ -29,34 +30,32 @@ namespace dependency_scheduler {
 
         int current = 2;
         int next = -1;
-
-        for (auto &n: get_no_deps_fns(initializer)) {
-            auto pair = std::make_pair(n, -2);
-            update_cache(&cache, &pair);
-            int *n_ = new int(n);
-            q->push(n_);
+        auto deps = get_no_deps_fns(initializer);
+        for (auto n = deps.begin(); n != deps.end(); n++) {
+            auto pair = std::make_pair(*n, -2);
+            update_cache(&cache, pair);
+            q->push(*n);
         }
 
         while (!data_vec->empty()) {
-            std::pair<int, int> *pair = r->next();
+            std::pair<int, int> pair = r->next();
             update_cache(&cache, pair);
+
             // E necessario adicionar os que ja estao a ser processados
             if (is_processed(&cache)) {
 
-               //temos de calcular qual e o proximo
+                //temos de calcular qual e o proximo
                 next = get_next(current, &cache);
                 current = next;
 
                 if (next == TEG::FAIL) {
-                    //std::cout << "False\n";
-                    data_vec->erase(data_vec->begin());
+                    data_vec->erase();
 
                     next = 2;
                 }
 
                 if (next == TEG::SUCCESS) {
-                    //std::cout << "TRUE\n";
-                    data_vec->erase(data_vec->begin());
+                    data_vec->erase();
                     // save data
                     next = 2;
                     cache = build_result_cache();
@@ -64,10 +63,10 @@ namespace dependency_scheduler {
                 }
 
                 if (!data_vec->empty()) {
-                    for (auto &n: get_no_deps_fns(next)) {
-                        if (n != -2){
-                            int *n_ = new int(n);
-                            q->push(n_);
+                    deps = get_no_deps_fns(next);
+                    for (auto n = deps.begin(); n != deps.end(); n++) {
+                        if (*n != -2) {
+                            q->push(*n);
                         }
                     }
                 }

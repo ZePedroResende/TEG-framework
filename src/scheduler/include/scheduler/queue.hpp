@@ -11,24 +11,20 @@ namespace scheduler {
     template<class T>
     class Queue {
     public:
-        void push(T *elem) {
+        void push(T elem) {
             std::unique_lock<std::mutex> lck(mutex);
-            if (elem != nullptr) {
-                queue.push(elem);
-                cv.notify_one();
-            }
+            queue.push(elem);
+            cv.notify_one();
         }
 
-        T *next() {
-            T *elem{0};
+        T next() {
+            T elem = T();
             std::unique_lock<std::mutex> lck(mutex);
             cv.wait(lck, [this] { return !queue.empty() || !this->running.load(); });
 
             if (!queue.empty()) {
                 elem = queue.front();
-                if (elem != nullptr) {
-                    queue.pop();
-                }
+                queue.pop();
             }
 
             return elem;
@@ -58,7 +54,7 @@ namespace scheduler {
 
 
     private:
-        std::queue<T *> queue;
+        std::queue<T> queue;
         std::mutex mutex;
         std::condition_variable cv;
         std::atomic<bool> running;

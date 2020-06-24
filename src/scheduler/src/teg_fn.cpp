@@ -28,3 +28,24 @@ int teg_fn(int f, std::shared_ptr<Data> data) {
     }
     return res;
 }
+
+int teg_fn(int f, Data *data) {
+    int res = 1;
+    switch (f) {
+        case TEG::Prop1:
+            res = Prop1(0, data);
+            break;
+        case TEG::Prop2:
+            res = Prop2(0, data);
+            break;
+        case TEG::Prop3:
+            res = Prop3(0, data);
+            break;
+        case TEG::Prop4:
+            res = Prop4(0, data);
+            break;
+        default:
+            break;
+    }
+    return res;
+}

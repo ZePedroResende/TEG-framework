@@ -50,7 +50,7 @@ namespace async_dependency_scheduler {
                         state.current = next;
 
                         if (next == TEG::FAIL) {
-                            std::cout << "False" << " " << output.data << "\n";
+                        //    std::cout << "False" << " " << output.data << "\n";
                             queue->finish(output.data);
                             cache.reset(queue_index);
 
@@ -59,7 +59,7 @@ namespace async_dependency_scheduler {
                         }
 
                         if (next == TEG::SUCCESS) {
-                            std::cout << "True" << " " << output.data << "\n";
+                       //     std::cout << "True" << " " << output.data << "\n";
                             // std::cout << "TRUE\n";
                             queue->finish(output.data);
                             cache.reset(queue_index);

@@ -56,7 +56,7 @@ add_executable(scheduler
         src/pipeline.cpp
         src/scheduler.cpp
         src/teg_fn.cpp
-        )
+        include/vector.hpp)
 
 # If external libraries are needed, use find_library() and target_link_libraries()
 # to dynamically link them to your executable. Generally, you'll want to install
@@ -69,7 +69,7 @@ add_executable(scheduler
 
 # Enable all warnings except for no-sign-compare, which Clang disables
 # by default.
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -Wall -Wno-sign-compare -pthread")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3  -Wall -Wno-sign-compare -pthread")
 
 
 option(WERROR "Turn warnings into errors" OFF)

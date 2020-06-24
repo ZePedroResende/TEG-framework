@@ -10,11 +10,11 @@ void slave(const std::shared_ptr<Multiqueue>& queue,
         DataFunction next = queue->next_to_process();
         if (next.has_data) {
             std::shared_ptr<Data> data = data_vec->at(next.data);
-            logger::instance().log("slave recived data:" + std::to_string(next.data) +
-                                   "function: " + std::to_string(next.function));
+//            logger::instance().log("slave recived data:" + std::to_string(next.data) +
+//                                   "function: " + std::to_string(next.function));
             int integer = next.function;
             int ret = teg_fn(integer, data);
-            logger::instance().log("return " + std::to_string(ret));
+ //           logger::instance().log("return " + std::to_string(ret));
             // exec da funcao pegar no return next =
             queue->set_output(next.data, next.function, ret);
         }

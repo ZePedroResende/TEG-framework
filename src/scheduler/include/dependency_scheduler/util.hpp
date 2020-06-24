@@ -25,9 +25,9 @@ namespace dependency_scheduler {
         return map;
     }
 
-    void update_cache(std::map<int, int> *cache, std::pair<int, int> *pair) {
-        auto it = cache->find(pair->first);
-        if (it != cache->end()) it->second = pair->second;
+    void update_cache(std::map<int, int> *cache, std::pair<int, int> pair) {
+        auto it = cache->find(pair.first);
+        if (it != cache->end()) it->second = pair.second;
     }
 
     int get_cache(std::map<int, int> *cache, int next) {

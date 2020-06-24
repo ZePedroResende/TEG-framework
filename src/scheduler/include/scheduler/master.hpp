@@ -7,11 +7,12 @@
 
 #include "queue.hpp"
 #include "data.hpp"
+#include "vector.hpp"
 
 namespace scheduler {
     void master(const std::shared_ptr<::scheduler::Queue<int>> &q,
                 const std::shared_ptr<::scheduler::Queue<int>> &r,
-                const std::shared_ptr<std::vector<std::shared_ptr<Data>>> &data_vec
+                const std::shared_ptr<DataVector> &data_vec
     );
 
 }

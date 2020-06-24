@@ -10,4 +10,6 @@
 #include "teg.h"
 
 int teg_fn(int f, std::shared_ptr<Data> data);
+
+int teg_fn(int f, Data *data) ;
 #endif //CLANG_BLUEPRINT_TEG_FN_HPP
