@@ -54,6 +54,3 @@ readability-*,\
 -readability-redundant-control-flow,\
 "
 WarningsAsErrors: '*'
-
-# vim:tw=0
-
