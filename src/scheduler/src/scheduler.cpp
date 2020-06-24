@@ -78,7 +78,7 @@ namespace dependency_scheduler_improved {
 }  // namespace dependency_scheduler_improved
 namespace async_dependency_scheduler {
     void dependency_scheduler_async(
-            const std::shared_ptr<std::vector<std::shared_ptr<Data>>> &data_vec, int n_threads) {
+            const std::shared_ptr<DataVector> &data_vec, int n_threads) {
         std::shared_ptr<Multiqueue> q = std::make_shared<Multiqueue>(2, data_vec->size());
         std::vector<std::thread> slaves;
 
@@ -86,7 +86,7 @@ namespace async_dependency_scheduler {
             slaves.emplace_back(&slave, q, data_vec);
         }
 
-        std::thread m(&master, q, data_vec);
+        std::thread m(&master, q);
         //master(q,data_vec);
 
         for (auto &s : slaves) {

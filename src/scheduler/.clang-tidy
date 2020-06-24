@@ -54,17 +54,6 @@ readability-*,\
 -readability-redundant-control-flow,\
 "
 WarningsAsErrors: '*'
-HeaderFilterRegex: '(src|test).*'
-FormatStyle:     none
-CheckOptions:
-  - key: readability-uppercase-literal-suffix.NewSuffixes
-    value: 'L;UL;LL;ULL'
-  - key: cata-text-style.EscapeUnicode
-    value: 0
 
 # vim:tw=0
 
-    Terms
-    Privacy
-    Security
-    Status

@@ -23,13 +23,10 @@ namespace dependency_scheduler {
                 const std::shared_ptr<DataVector> &data_vec) {
         auto cache = build_result_cache();
 
-        auto next_up = std::queue<int>();
-
-
         static int initializer = 2;
 
         int current = 2;
-        int next = -1;
+        int next ;
         auto deps = get_no_deps_fns(initializer);
         for (auto n = deps.begin(); n != deps.end(); n++) {
             auto pair = std::make_pair(*n, -2);

@@ -23,8 +23,6 @@ namespace dependency_scheduler_improved {
                 const std::shared_ptr<DataVector> &data_vec) {
         auto cache = build_result_cache();
 
-        auto next_up = std::queue<int>();
-
 
         static int initializer = 2;
 

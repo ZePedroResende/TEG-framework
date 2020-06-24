@@ -24,7 +24,7 @@ namespace async_dependency_scheduler {
             // int division = deps.size() / number_threads_pool;
             // int queues_to_be_used = division > NUMBER_QUEUE ? NUMBER_QUEUE : division;
 
-            for (int i = 0; i < master_state.size(); i++) {
+            for (size_t i = 0; i < master_state.size(); i++) {
                 auto deps = get_no_deps_fns(master_state[i].current);
 
                 for (auto n : deps) {
@@ -40,7 +40,7 @@ namespace async_dependency_scheduler {
                 if (output.data != -1) {
                     // isto nao esta a ir buscar o index da queue seu burro , isto esta a ir buscar o data index novo se necessario !!!!!!
                     int queue_index = queue->get_data_queue(output.data);
-                    cache.update(output, queue_index );
+                    cache.update(output, queue_index);
 
                     auto state = master_state[queue_index];
                     if (cache.is_processed(queue_index)) {
@@ -50,7 +50,7 @@ namespace async_dependency_scheduler {
                         state.current = next;
 
                         if (next == TEG::FAIL) {
-                        //    std::cout << "False" << " " << output.data << "\n";
+                            //    std::cout << "False" << " " << output.data << "\n";
                             queue->finish(output.data);
                             cache.reset(queue_index);
 
@@ -59,7 +59,7 @@ namespace async_dependency_scheduler {
                         }
 
                         if (next == TEG::SUCCESS) {
-                       //     std::cout << "True" << " " << output.data << "\n";
+                            //     std::cout << "True" << " " << output.data << "\n";
                             // std::cout << "TRUE\n";
                             queue->finish(output.data);
                             cache.reset(queue_index);
@@ -100,12 +100,11 @@ namespace async_dependency_scheduler {
         const std::shared_ptr<Multiqueue> &queue;
     };
 
-    void master(const std::shared_ptr<Multiqueue> &queue,
-                const std::shared_ptr<std::vector<std::shared_ptr<Data>>> &data_vec) {
+    void master(const std::shared_ptr<Multiqueue> &queue) {
         auto master_state = MasterState(queue);
 
         master_state.initialize();
         master_state.loop();
     }
 
-};  // namespace async_dependency_scheduler
+}  // namespace async_dependency_scheduler

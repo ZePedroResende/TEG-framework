@@ -17,7 +17,7 @@ namespace scheduler {
 }
 
 namespace dependency_scheduler {
-    void dependency_scheduler(const std::shared_ptr<DataVector>  &data_vec, int n_threads);
+    void dependency_scheduler(const std::shared_ptr<DataVector> &data_vec, int n_threads);
 }
 
 
@@ -26,6 +26,6 @@ namespace dependency_scheduler_improved {
 }
 
 namespace async_dependency_scheduler {
-    void dependency_scheduler_async(const std::shared_ptr<std::vector<std::shared_ptr<Data>>> &data_vec, int n_threads);
+    void dependency_scheduler_async(const std::shared_ptr<DataVector> &data_vec, int n_threads);
 }
 #endif //CLANG_BLUEPRINT_SCHEDULER_HPP

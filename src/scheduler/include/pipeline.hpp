@@ -7,12 +7,12 @@
 
 #include "data.hpp"
 
-int Prop1(int thread_id, Data *data) ;
+int Prop1( Data *data) ;
 
-int Prop2(int thread_id, Data *data) ;
+int Prop2( Data *data) ;
 
-int Prop3(int thread_id, Data *data) ;
+int Prop3( Data *data) ;
 
-int Prop4(int thread_id, Data *data);
+int Prop4( Data *data);
 
 #endif //CLANG_BLUEPRINT_PIPELINE_HPP

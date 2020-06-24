@@ -17,10 +17,9 @@ namespace dependency_scheduler {
                const std::shared_ptr<scheduler::Queue<std::pair<int, int>>> &r,
                const std::shared_ptr<DataVector> &data_vec) {
         while (!data_vec->empty()) {
-            auto size = data_vec->size();
             auto data = data_vec->front();
 
-            if(data!= nullptr) {
+            if (data != nullptr) {
                 //locked threads quando as outras acabam !
                 //q->print_queue();
                 int next = q->next();

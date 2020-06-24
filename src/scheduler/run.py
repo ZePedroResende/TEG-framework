@@ -32,7 +32,7 @@ def k_best(k, values):
 def run_func(table,nreps,k,combination):
     tmp=[]
     for r in range(nreps):
-        out = run_command(' '.join(["./scheduler", ' '.join(combination) ]))
+        out = run_command(' '.join(["./build/scheduler", ' '.join(combination) ]))
         print(out)
         if out is not None and out != "":
             tmp.append(float(out))
@@ -50,19 +50,19 @@ def run_func(table,nreps,k,combination):
 
 def run_tests(funcs, nreps, k):
     combinations = [p for p in itertools.product(*funcs)]
-    fname = "../" + datetime.datetime.now().strftime("%Y-%m-%d_%H:%M") + ".csv"
+    fname = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M") + ".csv"
     table = open( fname, "w" )
-    table.write("Scheduler,N_Threads,Time\n")
+    table.write(",,Time\n")
 
     for combination in combinations:
         print(combination)
-        table.write(','.join(combination))
+        table.write(' '.join(combination))
         run_func(table,nreps,k,combination)
         table.write("\n")
     table.close()
 
 if __name__ == '__main__':
-    funcs = [["1","2","3","4"],["2","4","8","16","32","48"]]
+    funcs = [["1", "2", "3","4"],["2","4","8","16","32","48"]]
     nreps = 8
     k=3
     run_tests(funcs,nreps,k)

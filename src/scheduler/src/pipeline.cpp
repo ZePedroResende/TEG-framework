@@ -5,14 +5,14 @@
 #include <ctime>
 #include <logger.hpp>
 
-int Prop1(int thread_id, Data *data) {
+int Prop1( Data *data) {
     int a = data->m_int_a;
     int b = data->m_int_b;
     int c = data->m_int_c;
     int d = data->m_list_ints[0];
 
     if (a == 1 && b > 1) {
-        return TEG::Prop4;
+        return TEG::Prop2;
     }
 
     if (b + 1 > 0) {
@@ -23,14 +23,22 @@ int Prop1(int thread_id, Data *data) {
     return TEG::FAIL;
 }
 
-int Prop2(int thread_id, Data *data) {
-    int a = data->m_vector_int_a[2];
+int Prop2( Data *data) {
+/*    int a = data->m_vector_int_a[2];
     int b = data->m_vector_int_b[4];
     int c = data->m_vector_int_b[3];
     int d = data->m_list_ints[1];
     srand((unsigned) time(0));
     int random = (rand() % 2);
+    */
     //logger::instance().log("Random " + std::to_string(random));
+    auto d1 = data->m_matrix_a;
+    auto d2 = data->m_matrix_b;
+    auto d3 = data->m_matrix_c;
+
+    dot_prod_matrix(d3, d1, d2);
+    dot_prod_matrix(d1, d2, d3);
+    dot_prod_matrix(d3, d1, d2);
 
     if (1) {
         if (1) {
@@ -47,7 +55,7 @@ int Prop2(int thread_id, Data *data) {
     return TEG::FAIL;
 }
 
-int Prop3(int thread_id, Data *data) {
+int Prop3( Data *data) {
     auto d1 = data->m_matrix_a;
     auto d2 = data->m_matrix_b;
     auto d3 = data->m_matrix_c;
@@ -62,7 +70,7 @@ int Prop3(int thread_id, Data *data) {
     return TEG::Prop4;
 }
 
-int Prop4(int thread_id, Data *data) {
+int Prop4( Data *data) {
     int a = 1;
 
 

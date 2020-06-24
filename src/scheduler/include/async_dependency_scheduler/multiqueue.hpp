@@ -6,6 +6,8 @@
 #include <mutex>
 #include <queue>
 #include <vector>
+#include <iostream>
+#include <cassert>
 
 #include "async_dependency_scheduler/multiqueue/data_queue.hpp"
 
@@ -36,12 +38,12 @@ struct DataOutput {
 };
 
 class Multiqueue {
-   public:
+public:
     Multiqueue(int size, int total_data)
-        : data_queue(size, total_data),
-          size(size),
-          execution_queue_vector(size, std::queue<int>()),
-          output_queue_vector(size, std::queue<Output>()) {}
+            : data_queue(size, total_data),
+              size(size),
+              execution_queue_vector(size, std::queue<int>()),
+              output_queue_vector(size, std::queue<Output>()) {}
 
     bool process(int data_index, const int function_id) {
         std::unique_lock<std::mutex> lck(mutex);
@@ -64,14 +66,14 @@ class Multiqueue {
 
         for (; it != insertion_order.end() &&
                is_queue_empty(execution_queue_vector, data_queue.get_data_queue(*it));
-             it++)
-            ;
+               it++);
+
 
         if (it != insertion_order.end()) {
             int index = data_queue.get_data_queue(*it);
+            // esta a ler nada out of bound logo no 0 xd
             int function = execution_queue_vector[index].front();
             execution_queue_vector[index].pop();
-
             return DataFunction{true, *it, function
 
             };
@@ -123,13 +125,19 @@ class Multiqueue {
     }
 
     int get_data_index(int data_index) { return data_queue.check_if_new_data_index(data_index); }
+
     int get_data_queue(int data_index) { return data_queue.get_data_queue(data_index); }
 
     int get_size() { return size; }
 
     bool is_terminated() { return data_queue.is_terminated(); }
 
-   private:
+    template<typename T>
+    bool is_queue_empty(std::vector<std::queue<T>> queue, int index) {
+        return queue[index].empty();
+    }
+
+private:
     // keeps the order of priority of queue
     DataQueue data_queue;
     int size;
@@ -141,13 +149,9 @@ class Multiqueue {
     std::mutex mutex;
     std::condition_variable cv;
 
-    template <typename T>
+    template<typename T>
     bool is_queue_not_empty(std::vector<std::queue<T>> queue, int index) {
         return !queue[index].empty();
     }
 
-    template <typename T>
-    bool is_queue_empty(std::vector<std::queue<T>> queue, int index) {
-        return queue[index].empty();
-    }
 };

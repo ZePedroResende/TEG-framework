@@ -20,15 +20,18 @@ public:
 
     }
 
-    explicit DataVector(int size) : data(size, Data()) {
+    explicit DataVector(int size) : data(size, Data()), current(0) {
     }
 
-    Data* front() {
+    Data *at(int index) {
+        return &data[index];
+    }
+
+    Data *front() {
         std::unique_lock<std::mutex> lck(mutex);
-        if (!data.empty()){
+        if (!data.empty()) {
             return &data[current];
-        }
-        else{
+        } else {
             return nullptr;
         }
     }
@@ -39,7 +42,7 @@ public:
         current++;
     }
 
-    int size(){
+    int size() {
         std::unique_lock<std::mutex> lck(mutex);
         return data.size();
     }
@@ -53,7 +56,7 @@ public:
 private:
     std::mutex mutex;
     std::vector<Data> data;
-    int current;
+    size_t current;
 };
 
 #endif //TEG_VECTOR_HPP
