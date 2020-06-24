@@ -38,21 +38,12 @@ struct DataOutput {
 class Multiqueue {
    public:
     Multiqueue(int size, int total_data)
-<<<<<<< HEAD
         : data_queue(size, total_data),
           size(size),
           execution_queue_vector(size, std::queue<int>()),
           output_queue_vector(size, std::queue<Output>()) {}
 
     bool process(int data_index, const int function_id) {
-=======
-        : size(size),
-          execution_queue_vector(size, std::queue<int>()),
-          output_queue_vector(size, std::queue<Output>()),
-          data_queue(size, total_data) {}
-
-    bool process(int data_index, int function_id) {
->>>>>>> origin/master
         std::unique_lock<std::mutex> lck(mutex);
 
         int queue = data_queue.get_data_queue(data_index);
@@ -71,7 +62,6 @@ class Multiqueue {
 
         auto it = insertion_order.begin();
 
-<<<<<<< HEAD
         for (; it != insertion_order.end() &&
                is_queue_empty(execution_queue_vector, data_queue.get_data_queue(*it));
              it++)
@@ -82,26 +72,12 @@ class Multiqueue {
             // esta a ler nada out of bound logo no 0 xd
             int function = execution_queue_vector[index].front();
             execution_queue_vector[index].pop();
-            return DataFunction {
-                true, *it, function
-=======
-        for (; it != insertion_order.end() && is_queue_empty(execution_queue_vector, *it); ++it)
-            ;
-
-        if (it != insertion_order.end()) {
-            int index = *it;
-            int function = execution_queue_vector[index].front();
-            execution_queue_vector[index].pop();
-
-            return DataFunction{true, index, function
->>>>>>> origin/master
-            };
+            return DataFunction{true, *it, function};
         } else {
             return DataFunction{false, -1, -1};
         }
     }
 
-<<<<<<< HEAD
     void set_output(int data_index, const int function, int out) {
         std::unique_lock<std::mutex> lck(mutex);
 
@@ -110,12 +86,6 @@ class Multiqueue {
         if (queue != -1 && queue != terminated) {
             output_queue_vector[queue].push(Output{function, out});
         }
-=======
-    void set_output(int queue_index, int function, int out) {
-        std::unique_lock<std::mutex> lck(mutex);
-
-        output_queue_vector[queue_index].push(Output{function, out});
->>>>>>> origin/master
     }
 
     DataOutput get_ouput() {
@@ -124,7 +94,6 @@ class Multiqueue {
         std::set<int> insertion_order = data_queue.get_insertion_order();
 
         auto it = insertion_order.begin();
-<<<<<<< HEAD
 
         while (it != insertion_order.end()) {
             if (!is_queue_empty(output_queue_vector, data_queue.get_data_queue(*it))) {
@@ -135,36 +104,11 @@ class Multiqueue {
 
         if (it != insertion_order.end()) {
             int index = data_queue.get_data_queue(*it);
-=======
-        for (; it != insertion_order.end() && is_queue_empty(output_queue_vector, *it); ++it)
-            ;
-
-        if (it != insertion_order.end()) {
-            int index = *it;
->>>>>>> origin/master
             Output output = output_queue_vector[index].front();
 
             output_queue_vector[index].pop();
 
-<<<<<<< HEAD
             return DataOutput{*it, output};
-=======
-            return DataOutput{index, output};
-        } else {
-            return DataOutput{-1, Output{-1, -1}};
-        }
-    }
-
-    DataOutput get_ouput(int index) {
-        std::unique_lock<std::mutex> lck(mutex);
-
-        if (!output_queue_vector[index].empty()) {
-            Output output = output_queue_vector[index].front();
-
-            output_queue_vector[index].pop();
-
-            return DataOutput{index, output};
->>>>>>> origin/master
         } else {
             return DataOutput{-1, Output{-1, -1}};
         }
@@ -178,23 +122,16 @@ class Multiqueue {
 
     int get_data_index(int data_index) { return data_queue.check_if_new_data_index(data_index); }
 
-<<<<<<< HEAD
     int get_data_queue(int data_index) { return data_queue.get_data_queue(data_index); }
 
-=======
->>>>>>> origin/master
     int get_size() { return size; }
 
     bool is_terminated() { return data_queue.is_terminated(); }
 
-<<<<<<< HEAD
     template <typename T>
     bool is_queue_empty(std::vector<std::queue<T>> queue, int index) {
         return queue[index].empty();
     }
-
-=======
->>>>>>> origin/master
 
    private:
     // keeps the order of priority of queue
@@ -212,12 +149,4 @@ class Multiqueue {
     bool is_queue_not_empty(std::vector<std::queue<T>> queue, int index) {
         return !queue[index].empty();
     }
-
-<<<<<<< HEAD
-=======
-    template <typename T>
-    bool is_queue_empty(std::vector<std::queue<T>> queue, int index) {
-        return queue[index].empty();
-    }
->>>>>>> origin/master
 };
