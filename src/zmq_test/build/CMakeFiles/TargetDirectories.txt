@@ -1,0 +1,4 @@
+/home/resende/dev/msc-thesis/src/zmq_test/build/CMakeFiles/rebuild_cache.dir
+/home/resende/dev/msc-thesis/src/zmq_test/build/CMakeFiles/edit_cache.dir
+/home/resende/dev/msc-thesis/src/zmq_test/build/CMakeFiles/test.dir
+/home/resende/dev/msc-thesis/src/zmq_test/build/CMakeFiles/demo.dir

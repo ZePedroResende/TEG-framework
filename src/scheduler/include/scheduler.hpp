@@ -29,7 +29,7 @@ namespace async_dependency_scheduler {
     void dependency_scheduler_async(const std::shared_ptr<DataVector> &data_vec, int n_threads);
 }
 
-namespace async_dependency_scheduler {
-    void dependency_scheduler_async(const std::shared_ptr<std::vector<std::shared_ptr<Data>>> &data_vec);
+namespace imp_async_dependency_scheduler {
+    void dependency_scheduler_async(const std::shared_ptr<DataVector> &data_vec, int n_threads);
 }
 #endif //CLANG_BLUEPRINT_SCHEDULER_HPP

@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/resende/dev/msc-thesis/src/zmq_test/main.cpp
+iostream
+-
+zmq.hpp
+-
+zmq_addon.hpp
+-
+
