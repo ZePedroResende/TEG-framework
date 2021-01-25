@@ -16,12 +16,83 @@ import "phoenix_html";
 import { Socket } from "phoenix";
 import NProgress from "nprogress";
 import { LiveSocket } from "phoenix_live_view";
+import { Network } from "vis-network";
+
+const links = (l) =>
+  Object.keys(l).reduce((acc, x) => {
+    if (l[x] !== undefined) {
+      l[x].forEach((y) => acc.push({ from: x, to: y }));
+      return acc;
+    }
+  }, []);
+
+const nodes = (n) =>
+  Object.keys(n).reduce((acc, x) => {
+    acc.push({ id: x, label: x.toString(), group: 1 });
+    return acc;
+  }, []);
+
+const data_transform = (d) => {
+  return { nodes: nodes(d), links: links(d) };
+};
+
+const data_loader = () => {
+  const json = JSON.parse(document.getElementById("nodes").lastChild.data);
+  return Object.keys(json).length !== 0
+    ? data_transform(json.result)
+    : { nodes: [], links: [] };
+};
+
+const draw = () => {
+  // create some nodes
+
+  // create a network
+  var container = document.getElementById("mynetwork");
+
+  const data = data_loader();
+
+  var options = {
+    nodes: {
+      shape: "dot",
+      size: 16,
+    },
+    physics: {
+      forceAtlas2Based: {
+        gravitationalConstant: -26,
+        centralGravity: 0.005,
+        springLength: 230,
+        springConstant: 0.18,
+      },
+      maxVelocity: 146,
+      solver: "forceAtlas2Based",
+      timestep: 0.35,
+      stabilization: { iterations: 150 },
+    },
+  };
+  var network = new Network(container, data, options);
+};
+
+const DrawHook = {
+  mounted() {
+    this.handleMessages();
+  },
+  updated() {
+    this.handleMessages();
+  },
+
+  handleMessages() {
+    draw();
+    // Do what you need to with messages
+  },
+};
 
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")
   .getAttribute("content");
+
 let liveSocket = new LiveSocket("/live", Socket, {
   params: { _csrf_token: csrfToken },
+  hooks: { DrawHook: DrawHook },
 });
 
 // Show progress bar on live navigation and form submits
@@ -32,7 +103,7 @@ window.addEventListener("phx:page-loading-stop", (info) => NProgress.done());
 liveSocket.connect();
 
 // expose liveSocket on window for web console debug logs and latency simulation:
-// >> liveSocket.enableDebug()
+//liveSocket.enableDebug();
 // >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket;

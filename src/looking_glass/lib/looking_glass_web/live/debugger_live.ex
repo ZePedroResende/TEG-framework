@@ -6,7 +6,13 @@ defmodule LookingGlassWeb.DebuggerLive do
   @impl true
   def mount(_params, _session, socket) do
     if connected?(socket), do: Consumer.subscribe()
-    socket = assign(socket, nodes: %{}, e: [])
+
+    socket =
+      assign(socket,
+        nodes: %{},
+        e: []
+      )
+
     {:ok, socket}
   end
 
