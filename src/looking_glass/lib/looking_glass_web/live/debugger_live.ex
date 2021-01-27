@@ -9,7 +9,15 @@ defmodule LookingGlassWeb.DebuggerLive do
 
     socket =
       assign(socket,
-        nodes: %{},
+        nodes: %{
+          id: 5,
+          result: %{
+            1 => [2, 4],
+            2 => [3, 4],
+            3 => [],
+            4 => []
+          }
+        },
         e: []
       )
 

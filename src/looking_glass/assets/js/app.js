@@ -17,6 +17,7 @@ import { Socket } from "phoenix";
 import NProgress from "nprogress";
 import { LiveSocket } from "phoenix_live_view";
 import { Network } from "vis-network";
+import { DataSet } from "vis-data";
 
 const links = (l) =>
   Object.keys(l).reduce((acc, x) => {
@@ -28,48 +29,20 @@ const links = (l) =>
 
 const nodes = (n) =>
   Object.keys(n).reduce((acc, x) => {
-    acc.push({ id: x, label: x.toString(), group: 1 });
+    acc.push({ id: x, label: x, group: 1 });
     return acc;
   }, []);
 
 const data_transform = (d) => {
-  return { nodes: nodes(d), links: links(d) };
+  return { nodes: nodes(d), edges: links(d) };
 };
 
 const data_loader = () => {
   const json = JSON.parse(document.getElementById("nodes").lastChild.data);
+  console.log(data_transform(json.result));
   return Object.keys(json).length !== 0
     ? data_transform(json.result)
-    : { nodes: [], links: [] };
-};
-
-const draw = () => {
-  // create some nodes
-
-  // create a network
-  var container = document.getElementById("mynetwork");
-
-  const data = data_loader();
-
-  var options = {
-    nodes: {
-      shape: "dot",
-      size: 16,
-    },
-    physics: {
-      forceAtlas2Based: {
-        gravitationalConstant: -26,
-        centralGravity: 0.005,
-        springLength: 230,
-        springConstant: 0.18,
-      },
-      maxVelocity: 146,
-      solver: "forceAtlas2Based",
-      timestep: 0.35,
-      stabilization: { iterations: 150 },
-    },
-  };
-  var network = new Network(container, data, options);
+    : { nodes: [], edged: [] };
 };
 
 const DrawHook = {
@@ -77,14 +50,80 @@ const DrawHook = {
     this.handleMessages();
   },
   updated() {
-    this.handleMessages();
+    var newId = (Math.random() * 1e7).toString(32);
+    this.n.add({ id: newId, label: "I'm new!" });
+
+    this.network.stabilize();
+    //    this.n.add({ id: "teg::prop7", label: "teg::prop7", group: 1 });
   },
 
   handleMessages() {
-    draw();
+    //this.network.body.data.nodes.add([{ id: 6, label: "6", group: 1 }]);
+    this.draw();
     // Do what you need to with messages
   },
+  draw() {
+    // create some nodes
+
+    const data = data_loader();
+    this.n = new DataSet();
+    this.e = new DataSet();
+    this.n.add(data.nodes);
+    this.e.add(data.edges);
+    var edges = this.e;
+    this.e.on("*", function () {
+      document.getElementById("edges").innerHTML = JSON.stringify(
+        edges.get(),
+        null,
+        4
+      );
+    });
+    var nodes = this.n;
+    this.n.on("*", function () {
+      document.getElementById("nodes").innerHTML = JSON.stringify(
+        nodes.get(),
+        null,
+        4
+      );
+    });
+    // create a network
+    var container = document.getElementById("mynetwork");
+
+    var options = {
+      nodes: {
+        shape: "dot",
+        size: 16,
+      },
+      edges: {
+        smooth: {
+          type: "cubicBezier",
+          roundness: 0.4,
+        },
+      },
+      physics: {
+        forceAtlas2Based: {
+          gravitationalConstant: -26,
+          centralGravity: 0.005,
+          springLength: 230,
+          springConstant: 0.18,
+        },
+        maxVelocity: 146,
+        solver: "forceAtlas2Based",
+        timestep: 0.35,
+        stabilization: { iterations: 150 },
+      },
+    };
+    this.network = new Network(
+      container,
+      { nodes: this.n, edges: this.e },
+      options
+    );
+  },
 };
+
+window.addEventListener("nodes", ({ points }) => {
+  console.log("fuck");
+});
 
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")
@@ -107,163 +146,3 @@ liveSocket.connect();
 // >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket;
-
-/*
-var svg = d3.select("svg"),
-  width = +svg.attr("width"),
-  height = +svg.attr("height");
-
-var simulation = d3
-  .forceSimulation()
-  .force(
-    "link",
-    d3.forceLink().id(function (d) {
-      return d.id;
-    })
-  )
-  //.force("charge", d3.forceManyBody().strength(-200))
-  .force(
-    "charge",
-    d3.forceManyBody().strength(-200).theta(0.8).distanceMax(150)
-  )
-  // 		.force('collide', d3.forceCollide()
-  //       .radius(d => 40)
-  //       .iterations(2)
-  //     )
-  .force("center", d3.forceCenter(width / 2, height / 2));
-
-const links = (l) =>
-  Object.keys(l).reduce((acc, x) => {
-    if (l[x] !== undefined) {
-      l[x].forEach((y) => acc.push({ source: x, targe: y }));
-      return acc;
-    }
-  }, []);
-
-const nodes = (n) =>
-  Object.keys(n).reduce((acc, x) => {
-    acc.push({ id: x, group: 1 });
-    return acc;
-  }, []);
-
-const data_transform = (d) => {
-  return { nodes: nodes(d), links: links(d) };
-};
-
-const data_loader = () => {
-  //  const json = JSON.parse(document.getElementById("nodes").lastChild.data);
-  return Object.keys(json).length !== 0
-    ? data_transform(json.result)
-    : { nodes: [], links: [] };
-};
-
-const data = data_loader();
-
-function run(graph) {
-  graph.links.forEach(function (d) {
-    //     d.source = d.source_id;
-    //     d.target = d.target_id;
-  });
-
-  var link = svg
-    .append("g")
-    .style("stroke", "#aaa")
-    .selectAll("line")
-    .data(graph.links)
-    .enter()
-    .append("line");
-
-  var node = svg
-    .append("g")
-    .attr("class", "nodes")
-    .selectAll("circle")
-    .data(graph.nodes)
-    .enter()
-    .append("circle")
-    .attr("r", 2)
-    .call(
-      d3
-        .drag()
-        .on("start", dragstarted)
-        .on("drag", dragged)
-        .on("end", dragended)
-    );
-
-  var label = svg
-    .append("g")
-    .attr("class", "labels")
-    .selectAll("text")
-    .data(graph.nodes)
-    .enter()
-    .append("text")
-    .attr("class", "label")
-    .text(function (d) {
-      return d.id;
-    });
-
-  simulation.nodes(graph.nodes).on("tick", ticked);
-
-  simulation.force("link").links(graph.links);
-
-  function ticked() {
-    link
-      .attr("x1", function (d) {
-        return d.source.x;
-      })
-      .attr("y1", function (d) {
-        return d.source.y;
-      })
-      .attr("x2", function (d) {
-        return d.target.x;
-      })
-      .attr("y2", function (d) {
-        return d.target.y;
-      });
-
-    node
-      .attr("r", 16)
-      .style("fill", "#efefef")
-      .style("stroke", "#424242")
-      .style("stroke-width", "1px")
-      .attr("cx", function (d) {
-        return d.x + 5;
-      })
-      .attr("cy", function (d) {
-        return d.y - 3;
-      });
-
-    label
-      .attr("x", function (d) {
-        return d.x;
-      })
-      .attr("y", function (d) {
-        return d.y;
-      })
-      .style("font-size", "10px")
-      .style("fill", "#333");
-  }
-}
-
-function dragstarted(d) {
-  if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-  d.fx = d.x;
-  d.fy = d.y;
-  //  simulation.fix(d);
-}
-
-function dragged(d) {
-  d.fx = d3.event.x;
-  d.fy = d3.event.y;
-  //  simulation.fix(d, d3.event.x, d3.event.y);
-}
-
-function dragended(d) {
-  d.fx = d3.event.x;
-  d.fy = d3.event.y;
-  if (!d3.event.active) simulation.alphaTarget(0);
-
-  //simulation.unfix(d);
-}
-
-run(data);
-*/
