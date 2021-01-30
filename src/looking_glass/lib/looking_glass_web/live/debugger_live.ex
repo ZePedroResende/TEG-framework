@@ -9,15 +9,7 @@ defmodule LookingGlassWeb.DebuggerLive do
 
     socket =
       assign(socket,
-        nodes: %{
-          id: 5,
-          result: %{
-            1 => [2, 4],
-            2 => [3, 4],
-            3 => [],
-            4 => []
-          }
-        },
+        nodes: %{},
         e: []
       )
 
@@ -29,7 +21,7 @@ defmodule LookingGlassWeb.DebuggerLive do
   end
 
   def handle_info({"update", events}, socket) do
-    updated_events = Enum.concat(socket.assigns.e, [events])
-    {:noreply, assign(socket, :e, updated_events)}
+    {:noreply, push_event(socket, "updates", events)}
+    # {:noreply, assign(socket, :e, updated_events)}
   end
 end

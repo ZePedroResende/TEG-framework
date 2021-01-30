@@ -1,8 +1,8 @@
-
 <section class="phx-hero">
   <h1>Welcome to the Looking Glass debugger</h1>
 </section>
-
+  <div phx-update="ignore" id="mynetwork" style="width: 900px; height: 900px; border: 1px solid lightgray">
+  </div>
 <h1>Nodes: </h1>
 
 <h2 id="nodes" phx-hook="DrawHook"><%= Jason.encode!(@nodes) %></h2>
@@ -17,17 +17,7 @@
     </tr>
   </thead>
 
-  <div id="mynetwork" style="width: 900px; height: 900px; border: 1px solid lightgray">
-  </div>
-  <tbody id ="events">
-    <%= for item <- @e do %>
-      <tr id="event-<%= item.id %>">
-        <td><%= item.id %></td>
-        <td><%= item.result["function"] %></td>
-        <td><%= item.result["result"] %></td>
-        <td><%= item.result["thread_id"] %></td>
-      </tr>
-    <% end %>
+  <tbody phx-update="ignore" id ="events">
   </tbody>
 
 

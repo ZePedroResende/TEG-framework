@@ -39,29 +39,38 @@ const data_transform = (d) => {
 
 const data_loader = () => {
   const json = JSON.parse(document.getElementById("nodes").lastChild.data);
-  console.log(data_transform(json.result));
   return Object.keys(json).length !== 0
     ? data_transform(json.result)
-    : { nodes: [], edged: [] };
+    : { nodes: [], edges: [] };
 };
 
 const DrawHook = {
   mounted() {
-    this.handleMessages();
+    this.draw();
+    this.handleEvent("updates", (points) => {
+      var result = points["result"];
+      var mydiv = document.getElementById("events");
+      var row = mydiv.insertRow(0);
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      var cell3 = row.insertCell(2);
+      var cell4 = row.insertCell(3);
+      cell1.innerHTML = points["id"];
+      cell2.innerHTML = result["function"];
+      cell3.innerHTML = result["result"];
+      cell4.innerHTML = result["thread_id"];
+    });
   },
   updated() {
-    var newId = (Math.random() * 1e7).toString(32);
-    this.n.add({ id: newId, label: "I'm new!" });
+    var container = data_loader();
 
-    this.network.stabilize();
-    //    this.n.add({ id: "teg::prop7", label: "teg::prop7", group: 1 });
+    const data = data_loader();
+
+    console.log(data);
+    this.n.add(data.nodes);
+    this.e.add(data.edges);
   },
 
-  handleMessages() {
-    //this.network.body.data.nodes.add([{ id: 6, label: "6", group: 1 }]);
-    this.draw();
-    // Do what you need to with messages
-  },
   draw() {
     // create some nodes
 
@@ -70,22 +79,6 @@ const DrawHook = {
     this.e = new DataSet();
     this.n.add(data.nodes);
     this.e.add(data.edges);
-    var edges = this.e;
-    this.e.on("*", function () {
-      document.getElementById("edges").innerHTML = JSON.stringify(
-        edges.get(),
-        null,
-        4
-      );
-    });
-    var nodes = this.n;
-    this.n.on("*", function () {
-      document.getElementById("nodes").innerHTML = JSON.stringify(
-        nodes.get(),
-        null,
-        4
-      );
-    });
     // create a network
     var container = document.getElementById("mynetwork");
 
@@ -98,6 +91,11 @@ const DrawHook = {
         smooth: {
           type: "cubicBezier",
           roundness: 0.4,
+        },
+        arrows: {
+          to: {
+            enabled: true,
+          },
         },
       },
       physics: {
@@ -112,6 +110,11 @@ const DrawHook = {
         timestep: 0.35,
         stabilization: { iterations: 150 },
       },
+      layout: {
+        hierarchical: {
+          sortMethod: "directed",
+        },
+      },
     };
     this.network = new Network(
       container,
@@ -120,10 +123,6 @@ const DrawHook = {
     );
   },
 };
-
-window.addEventListener("nodes", ({ points }) => {
-  console.log("fuck");
-});
 
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")
