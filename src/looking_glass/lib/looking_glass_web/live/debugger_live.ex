@@ -20,8 +20,23 @@ defmodule LookingGlassWeb.DebuggerLive do
     {:noreply, assign(socket, :nodes, nodes)}
   end
 
-  def handle_info({"update", events}, socket) do
-    {:noreply, push_event(socket, "updates", events)}
+  def handle_info({"enqueue", events}, socket) do
+    {:noreply, push_event(socket, "enqueue", events)}
+    # {:noreply, assign(socket, :e, updated_events)}
+  end
+
+  def handle_info({"calculate", events}, socket) do
+    {:noreply, push_event(socket, "calculate", events)}
+    # {:noreply, assign(socket, :e, updated_events)}
+  end
+
+  def handle_info({"result", events}, socket) do
+    {:noreply, push_event(socket, "result", events)}
+    # {:noreply, assign(socket, :e, updated_events)}
+  end
+
+  def handle_info({"finish", events}, socket) do
+    {:noreply, push_event(socket, "finish", events)}
     # {:noreply, assign(socket, :e, updated_events)}
   end
 end
