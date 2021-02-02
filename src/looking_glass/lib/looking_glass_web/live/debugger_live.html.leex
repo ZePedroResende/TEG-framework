@@ -1,0 +1,23 @@
+<section class="phx-hero">
+  <h1>Welcome to the Looking Glass debugger</h1>
+</section>
+  <div phx-update="ignore" id="mynetwork" style="width: 900px; height: 900px; border: 1px solid lightgray">
+  </div>
+<h1>Nodes: </h1>
+
+<h2 id="nodes" phx-hook="DrawHook"><%= Jason.encode!(@nodes) %></h2>
+<h1>Events: </h1>
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>function</th>
+      <th>result</th>
+      <th>thread_id</th>
+      <th>data_id</th>
+    </tr>
+  </thead>
+
+  <tbody phx-update="ignore" id ="events">
+  </tbody>
+</table>

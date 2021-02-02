@@ -1,7 +1,6 @@
-import time
-import subprocess
 import datetime
 import itertools
+import subprocess
 
 
 def run_command(cmd):
@@ -15,24 +14,25 @@ def run_command(cmd):
 
 
 def k_best(k, values):
-    error = (1,-1)
+    error = (1, -1)
     values.sort()
-    for i in range(len(values)-k):
-        maximum = values[i+k-1]
+    for i in range(len(values) - k):
+        maximum = values[i + k - 1]
         minimum = values[i]
         e = (maximum - minimum) / float(maximum)
         if e < 0.05:
-            return sum(values[i:i+k]) / float(k)
+            return sum(values[i:i + k]) / float(k)
         if e < error[0]:
-            error = (e,i)
+            error = (e, i)
             if error[1] != -1:
-                return sum(values[error[1]:error[1]+k]) / float(k)
+                return sum(values[error[1]:error[1] + k]) / float(k)
     return -1
 
-def run_func(table,nreps,k,combination):
-    tmp=[]
+
+def run_func(table, nreps, k, combination):
+    tmp = []
     for r in range(nreps):
-        out = run_command(' '.join(["./build/scheduler", ' '.join(combination) ]))
+        out = run_command(' '.join(["./scheduler", ' '.join(combination)]))
         print(out)
         if out is not None and out != "":
             tmp.append(float(out))
@@ -40,7 +40,7 @@ def run_func(table,nreps,k,combination):
             print("Error 1")
 
     try:
-        table.write("," + str( k_best(k,tmp) ) )
+        table.write("," + str(k_best(k, tmp)))
     except:
         table.write(",Error2")
         print("Error 2")
@@ -50,19 +50,20 @@ def run_func(table,nreps,k,combination):
 
 def run_tests(funcs, nreps, k):
     combinations = [p for p in itertools.product(*funcs)]
-    fname = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M") + ".csv"
-    table = open( fname, "w" )
-    table.write(",,Time\n")
+    fname = "../" + datetime.datetime.now().strftime("%Y-%m-%d_%H:%M") + ".csv"
+    table = open(fname, "w")
+    table.write("Scheduler,N_Threads,Time\n")
 
     for combination in combinations:
         print(combination)
-        table.write(' '.join(combination))
-        run_func(table,nreps,k,combination)
+        table.write(','.join(combination))
+        run_func(table, nreps, k, combination)
         table.write("\n")
     table.close()
 
+
 if __name__ == '__main__':
-    funcs = [["1", "2", "3","4"],["2","4","8","16","32","48"]]
+    funcs = [["1", "2", "3", "4","5"], ["2", "4", "8", "16", "32", "48"]]
     nreps = 8
-    k=3
-    run_tests(funcs,nreps,k)
+    k = 3
+    run_tests(funcs, nreps, k)

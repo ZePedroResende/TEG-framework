@@ -20,7 +20,7 @@ public:
 
     }
 
-    explicit DataVector(int size) : data(size, Data()), current(0) {
+    explicit DataVector(int size) : data(size, Data()), current(0), size_m(size) {
     }
 
     Data *at(int index) {
@@ -49,7 +49,7 @@ public:
 
     bool empty() {
         std::unique_lock<std::mutex> lck(mutex);
-        return current < data.size();
+        return current >= size_m;
     }
 
 
@@ -57,6 +57,7 @@ private:
     std::mutex mutex;
     std::vector<Data> data;
     size_t current;
+    size_t size_m;
 };
 
 #endif //TEG_VECTOR_HPP

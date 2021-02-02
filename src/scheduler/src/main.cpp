@@ -10,11 +10,10 @@
 #include "scheduler.hpp"
 #include "vector.hpp"
 
-// constexpr int data_size = 10000;
-constexpr int data_size = 130;
+constexpr int data_size = 500;
 
 /// Program entry point.
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
     std::shared_ptr<DataVector> d;
 
     d = std::make_shared<DataVector>(data_size);
@@ -35,6 +34,9 @@ int main(int argc, char* argv[]) {
             dependency_scheduler_improved::dependency_scheduler_imp(d, n_threads);
         if (!strcmp(argv[1], "4")) {
             async_dependency_scheduler::dependency_scheduler_async(d, n_threads);
+        }
+        if (!strcmp(argv[1], "5")) {
+            imp_async_dependency_scheduler::dependency_scheduler_async(d, n_threads);
         }
     }
 

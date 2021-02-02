@@ -28,6 +28,14 @@ set(SOURCE_FILES ${SOURCE_FILES_NO_MAIN} ${CMAKE_SOURCE_DIR}/src/main.cpp)
 
 add_executable(scheduler
         include/catch2/catch.hpp
+        include/imp_async_dependency_scheduler/master/cache.hpp
+        include/imp_async_dependency_scheduler/master/deps.hpp
+        include/imp_async_dependency_scheduler/multiqueue/data_queue.hpp
+        include/imp_async_dependency_scheduler/multiqueue/mapping_queue_data.hpp
+        include/imp_async_dependency_scheduler/master.hpp
+        include/imp_async_dependency_scheduler/multiqueue.hpp
+        include/imp_async_dependency_scheduler/slave.hpp
+
         include/async_dependency_scheduler/cache.hpp
         include/async_dependency_scheduler/multiqueue/data_queue.hpp
         include/async_dependency_scheduler/deps.hpp
@@ -74,6 +82,7 @@ add_executable(scheduler
 # by default.
 include(${CMAKE_SOURCE_DIR}/cmake/clang_tools.cmake)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -g3 -pthread -gdwarf-4 -DLinux -fPIC -Wno-deprecated -pipe -fno-elide-type -fdiagnostics-show-template-tree -Wall -Werror -Wextra -Wpedantic -Wvla -Wextra-semi -Wnull-dereference -Wswitch-enum -fvar-tracking-assignments -Wduplicated-cond -Wduplicated-branches -rdynamic -Wsuggest-override -O0 -MMD -MP")
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -g3  -Wall -Wno-sign-compare -pthread")
 
 
 option(WERROR "Turn warnings into errors" OFF)
