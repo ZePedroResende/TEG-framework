@@ -19,28 +19,39 @@ import { LiveSocket } from "phoenix_live_view";
 import { Network } from "vis-network";
 import { DataSet } from "vis-data";
 
-const links = (l) =>
+const links = (l, id) =>
   Object.keys(l).reduce((acc, x) => {
     if (l[x] !== undefined) {
-      l[x].forEach((y) => acc.push({ from: x, to: y, id: x + "-" + y }));
+      for (var j = 0; j < id; j++) {
+        l[x].forEach((y) =>
+          acc.push({
+            from: j + "-" + x,
+            to: j + "-" + y,
+            id: j + "-" + x + "-" + y,
+          })
+        );
+      }
       return acc;
     }
   }, []);
 
-const nodes = (n) =>
+const nodes = (n, id) =>
   Object.keys(n).reduce((acc, x) => {
-    acc.push({ id: x, label: x, group: 1 });
+    for (var j = 0; j < id; j++) {
+      acc.push({ id: j + "-" + x, label: j + "-" + x, group: 1 });
+    }
     return acc;
   }, []);
 
-const data_transform = (d) => {
-  return { nodes: nodes(d), edges: links(d) };
+const data_transform = (d, id) => {
+  return { nodes: nodes(d, id), edges: links(d, id) };
 };
 
 const data_loader = () => {
   const json = JSON.parse(document.getElementById("nodes").lastChild.data);
+
   return Object.keys(json).length !== 0
-    ? data_transform(json.result)
+    ? data_transform(json.result.nodes, json.result.data)
     : { nodes: [], edges: [] };
 };
 
@@ -60,7 +71,9 @@ const DrawHook = {
       cell1.innerHTML = "enqueue";
       cell2.innerHTML = result["function"];
       cell5.innerHTML = result["data_id"];
-      var nodeID = result["function"];
+
+      var nodeID = result["data_id"] + "-" + result["function"];
+
       if (nodeID) {
         var clickedNode = this.n.get(nodeID);
         clickedNode.color = {
@@ -87,9 +100,10 @@ const DrawHook = {
       cell1.innerHTML = "calculate";
       cell2.innerHTML = result["function"];
       cell4.innerHTML = result["thread_id"];
-      cell5.innerHTML = result["data_id"];
+      cell5.innerHTML = result["data"];
 
-      var nodeID = result["function"];
+      var nodeID = result["data_id"] + "-" + result["function"];
+
       if (nodeID) {
         var clickedNode = this.n.get(nodeID);
         clickedNode.color = {
@@ -119,7 +133,7 @@ const DrawHook = {
       cell4.innerHTML = result["thread_id"];
       cell5.innerHTML = result["data_id"];
 
-      var nodeID = result["function"];
+      var nodeID = result["data_id"] + "-" + result["function"];
       if (nodeID) {
         var clickedNode = this.n.get(nodeID);
         clickedNode.color = {
@@ -133,14 +147,18 @@ const DrawHook = {
         this.n.update(clickedNode);
 
         this.e.update({
-          id: result["function"] + "-" + result["result"],
+          id:
+            result["data_id"] +
+            "-" +
+            result["function"] +
+            "-" +
+            result["result"],
           color: { color: "#6dca12" },
         });
       }
     });
 
     this.handleEvent("finish", (points) => {
-      var result = points["result"];
       var mydiv = document.getElementById("events");
       var row = mydiv.insertRow(0);
       var cell1 = row.insertCell(0);
@@ -148,20 +166,16 @@ const DrawHook = {
       var cell3 = row.insertCell(2);
       var cell4 = row.insertCell(3);
       var cell5 = row.insertCell(4);
+      var result = points["result"];
+
       cell1.innerHTML = "finish";
       cell2.innerHTML = result["function"];
       cell5.innerHTML = result["data_id"];
-
-      var nodeID = result["function"];
-      this.draw();
     });
   },
   updated() {
-    var container = data_loader();
-
     const data = data_loader();
 
-    console.log(data);
     this.n.add(data.nodes);
     this.e.add(data.edges);
   },
@@ -181,6 +195,10 @@ const DrawHook = {
       nodes: {
         shape: "dot",
         size: 16,
+        color: {
+          border: "#000000",
+          background: "#004daa",
+        },
       },
       edges: {
         smooth: {
