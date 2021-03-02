@@ -1,0 +1,51 @@
+[package]
+name = "rust_scheduler"
+version = "0.1.0"
+authors = ["Ze Pedro Resende <j.p.resende68@gmail.com>"]
+edition = "2018"
+bench = false
+
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rand = "0.8.0"
+futures = "0.3"
+rayon = "1.5.0"
+crossbeam-channel = "0.5"
+crossbeam-deque = "0.8"
+crossbeam-queue = "0.3"
+lazy_static = "1.4.0"
+tokio = { version = "1.2.0", features = ["full"] }
+crossbeam-utils = "0.8"
+
+[dev-dependencies]
+pprof = { version = "0.4", features = ["criterion","flamegraph","protobuf"] }
+criterion = "0.3.4"
+
+[[bin]]
+name = "async"
+path = "src/native/async.rs"
+bench = false
+
+
+[[bin]]
+name = "tokio"
+path = "src/native/tokio.rs"
+bench = false
+
+
+[[bin]]
+name = "sequential"
+path = "src/sequential/sequential.rs"
+bench = false
+
+[[bin]]
+name = "speculative"
+path = "src/speculative/speculative.rs"
+bench = false
+
+[[bench]]
+path = "benches/native_schedulers.rs"
+name = "native_schedulers"
+harness = false
