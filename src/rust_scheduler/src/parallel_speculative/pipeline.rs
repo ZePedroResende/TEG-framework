@@ -1,9 +1,7 @@
-use crate::sequential::data::{dot_prod_matrix, dot_prod_matrix_float, Data};
-use std::collections::HashMap;
+use crate::parallel_speculative::data::{dot_prod_matrix, dot_prod_matrix_float, Data};
+pub type Prop = for<'r> fn(&'r mut Data) -> i32;
 
-type Prop = for<'r> fn(&'r mut Data) -> i32;
-
-fn prop1(data: &mut Data) -> i32 {
+pub fn prop1(data: &mut Data) -> i32 {
     let a = data.m_int_a;
     let b = data.m_int_b;
     let c = data.m_int_c;
@@ -22,7 +20,7 @@ fn prop1(data: &mut Data) -> i32 {
     }
     return 1;
 }
-fn prop2(data: &mut Data) -> i32 {
+pub fn prop2(data: &mut Data) -> i32 {
     let d1 = data.m_matrix_a.as_mut();
     let d2 = data.m_matrix_b.as_mut();
     let d3 = data.m_matrix_c.as_mut();
@@ -44,7 +42,7 @@ fn prop2(data: &mut Data) -> i32 {
     return 0;
 }
 
-fn prop3(data: &mut Data) -> i32 {
+pub fn prop3(data: &mut Data) -> i32 {
     let d1 = data.m_matrix_a.as_mut();
     let d2 = data.m_matrix_b.as_mut();
     let d3 = data.m_matrix_c.as_mut();
@@ -59,7 +57,7 @@ fn prop3(data: &mut Data) -> i32 {
     return 1;
 }
 
-fn prop4(data: &mut Data) -> i32 {
+pub fn prop4(data: &mut Data) -> i32 {
     let a = 1;
 
     let d1 = data.m_matrix_float_a.as_mut();
@@ -76,24 +74,4 @@ fn prop4(data: &mut Data) -> i32 {
         return 0;
     }
     return 1;
-}
-
-pub fn scheduler(data: &mut Data) -> i32 {
-    let teg: HashMap<i32, Prop> = [
-        (2, prop1 as Prop),
-        (3, prop2 as Prop),
-        (4, prop3 as Prop),
-        (5, prop4 as Prop),
-    ]
-    .iter()
-    .cloned()
-    .collect();
-
-    let mut result = 2;
-
-    while result > 1 {
-        result = teg[&result](data);
-    }
-
-    result
 }

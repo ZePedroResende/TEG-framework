@@ -18,6 +18,7 @@ crossbeam-queue = "0.3"
 lazy_static = "1.4.0"
 tokio = { version = "1.2.0", features = ["full"] }
 crossbeam-utils = "0.8"
+criterion-papi = "0.1.0"
 
 [dev-dependencies]
 pprof = { version = "0.4", features = ["criterion","flamegraph","protobuf"] }
@@ -38,6 +39,11 @@ bench = false
 [[bin]]
 name = "sequential"
 path = "src/sequential/sequential.rs"
+bench = false
+
+[[bin]]
+name = "parallel_speculative"
+path = "src/parallel_speculative/parallel_speculative.rs"
 bench = false
 
 [[bin]]

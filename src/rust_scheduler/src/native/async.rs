@@ -5,9 +5,9 @@ use std::sync::mpsc::channel;
 //use tokio::sync::oneshot;
 
 fn main() {
-    let d: Vec<Data> = (0..10)
+    let d: Vec<Data> = (0..200)
         .into_par_iter()
-        .map(|_| Data::new(1000, 1000, 1000))
+        .map(|_| Data::new(1000, 2000, 1000))
         .collect::<Vec<Data>>();
     //let (sender, receiver) = oneshot();
     let (sender, receiver) = channel();
