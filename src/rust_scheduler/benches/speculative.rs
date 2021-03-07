@@ -19,14 +19,20 @@ fn bench(c: &mut Criterion) {
         {
             if !(*size == 1024 && *vector_size > 1200) || !(*size == 512 && *vector_size > 2400) {
                 let parameter_string = format!("{}-{}", *size, *vector_size);
-                group.throughput(Throughput::Bytes((*size * *vector_size) as u64));
+                group.throughput(Throughput::Bytes(
+                    (((std::mem::size_of::<i32>() * *size * *size * 3)
+                        + (std::mem::size_of::<f32>() * *size * *size * 3))
+                        * *vector_size) as u64,
+                ));
                 group.bench_with_input(
                     BenchmarkId::new("speculative", parameter_string),
                     &(*size, *vector_size),
                     |b, (s, v)| {
                         let data: Vec<rust_scheduler::speculative::data::Data> = (0..*v)
                             .into_par_iter()
-                            .map(|_| rust_scheduler::speculative::data::Data::new(1000, *s, 1000))
+                            .map(|_| {
+                                rust_scheduler::speculative::data::Data::new(1000, *s as i32, 1000)
+                            })
                             .collect::<Vec<rust_scheduler::speculative::data::Data>>();
 
                         let arc = Arc::new(RwLock::new(data));

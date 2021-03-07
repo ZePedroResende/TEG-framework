@@ -34,14 +34,18 @@ fn bench(c: &mut Criterion) {
                         || !(*size >= 256 && *vector_size > 600 && *thread < 6)
                     {
                         let parameter_string = format!("{}-{}-{}", *size, *vector_size, *thread);
-                        group.throughput(Throughput::Bytes((*size * *vector_size) as u64));
+                        group.throughput(Throughput::Bytes(
+                            (((std::mem::size_of::<i32>() * *size * *size * 3)
+                                + (std::mem::size_of::<f32>() * *size * *size * 3))
+                                * *vector_size) as u64,
+                        ));
                         group.bench_with_input(
                             BenchmarkId::new("tokio_seq", parameter_string),
                             &(*size, *vector_size, *thread),
                             |b, (s, v, t)| {
                                 let mut data: Vec<Data> = (0..*v)
                                     .into_par_iter()
-                                    .map(|_| Data::new(1000, *s, 1000))
+                                    .map(|_| Data::new(1000, *s as i32, 1000))
                                     .collect::<Vec<Data>>();
 
                                 b.iter(|| black_box(tokio_sequential_bench(&mut data, *t as usize)))

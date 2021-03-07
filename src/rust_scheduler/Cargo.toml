@@ -51,7 +51,48 @@ name = "speculative"
 path = "src/speculative/speculative.rs"
 bench = false
 
+#[[bench]]
+#path = "benches/native_schedulers.rs"
+#name = "native_schedulers"
+#harness = false
+
+
 [[bench]]
-path = "benches/native_schedulers.rs"
-name = "native_schedulers"
+path = "benches/tokyo.rs"
+name = "tokyo"
+harness = false
+
+[[bench]]
+path = "benches/async.rs"
+name = "async"
+harness = false
+
+[[bench]]
+path = "benches/tokio_sequential.rs"
+name = "tokyo_sequential"
+harness = false
+
+[[bench]]
+path = "benches/sequential_iter.rs"
+name = "sequential_iter"
+harness = false
+
+[[bench]]
+path = "benches/sequential_par_iter.rs"
+name = "sequential_par_iter"
+harness = false
+
+[[bench]]
+path = "benches/speculative.rs"
+name = "speculative"
+harness = false
+
+[[bench]]
+path = "benches/parallel_speculative_par_iter.rs"
+name = "parallel_speculative_par_iter"
+harness = false
+
+[[bench]]
+path = "benches/parallel_speculative_iter.rs"
+name = "parallel_speculative_iter"
 harness = false
