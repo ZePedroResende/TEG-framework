@@ -1,0 +1,11 @@
+group,function,value,throughput_num,throughput_type,sample_measured_value,unit,iteration_count
+schedulers,parallel_speculative_par_iter,64-9600,614400,bytes,3246393458.0,ns,1
+schedulers,parallel_speculative_par_iter,64-9600,614400,bytes,3157866421.0,ns,1
+schedulers,parallel_speculative_par_iter,64-9600,614400,bytes,3137864575.0,ns,1
+schedulers,parallel_speculative_par_iter,64-9600,614400,bytes,3090479039.0,ns,1
+schedulers,parallel_speculative_par_iter,64-9600,614400,bytes,3114520144.0,ns,1
+schedulers,parallel_speculative_par_iter,64-9600,614400,bytes,3088233925.0,ns,1
+schedulers,parallel_speculative_par_iter,64-9600,614400,bytes,3067237079.0,ns,1
+schedulers,parallel_speculative_par_iter,64-9600,614400,bytes,3107613342.0,ns,1
+schedulers,parallel_speculative_par_iter,64-9600,614400,bytes,3067668649.0,ns,1
+schedulers,parallel_speculative_par_iter,64-9600,614400,bytes,3094230121.0,ns,1

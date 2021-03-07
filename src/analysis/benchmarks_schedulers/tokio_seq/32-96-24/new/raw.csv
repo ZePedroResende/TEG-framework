@@ -1,0 +1,11 @@
+group,function,value,throughput_num,throughput_type,sample_measured_value,unit,iteration_count
+schedulers,tokio_seq,32-96-24,2359296,bytes,94603492.0,ns,12
+schedulers,tokio_seq,32-96-24,2359296,bytes,188079782.0,ns,24
+schedulers,tokio_seq,32-96-24,2359296,bytes,283229750.0,ns,36
+schedulers,tokio_seq,32-96-24,2359296,bytes,329533418.0,ns,48
+schedulers,tokio_seq,32-96-24,2359296,bytes,445203424.0,ns,60
+schedulers,tokio_seq,32-96-24,2359296,bytes,571643418.0,ns,72
+schedulers,tokio_seq,32-96-24,2359296,bytes,642355223.0,ns,84
+schedulers,tokio_seq,32-96-24,2359296,bytes,764063783.0,ns,96
+schedulers,tokio_seq,32-96-24,2359296,bytes,859467283.0,ns,108
+schedulers,tokio_seq,32-96-24,2359296,bytes,940064010.0,ns,120

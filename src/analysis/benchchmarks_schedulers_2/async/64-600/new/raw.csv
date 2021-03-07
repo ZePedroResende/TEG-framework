@@ -1,0 +1,11 @@
+group,function,value,throughput_num,throughput_type,sample_measured_value,unit,iteration_count
+schedulers,async,64-600,58982400,bytes,94073333.0,ns,32
+schedulers,async,64-600,58982400,bytes,186728545.0,ns,64
+schedulers,async,64-600,58982400,bytes,277094240.0,ns,96
+schedulers,async,64-600,58982400,bytes,375439521.0,ns,128
+schedulers,async,64-600,58982400,bytes,468015002.0,ns,160
+schedulers,async,64-600,58982400,bytes,559820220.0,ns,192
+schedulers,async,64-600,58982400,bytes,649896951.0,ns,224
+schedulers,async,64-600,58982400,bytes,748208263.0,ns,256
+schedulers,async,64-600,58982400,bytes,851348093.0,ns,288
+schedulers,async,64-600,58982400,bytes,938078631.0,ns,320
