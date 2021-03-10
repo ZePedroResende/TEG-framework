@@ -73,6 +73,11 @@ name = "tokyo_sequential"
 harness = false
 
 [[bench]]
+path = "benches/sequential_for_loop.rs"
+name = "sequential_for_loop"
+harness = false
+
+[[bench]]
 path = "benches/sequential_iter.rs"
 name = "sequential_iter"
 harness = false

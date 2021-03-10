@@ -4,19 +4,26 @@ use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criteri
 
 use rayon::prelude::*;
 
-fn sequential_par_iter_bench(data: &mut Vec<rust_scheduler::sequential::data::Data>) -> i32 {
-    let a: Vec<_> = data
-        .into_par_iter()
-        .map(|d| rust_scheduler::sequential::scheduler::scheduler(d))
-        .collect();
+fn sequential_iter_bench(data: &mut Vec<rust_scheduler::sequential::data::Data>) -> i32 {
+    let mut vec = Vec::new();
 
-    a[0]
+    for i in 0..data.len() {
+        vec.push(rust_scheduler::sequential::scheduler::scheduler(
+            &mut data[i],
+        ));
+    }
+
+    vec[0]
 }
 
 fn bench(c: &mut Criterion) {
     let mut group = c.benchmark_group("schedulers");
-    for size in [512].iter() {
-        for vector_size in [600].iter() {
+    for size in [32, 64, 128, 256, 512, 1024].iter() {
+        for vector_size in [
+            12, 24, 48, 96, 120, 240, 360, 600, 800, 1200, 2400, 4800, 9600, 12000,
+        ]
+        .iter()
+        {
             if !(*size >= 512 && *vector_size >= 1200) {
                 let parameter_string = format!("{}-{}", *size, *vector_size);
                 group.throughput(Throughput::Bytes(
@@ -25,7 +32,7 @@ fn bench(c: &mut Criterion) {
                         * *vector_size) as u64,
                 ));
                 group.bench_with_input(
-                    BenchmarkId::new("sequential_par_iter", parameter_string),
+                    BenchmarkId::new("sequential", parameter_string),
                     &(*size, *vector_size),
                     |b, (s, v)| {
                         let mut data: Vec<rust_scheduler::sequential::data::Data> = (0..*v)
@@ -35,7 +42,7 @@ fn bench(c: &mut Criterion) {
                             })
                             .collect::<Vec<rust_scheduler::sequential::data::Data>>();
 
-                        b.iter(|| black_box(sequential_par_iter_bench(&mut data)))
+                        b.iter(|| black_box(sequential_iter_bench(&mut data)))
                     },
                 );
             }
