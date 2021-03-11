@@ -1,0 +1,143 @@
+[package]
+name = "rust_scheduler"
+version = "0.1.0"
+authors = ["Ze Pedro Resende <j.p.resende68@gmail.com>"]
+edition = "2018"
+bench = false
+
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rand = "0.8.0"
+futures = "0.3"
+rayon = "1.5.0"
+crossbeam-channel = "0.5"
+crossbeam-deque = "0.8"
+crossbeam-queue = "0.3"
+lazy_static = "1.4.0"
+tokio = { version = "1.2.0", features = ["full"] }
+crossbeam-utils = "0.8"
+criterion-papi = "0.1.0"
+async-std = "1.9.0"
+
+[dev-dependencies]
+pprof = { version = "0.4", features = ["criterion","flamegraph","protobuf"] }
+criterion = "0.3.4"
+
+[[bin]]
+name = "async"
+path = "src/native/async.rs"
+bench = false
+
+
+[[bin]]
+name = "tokio"
+path = "src/native/tokio.rs"
+bench = false
+
+
+[[bin]]
+name = "sequential"
+path = "src/sequential/sequential.rs"
+bench = false
+
+[[bin]]
+name = "parallel_speculative"
+path = "src/parallel_speculative/parallel_speculative.rs"
+bench = false
+
+[[bin]]
+name = "speculative"
+path = "src/speculative/speculative.rs"
+bench = false
+
+#[[bench]]
+#path = "benches/native_schedulers.rs"
+#name = "native_schedulers"
+#harness = false
+
+[[bench]]
+path = "benches/io/tokio.rs"
+name = "io_tokio"
+harness = false
+
+[[bench]]
+path = "benches/io/std_async.rs"
+name = "io_async"
+harness = false
+
+[[bench]]
+path = "benches/async.rs"
+name = "async"
+harness = false
+
+[[bench]]
+path = "benches/tokio_sequential.rs"
+name = "tokyo_sequential"
+harness = false
+
+[[bench]]
+path = "benches/sequential_for_loop.rs"
+name = "sequential_for_loop"
+harness = false
+
+[[bench]]
+path = "benches/sequential_iter.rs"
+name = "sequential_iter"
+harness = false
+
+[[bench]]
+path = "benches/sequential_par_iter.rs"
+name = "sequential_par_iter"
+harness = false
+
+
+[[bench]]
+path = "benches/io/sequential_for_loop.rs"
+name = "io_sequential_for_loop"
+harness = false
+
+[[bench]]
+path = "benches/io/sequential_iter.rs"
+name = "io_sequential_iter"
+harness = false
+
+[[bench]]
+path = "benches/io/sequential_par_iter.rs"
+name = "io_sequential_par_iter"
+harness = false
+
+
+
+
+[[bench]]
+path = "benches/speculative.rs"
+name = "speculative"
+harness = false
+
+[[bench]]
+path = "benches/io/speculative.rs"
+name = "io_speculative"
+harness = false
+
+[[bench]]
+path = "benches/parallel_speculative_par_iter.rs"
+name = "parallel_speculative_par_iter"
+harness = false
+
+[[bench]]
+path = "benches/io/parallel_speculative_iter.rs"
+name = "io_parallel_speculative_iter"
+harness = false
+
+
+[[bench]]
+path = "benches/io/parallel_speculative_par_iter.rs"
+name = "io_parallel_speculative_par_iter"
+harness = false
+
+[[bench]]
+path = "benches/parallel_speculative_iter.rs"
+name = "parallel_speculative_iter"
+harness = false

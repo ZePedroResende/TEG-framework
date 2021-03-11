@@ -439,4 +439,6 @@ ipython_config.py
 # End of https://www.toptal.com/developers/gitignore/api/jupyternotebooks
 *.svg
 *.txt
-
+src/taskflow/taskflow/
+*.proto
+*.pb.gz
