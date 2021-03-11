@@ -5,12 +5,12 @@ use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criteri
 use rayon::prelude::*;
 use std::sync::{Arc, RwLock};
 
-fn parallel_speculative_par_iter_bench(
+fn parallel_speculative_iter_bench(
     data: &mut Vec<Arc<RwLock<rust_scheduler::parallel_speculative::data::Data>>>,
     n_threads: usize,
 ) {
     let _a: Vec<_> = data
-        .into_par_iter()
+        .into_iter()
         .map(|d| rust_scheduler::parallel_speculative::io_scheduler::scheduler(d, true, n_threads))
         .collect();
 }
@@ -32,7 +32,7 @@ fn bench(c: &mut Criterion) {
                             * *vector_size) as u64,
                     ));
                     group.bench_with_input(
-                        BenchmarkId::new("io_parallel_speculative_par_iter", parameter_string),
+                        BenchmarkId::new("io_parallel_speculative_iter", parameter_string),
                         &(*size, *vector_size),
                         |b, (s, v)| {
                             let mut d: Vec<
@@ -55,9 +55,7 @@ fn bench(c: &mut Criterion) {
                                         >,
                                     >>();
 
-                            b.iter(|| {
-                                black_box(parallel_speculative_par_iter_bench(&mut d, *thread))
-                            });
+                            b.iter(|| black_box(parallel_speculative_iter_bench(&mut d, *thread)))
                         },
                     );
                 }

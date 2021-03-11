@@ -1,4 +1,7 @@
 pub mod data;
+pub mod io_pipeline;
+pub mod io_slave;
+pub mod io_utils;
 pub mod master;
 pub mod pipeline;
 pub mod scheduler;

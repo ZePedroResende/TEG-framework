@@ -22,7 +22,7 @@ fn main() {
     let now = SystemTime::now();
     let _a: Vec<_> = data
         .into_par_iter()
-        .map(move |d| scheduler(&mut Arc::new(RwLock::new(d)), true))
+        .map(move |d| scheduler(&mut Arc::new(RwLock::new(d)), true, 12))
         .collect();
     let a = now.elapsed().unwrap();
     println!("{:?}", a);

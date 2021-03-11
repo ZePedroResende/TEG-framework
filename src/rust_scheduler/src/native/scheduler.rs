@@ -1,7 +1,8 @@
 #[allow(dead_code)]
 use crate::native::data::{dot_prod_matrix, dot_prod_matrix_float, Data};
+use crate::native::pipeline_async::pipeline_async;
+use crate::native::pipeline_tokio::pipeline_tokio;
 use futures::executor::block_on;
-use std::collections::HashMap;
 //use futures::future::Then;
 //use futures::{future, Future, Then FutureExt};
 
@@ -109,6 +110,7 @@ async fn define_prop4(data: &mut Data) -> i32 {
     prop4(data).await
 }
 
+/*
 macro_rules! hashmap {
     ($( $key: expr => $val: expr ),*) => {{
          let mut map = ::std::collections::HashMap::new();
@@ -116,8 +118,10 @@ macro_rules! hashmap {
          map
     }}
 }
+*/
 
 pub fn scheduler(data: &mut Data) -> i32 {
+    /*
     let teg: HashMap<i32, &str> = [(3, "prop2"), (4, "prop3"), (5, "prop4")]
         .iter()
         .cloned()
@@ -128,6 +132,7 @@ pub fn scheduler(data: &mut Data) -> i32 {
         ("Prop3", true),
         ("Prop4", false),
     ]
+
     .iter()
     .cloned()
     .collect();
@@ -138,11 +143,12 @@ pub fn scheduler(data: &mut Data) -> i32 {
     "Prop3" => vec!(),
     "Prop4" => vec!()];
 
+    */
     //println!("{:?}", teg);
     //println!("{:?}", dependency_map);
     //println!("{:?}", flow_map);
 
-    let result = block_on(pipeline(data));
+    block_on(pipeline(data));
     //    println!("result : {}", result);
 
     1

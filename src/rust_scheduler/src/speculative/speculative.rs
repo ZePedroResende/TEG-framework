@@ -10,5 +10,5 @@ fn main() {
         .map(|_| Data::new(1000, 1000, 1000))
         .collect::<Vec<Data>>();
 
-    scheduler(Arc::new(RwLock::new(d)), true);
+    scheduler(Arc::new(RwLock::new(d)), true, 12);
 }

@@ -1,6 +1,6 @@
 use crate::parallel_speculative::data::Data;
+use crate::parallel_speculative::io_slave::slave;
 use crate::parallel_speculative::master::master;
-use crate::parallel_speculative::slave::slave;
 use crossbeam_channel::unbounded;
 use crossbeam_utils::thread;
 use std::sync::{Arc, RwLock};

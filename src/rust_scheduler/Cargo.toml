@@ -19,6 +19,7 @@ lazy_static = "1.4.0"
 tokio = { version = "1.2.0", features = ["full"] }
 crossbeam-utils = "0.8"
 criterion-papi = "0.1.0"
+async-std = "1.9.0"
 
 [dev-dependencies]
 pprof = { version = "0.4", features = ["criterion","flamegraph","protobuf"] }
@@ -56,10 +57,14 @@ bench = false
 #name = "native_schedulers"
 #harness = false
 
+[[bench]]
+path = "benches/io/tokio.rs"
+name = "io_tokio"
+harness = false
 
 [[bench]]
-path = "benches/tokyo.rs"
-name = "tokyo"
+path = "benches/io/std_async.rs"
+name = "io_async"
 harness = false
 
 [[bench]]
@@ -87,14 +92,49 @@ path = "benches/sequential_par_iter.rs"
 name = "sequential_par_iter"
 harness = false
 
+
+[[bench]]
+path = "benches/io/sequential_for_loop.rs"
+name = "io_sequential_for_loop"
+harness = false
+
+[[bench]]
+path = "benches/io/sequential_iter.rs"
+name = "io_sequential_iter"
+harness = false
+
+[[bench]]
+path = "benches/io/sequential_par_iter.rs"
+name = "io_sequential_par_iter"
+harness = false
+
+
+
+
 [[bench]]
 path = "benches/speculative.rs"
 name = "speculative"
 harness = false
 
 [[bench]]
+path = "benches/io/speculative.rs"
+name = "io_speculative"
+harness = false
+
+[[bench]]
 path = "benches/parallel_speculative_par_iter.rs"
 name = "parallel_speculative_par_iter"
+harness = false
+
+[[bench]]
+path = "benches/io/parallel_speculative_iter.rs"
+name = "io_parallel_speculative_iter"
+harness = false
+
+
+[[bench]]
+path = "benches/io/parallel_speculative_par_iter.rs"
+name = "io_parallel_speculative_par_iter"
 harness = false
 
 [[bench]]
