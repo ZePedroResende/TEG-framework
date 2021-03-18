@@ -91,42 +91,16 @@ lazy_static! {
     .collect();
 }
 
-pub fn scheduler_fold(data: &mut Data) -> i32 {
-    let teg: HashMap<i32, Prop> = [
-        (2, prop1 as Prop),
-        (3, prop2 as Prop),
-        (4, prop3 as Prop),
-        (5, prop4 as Prop),
-    ]
-    .iter()
-    .cloned()
-    .collect();
-
-    let mut result = 2;
-
-    while result > 1 {
-        result = teg[&result](data);
+pub fn scheduler(data: &mut Data, pipeline: usize, io: bool) -> i32 {
+    if io {
+        match pipeline {
+            20 => crate::io_pipeline_20::scheduler(data),
+            _ => crate::io_pipeline_10::scheduler(data),
+        }
+    } else {
+        match pipeline {
+            20 => crate::cpu_pipeline_20::scheduler(data),
+            _ => crate::cpu_pipeline_10::scheduler(data),
+        }
     }
-
-    result
-}
-
-pub fn scheduler(data: &mut Data) -> i32 {
-    let teg: HashMap<i32, Prop> = [
-        (2, prop1 as Prop),
-        (3, prop2 as Prop),
-        (4, prop3 as Prop),
-        (5, prop4 as Prop),
-    ]
-    .iter()
-    .cloned()
-    .collect();
-
-    let mut result = 2;
-
-    while result > 1 {
-        result = teg[&result](data);
-    }
-
-    result
 }

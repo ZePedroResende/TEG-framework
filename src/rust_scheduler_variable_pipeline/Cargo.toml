@@ -20,6 +20,7 @@ tokio = { version = "1.2.0", features = ["full"] }
 crossbeam-utils = "0.8"
 criterion-papi = "0.1.0"
 async-std = "1.9.0"
+async-recursion = "0.3.2"
 
 [dev-dependencies]
 pprof = { version = "0.4", features = ["criterion","flamegraph","protobuf"] }
@@ -141,3 +142,41 @@ harness = false
 path = "benches/parallel_speculative_iter.rs"
 name = "parallel_speculative_iter"
 harness = false
+
+
+
+
+[[bench]]
+path = "benches/pipelines/speculative.rs"
+name = "pipeline_speculative"
+harness = false
+
+
+[[bench]]
+path = "benches/pipelines/parallel_speculative_iter.rs"
+name = "pipeline_parallel_speculative_iter"
+harness = false
+
+
+[[bench]]
+path = "benches/pipelines/parallel_speculative_par_iter.rs"
+name = "pipeline_parallel_speculative_par_iter"
+harness = false
+
+
+
+[[bench]]
+path = "benches/pipelines/sequential_for_loop.rs"
+name = "pipeline_sequential_for_loop"
+harness = false
+
+[[bench]]
+path = "benches/pipelines/sequential_iter.rs"
+name = "pipeline_sequential_iter"
+harness = false
+
+[[bench]]
+path = "benches/pipelines/sequential_par_iter.rs"
+name = "pipeline_sequential_par_iter"
+harness = false
+

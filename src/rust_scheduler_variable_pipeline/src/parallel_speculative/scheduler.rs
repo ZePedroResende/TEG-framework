@@ -1,6 +1,6 @@
-use crate::parallel_speculative::data::Data;
 use crate::parallel_speculative::master::master;
 use crate::parallel_speculative::slave::slave;
+use crate::sequential::data::Data;
 use crossbeam_channel::unbounded;
 use crossbeam_utils::thread;
 use std::sync::{Arc, RwLock};
@@ -15,7 +15,13 @@ pub fn data() -> Vec<Arc<RwLock<Data>>> {
     d
 }
 
-pub fn scheduler(dataset: &mut Arc<RwLock<Data>>, improved: bool, n_threads: usize) {
+pub fn scheduler(
+    dataset: &mut Arc<RwLock<Data>>,
+    improved: bool,
+    n_threads: usize,
+    pipeline: usize,
+    io: bool,
+) {
     thread::scope(|scope| {
         let (sender, receiver) = unbounded();
         let (sender2, receiver2) = unbounded();
@@ -23,10 +29,10 @@ pub fn scheduler(dataset: &mut Arc<RwLock<Data>>, improved: bool, n_threads: usi
         for _ in 0..n_threads {
             let (s, r) = (sender2.clone(), receiver.clone());
             let d = dataset.to_owned();
-            scope.spawn(move |_| slave(r, s, d));
+            scope.spawn(move |_| slave(r, s, d, pipeline, io));
         }
 
-        scope.spawn(move |_| master(receiver2, sender, improved));
+        scope.spawn(move |_| master(receiver2, sender, io, pipeline));
     })
     .unwrap();
 

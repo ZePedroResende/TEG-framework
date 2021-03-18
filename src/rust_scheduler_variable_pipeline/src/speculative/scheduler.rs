@@ -1,46 +1,28 @@
-use crate::speculative::data::Data;
-use crate::speculative::io_slave::io_slave;
+use crate::sequential::data::Data;
 use crate::speculative::master::master;
 use crate::speculative::slave::slave;
 use crossbeam_channel::unbounded;
 use crossbeam_utils::thread;
 use std::sync::{Arc, RwLock};
+use std::time::SystemTime;
 
-pub fn io_scheduler(dataset: Arc<RwLock<Vec<Data>>>, improved: bool, n_threads: usize) {
+pub fn scheduler(dataset: Arc<RwLock<Vec<Data>>>, n_threads: usize, pipeline: usize, io: bool) {
     let (sender, receiver) = unbounded();
     let (sender2, receiver2) = unbounded();
-
+    //  let now = SystemTime::now();
     thread::scope(|scope| {
-        for _ in 0..n_threads {
+        for id in 0..n_threads {
             let (s, r) = (sender2.clone(), receiver.clone());
             let d = dataset.clone();
-            scope.spawn(move |_| io_slave(r, s, d));
+            scope.spawn(move |_| slave(r, s, d, pipeline, io, id));
         }
 
-        let (s, r) = (sender.clone(), receiver2.clone());
-        let d = dataset.clone();
-        scope.spawn(move |_| master(r, s, d, improved));
+        scope.spawn(move |_| master(receiver2, sender, dataset, io, pipeline));
     })
     .unwrap();
 
-    //thread::spawn(|| slave(receiver, sender2, dataset.clone()));
-}
-pub fn scheduler(dataset: Arc<RwLock<Vec<Data>>>, improved: bool, n_threads: usize) {
-    let (sender, receiver) = unbounded();
-    let (sender2, receiver2) = unbounded();
-
-    thread::scope(|scope| {
-        for _ in 0..n_threads {
-            let (s, r) = (sender2.clone(), receiver.clone());
-            let d = dataset.clone();
-            scope.spawn(move |_| slave(r, s, d));
-        }
-
-        let (s, r) = (sender.clone(), receiver2.clone());
-        let d = dataset.clone();
-        scope.spawn(move |_| master(r, s, d, improved));
-    })
-    .unwrap();
-
+    //    let c = now.elapsed().unwrap();
+    //   println!("{:?}", c);
+    //master(receiver2, sender, dataset.clone(), io, pipeline);
     //thread::spawn(|| slave(receiver, sender2, dataset.clone()));
 }

@@ -103,40 +103,20 @@ lazy_static! {
 }
 
 pub fn io_scheduler(data: &mut Data) -> i32 {
-    let teg: HashMap<i32, Prop> = [
-        (2, prop1 as Prop),
-        (3, prop2 as Prop),
-        (4, prop3 as Prop),
-        (5, prop4 as Prop),
-    ]
-    .iter()
-    .cloned()
-    .collect();
-
     let mut result = 2;
 
     while result > 1 {
-        result = teg[&result](data);
+        result = TEG[&result](data);
     }
 
     result
 }
 
 pub fn scheduler(data: &mut Data) -> i32 {
-    let teg: HashMap<i32, Prop> = [
-        (2, prop1 as Prop),
-        (3, prop2 as Prop),
-        (4, prop3 as Prop),
-        (5, prop4 as Prop),
-    ]
-    .iter()
-    .cloned()
-    .collect();
-
     let mut result = 2;
 
     while result > 1 {
-        result = teg[&result](data);
+        result = TEG[&result](data);
     }
 
     result

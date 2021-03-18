@@ -1,6 +1,6 @@
 use rayon::prelude::*;
-use rust_scheduler::parallel_speculative::data::Data;
 use rust_scheduler::parallel_speculative::scheduler::scheduler;
+use rust_scheduler::sequential::data::Data;
 use std::sync::{Arc, RwLock};
 use std::time::SystemTime;
 //use tokio::sync::oneshot;
@@ -22,7 +22,7 @@ fn main() {
     let now = SystemTime::now();
     let _a: Vec<_> = data
         .into_par_iter()
-        .map(move |d| scheduler(&mut Arc::new(RwLock::new(d)), true, 12))
+        .map(move |d| scheduler(&mut Arc::new(RwLock::new(d)), true, 12, 20, false))
         .collect();
     let a = now.elapsed().unwrap();
     println!("{:?}", a);

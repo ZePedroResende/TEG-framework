@@ -121,7 +121,7 @@ pub fn dot_prod_matrix_float(a: &mut Vec<Vec<f32>>, b: &mut Vec<Vec<f32>>, c: &m
 fn fill_matrix(matrix_size: i32) -> Vec<Vec<i32>> {
     let mut rng = thread_rng();
     let numbers: Vec<Vec<i32>> = (0..matrix_size)
-        .map(|_| (0..matrix_size).map(|_| rng.gen_range(-10..10)).collect())
+        .map(|_| (0..matrix_size).map(|_| rng.gen_range(-2..3)).collect())
         .collect();
     numbers
 }

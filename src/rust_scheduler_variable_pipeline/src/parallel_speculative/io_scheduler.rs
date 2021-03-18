@@ -26,7 +26,7 @@ pub fn scheduler(dataset: &mut Arc<RwLock<Data>>, improved: bool, n_threads: usi
             scope.spawn(move |_| slave(r, s, d));
         }
 
-        scope.spawn(move |_| master(receiver2, sender, improved));
+        scope.spawn(move |_| master(receiver2, sender, false, 20));
     })
     .unwrap();
 

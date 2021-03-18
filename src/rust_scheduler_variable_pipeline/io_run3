@@ -1,3 +1,0 @@
-!#/bin/sh
-cd $HOME/rust_scheduler_benchmark4
-RUSTFLAGS='-C target-cpu=native' cargo bench --bench io_sequential_for_loop
